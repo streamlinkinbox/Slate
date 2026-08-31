@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f4f8f8" />
+  <title>Formwork — CAD icon system</title>
+  <style>
+    :root {
+      --canvas: #f4f8f8;
+      --paper: #ffffff;
+      --paper-soft: #edf4f3;
+      --ink: #173d46;
+      --ink-deep: #0f3038;
+      --muted: #6b8286;
+      --muted-soft: #8fa2a4;
+      --line: #dce8e7;
+      --line-strong: #c8d9d8;
+      --teal: #0d6d74;
+      --teal-bright: #2a9691;
+      --coral: #ed815f;
+      --gold: #efc867;
+      --shadow: 0 18px 42px rgba(22, 67, 74, 0.08);
+      --shadow-small: 0 8px 20px rgba(22, 67, 74, 0.07);
+      --radius-large: 28px;
+      --radius: 18px;
+      --radius-small: 12px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background-color: var(--canvas);
+      background-image:
+        linear-gradient(rgba(37, 104, 107, 0.026) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37, 104, 107, 0.026) 1px, transparent 1px);
+      background-size: 32px 32px;
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    ::selection { background: #bfe8e1; color: var(--ink-deep); }
+
+    .shell {
+      width: min(1440px, calc(100% - 64px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      border-bottom: 1px solid rgba(191, 211, 210, 0.7);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--ink-deep);
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 29px;
+      height: 29px;
+      position: relative;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      background: var(--ink);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.1);
+      overflow: hidden;
+    }
+    .brand-mark::before,
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      border: 1.5px solid #b8e0d9;
+      transform: rotate(45deg);
+    }
+    .brand-mark::before { width: 13px; height: 13px; }
+    .brand-mark::after { width: 5px; height: 5px; border-color: var(--coral); }
+
+    .brand-note {
+      padding-left: 11px;
+      margin-left: 2px;
+      border-left: 1px solid var(--line-strong);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 27px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 650;
+    }
+    .nav-links a { transition: color .2s ease; }
+    .nav-links a:hover { color: var(--teal); }
+
+    .version-pill,
+    .eyebrow,
+    .mono,
+    .icon-index,
+    .style-count,
+    .panel-kicker,
+    .inspector-label,
+    .code-label,
+    .stat-label,
+    .hero-mini-label {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    .version-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 11px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      color: var(--teal);
+      background: rgba(255,255,255,.56);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .version-pill::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--coral);
+      box-shadow: 0 0 0 3px rgba(237, 129, 95, .14);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(430px, .92fr);
+      align-items: center;
+      gap: clamp(38px, 6vw, 100px);
+      min-height: 500px;
+      padding: 76px 0 70px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 21px;
+      color: var(--teal);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 22px;
+      height: 1px;
+      background: var(--coral);
+    }
+
+    .hero h1 {
+      max-width: 750px;
+      margin: 0;
+      color: var(--ink-deep);
+      font-size: clamp(54px, 7vw, 96px);
+      line-height: .91;
+      letter-spacing: -.075em;
+      font-weight: 760;
+    }
+    .hero h1 em {
+      color: var(--teal);
+      font-style: normal;
+    }
+    .hero-lede {
+      max-width: 510px;
+      margin: 28px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.65;
+      letter-spacing: -.015em;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px;
+      margin-top: 31px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 43px;
+      padding: 0 16px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 750;
+      letter-spacing: -.01em;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary {
+      background: var(--ink);
+      color: #f8ffff;
+      box-shadow: 0 8px 18px rgba(23, 61, 70, .16);
+    }
+    .button-primary:hover { background: var(--teal); box-shadow: 0 10px 22px rgba(13, 109, 116, .2); }
+    .button-secondary {
+      border-color: var(--line-strong);
+      background: rgba(255,255,255,.66);
+      color: var(--ink);
+    }
+    .button-secondary:hover { border-color: #9ec5c1; background: var(--paper); }
+    .button svg { width: 15px; height: 15px; }
+
+    .hero-visual {
+      position: relative;
+      min-height: 385px;
+    }
+    .hero-card {
+      position: relative;
+      min-height: 385px;
+      padding: 23px 24px 21px;
+      overflow: hidden;
+      border-radius: var(--radius-large);
+      background: #173f47;
+      box-shadow: 0 24px 48px rgba(20, 64, 70, .18);
+      color: #e9f7f4;
+    }
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .4;
+      background-image:
+        linear-gradient(rgba(172, 231, 220, .08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(172, 231, 220, .08) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: linear-gradient(135deg, rgba(0,0,0,.92), transparent 80%);
+      pointer-events: none;
+    }
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      top: -140px;
+      right: -70px;
+      border-radius: 50%;
+      border: 1px solid rgba(179, 229, 220, .16);
+      box-shadow: 0 0 0 24px rgba(179,229,220,.035), 0 0 0 48px rgba(179,229,220,.025);
+      pointer-events: none;
+    }
+    .hero-card-head,
+    .hero-card-foot { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; }
+    .hero-card-head { color: #a9d3ce; }
+    .hero-mini-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    .hero-card-head .mono { color: #6da8a2; font-size: 10px; }
+    .hero-scene {
+      position: absolute;
+      width: min(78%, 340px);
+      height: auto;
+      left: 11%;
+      top: 43px;
+      overflow: visible;
+    }
+    .hero-scene .scene-guide { fill: none; stroke: #67ada5; stroke-width: 1; stroke-dasharray: 3 5; opacity: .45; }
+    .hero-scene .scene-ink { fill: none; stroke: #d5f0ea; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+    .hero-scene .scene-soft { fill: #276b6d; stroke: #a6dcd2; stroke-width: 1.4; stroke-linejoin: round; }
+    .hero-scene .scene-accent { fill: #ed815f; stroke: #f7b095; stroke-width: 1.1; }
+    .hero-scene .scene-gold { fill: #efc867; stroke: #f8dfa0; stroke-width: 1.1; }
+    .hero-card-foot {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 21px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(171, 224, 215, .16);
+      color: #a9d3ce;
+      font-size: 11px;
+    }
+    .hero-card-foot strong { color: #eefbf8; font-weight: 700; }
+    .hero-coordinates { display: flex; gap: 17px; }
+    .hero-coordinates span { display: inline-flex; align-items: center; gap: 5px; }
+    .coordinate-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--coral); }
+    .coordinate-dot.gold { background: var(--gold); }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--line-strong);
+      border-bottom: 1px solid var(--line-strong);
+    }
+    .stat {
+      position: relative;
+      min-height: 82px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      padding: 0 22px;
+    }
+    .stat:first-child { padding-left: 0; }
+    .stat:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 22px;
+      bottom: 22px;
+      width: 1px;
+      background: var(--line);
+    }
+    .stat-value { color: var(--ink-deep); font-size: 20px; font-weight: 780; letter-spacing: -.045em; }
+    .stat-label { color: var(--muted); font-size: 9px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; }
+    .stat-accent { color: var(--teal); }
+
+    .library {
+      padding: 68px 0 82px;
+    }
+    .library-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: 25px;
+    }
+    .section-kicker { margin: 0 0 9px; color: var(--teal); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .library-heading h2 { margin: 0; color: var(--ink-deep); font-size: clamp(32px, 4vw, 48px); line-height: .98; letter-spacing: -.06em; }
+    .library-heading p { max-width: 355px; margin: 0 0 2px; color: var(--muted); font-size: 13px; line-height: 1.55; text-align: right; }
+
+    .library-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 62px;
+      margin-bottom: 21px;
+      padding: 9px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: rgba(255,255,255,.73);
+      box-shadow: var(--shadow-small);
+    }
+    .style-tabs { display: flex; align-items: center; gap: 4px; }
+    .style-tab {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 0 13px;
+      border: 0;
+      border-radius: 9px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 720;
+      transition: color .18s ease, background .18s ease, box-shadow .18s ease;
+    }
+    .style-tab:hover { color: var(--ink); }
+    .style-tab[aria-selected="true"] {
+      background: var(--ink);
+      color: #f6fffd;
+      box-shadow: 0 5px 11px rgba(23,61,70,.13);
+    }
+    .tab-dot { width: 7px; height: 7px; border-radius: 50%; background: #81aaa8; }
+    .tab-dot.duotone { background: #68c0b3; }
+    .tab-dot.monotone { background: #4b6971; }
+    .tab-dot.color { background: var(--coral); }
+    .style-tab[aria-selected="true"] .tab-dot { box-shadow: 0 0 0 3px rgba(255,255,255,.11); }
+    .tab-count { opacity: .6; font-family: "SFMono-Regular", Consolas, monospace; font-size: 10px; }
+
+    .toolbar-tools { display: flex; align-items: center; gap: 9px; }
+    .category-select {
+      height: 42px;
+      padding: 0 30px 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      outline: none;
+      appearance: none;
+      color: var(--muted);
+      background-color: var(--paper);
+      background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+      background-position: calc(100% - 15px) 18px, calc(100% - 11px) 18px;
+      background-size: 4px 4px, 4px 4px;
+      background-repeat: no-repeat;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .category-select:focus { border-color: var(--teal-bright); box-shadow: 0 0 0 3px rgba(42,150,145,.12); }
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 185px;
+    }
+    .search-box svg { position: absolute; left: 12px; width: 15px; height: 15px; color: #8ea1a3; pointer-events: none; }
+    .search-box input {
+      width: 100%;
+      height: 42px;
+      padding: 0 11px 0 35px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      outline: none;
+      color: var(--ink);
+      background: var(--paper);
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .search-box input::placeholder { color: #a4b2b3; }
+    .search-box input:focus { border-color: var(--teal-bright); box-shadow: 0 0 0 3px rgba(42,150,145,.12); }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 285px;
+      align-items: start;
+      gap: 22px;
+    }
+    .sets-column { min-width: 0; }
+    .style-set {
+      margin-bottom: 19px;
+      padding: 21px 21px 23px;
+      border: 1px solid var(--line);
+      border-radius: 21px;
+      background: rgba(255,255,255,.86);
+      box-shadow: 0 10px 26px rgba(20, 73, 77, .045);
+      animation: rise .28s ease both;
+    }
+    @keyframes rise { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    .style-set-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 0 1px 17px;
+    }
+    .style-name-wrap { display: flex; align-items: center; gap: 10px; }
+    .style-name-dot { width: 9px; height: 9px; border-radius: 50%; }
+    .style-name-dot.duotone { background: #69bfb2; }
+    .style-name-dot.monotone { background: #41616a; }
+    .style-name-dot.color { background: var(--coral); }
+    .style-set h3 { margin: 0; color: var(--ink-deep); font-size: 15px; letter-spacing: -.025em; }
+    .style-set-sub { margin-left: 5px; color: var(--muted); font-size: 11px; }
+    .style-count { color: var(--muted-soft); font-size: 10px; font-weight: 700; letter-spacing: .05em; }
+
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 9px;
+    }
+    .icon-card {
+      position: relative;
+      min-width: 0;
+      min-height: 142px;
+      padding: 11px 12px 10px;
+      border: 1px solid #e1ebea;
+      border-radius: 13px;
+      outline: none;
+      background: #fbfdfd;
+      color: var(--ink);
+      text-align: left;
+      transition: border-color .18s ease, background .18s ease, box-shadow .18s ease, transform .18s ease;
+    }
+    .icon-card:hover {
+      z-index: 1;
+      border-color: #9fcac5;
+      background: #ffffff;
+      box-shadow: 0 9px 20px rgba(21, 73, 77, .1);
+      transform: translateY(-2px);
+    }
+    .icon-card:focus-visible { box-shadow: 0 0 0 3px rgba(42,150,145,.2); }
+    .icon-card.is-selected { border-color: var(--teal); background: #f1faf8; box-shadow: inset 0 0 0 1px rgba(13,109,116,.12); }
+    .icon-card-top { display: flex; align-items: center; justify-content: space-between; height: 15px; }
+    .icon-index { color: #9aabad; font-size: 9px; font-weight: 700; letter-spacing: .03em; }
+    .icon-card.is-selected .icon-index { color: var(--teal); }
+    .card-glyph {
+      display: grid;
+      place-items: center;
+      width: 16px;
+      height: 16px;
+      border: 1px solid #e1ebea;
+      border-radius: 5px;
+      color: #a4b5b5;
+      font-size: 13px;
+      line-height: 1;
+      transition: color .18s ease, border-color .18s ease;
+    }
+    .icon-card:hover .card-glyph { border-color: #afd1cd; color: var(--teal); }
+    .icon-card.is-selected .card-glyph { border-color: #afd1cd; color: var(--teal); background: #e4f3f0; }
+    .icon-visual { display: grid; place-items: center; height: 77px; }
+    .vector-icon { width: 59px; height: 59px; overflow: visible; }
+    .icon-card-bottom { display: flex; align-items: end; justify-content: space-between; gap: 5px; }
+    .icon-card-bottom strong { overflow: hidden; color: var(--ink-deep); font-size: 11px; font-weight: 760; letter-spacing: -.02em; text-overflow: ellipsis; white-space: nowrap; }
+    .icon-card-bottom span { flex: 0 0 auto; color: #9aabad; font-size: 9px; font-weight: 650; }
+    .empty-state { padding: 55px 20px; color: var(--muted); text-align: center; }
+    .empty-state strong { display: block; margin-bottom: 6px; color: var(--ink); }
+
+    /* The three icon treatments share the same geometry and change only their visual language. */
+    .vector-icon { --primary: #173d46; --secondary: #6c8589; --soft: #dce9e7; --accent: #dce9e7; --gold: #dce9e7; }
+    .vector-icon.duotone { --primary: #0b626b; --secondary: #2f8e8c; --soft: #bee8e0; --accent: #bee8e0; --gold: #bee8e0; }
+    .vector-icon.color { --primary: #0b5965; --secondary: #369994; --soft: #d5eeea; --accent: #ed815f; --gold: #efc867; }
+    .vector-icon .line { fill: none; stroke: var(--primary); stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+    .vector-icon .line.secondary { stroke: var(--secondary); }
+    .vector-icon .line.thin { stroke-width: 1.25; }
+    .vector-icon .soft { fill: var(--soft); stroke: var(--primary); stroke-width: 1.55; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+    .vector-icon .accent { fill: var(--accent); stroke: var(--primary); stroke-width: 1.2; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+    .vector-icon .gold { fill: var(--gold); stroke: var(--primary); stroke-width: 1.2; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+    .vector-icon .guide { fill: none; stroke: var(--secondary); stroke-width: 1.05; stroke-dasharray: 2.7 3; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+    .vector-icon.monotone .soft,
+    .vector-icon.monotone .accent,
+    .vector-icon.monotone .gold { opacity: .9; }
+    .vector-icon.color .gold { stroke: #8e6e25; }
+
+    .inspector {
+      position: sticky;
+      top: 20px;
+      min-width: 0;
+      overflow: hidden;
+      border-radius: 21px;
+      background: var(--ink);
+      color: #e8f6f3;
+      box-shadow: 0 18px 38px rgba(23, 61, 70, .16);
+    }
+    .inspector-head { display: flex; align-items: center; justify-content: space-between; padding: 20px 20px 0; }
+    .inspector-label { color: #7fb8b0; font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .inspector-status { display: inline-flex; align-items: center; gap: 6px; color: #83b7b1; font-size: 10px; font-weight: 650; }
+    .inspector-status::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: #8fd0be; }
+    .inspector-preview {
+      display: grid;
+      place-items: center;
+      min-height: 194px;
+      margin: 17px 15px 17px;
+      border: 1px solid rgba(181, 228, 220, .16);
+      border-radius: 14px;
+      background-color: #285b60;
+      background-image: linear-gradient(rgba(182,232,222,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(182,232,222,.08) 1px, transparent 1px);
+      background-size: 22px 22px;
+    }
+    .inspector-preview .vector-icon { width: 118px; height: 118px; }
+    .inspector-info { padding: 0 20px 20px; }
+    .selected-name-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    .selected-name { margin: 0; color: #f6fffd; font-size: 22px; letter-spacing: -.045em; }
+    .selected-code { color: #75aba6; font-family: "SFMono-Regular", Consolas, monospace; font-size: 9px; }
+    .selected-description { min-height: 35px; margin: 7px 0 15px; color: #a6c9c5; font-size: 11px; line-height: 1.5; }
+    .inspector-specs { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid rgba(181, 228, 220, .14); border-bottom: 1px solid rgba(181, 228, 220, .14); }
+    .spec { display: flex; flex-direction: column; gap: 5px; padding: 12px 0; }
+    .spec + .spec { padding-left: 14px; border-left: 1px solid rgba(181, 228, 220, .14); }
+    .spec-label { color: #71a6a1; font-family: "SFMono-Regular", Consolas, monospace; font-size: 8px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .spec-value { color: #e8f6f3; font-size: 11px; font-weight: 700; }
+    .inspector-copy { width: 100%; margin-top: 15px; border-color: rgba(194, 235, 227, .2); background: rgba(236, 255, 249, .1); color: #eafff9; box-shadow: none; }
+    .inspector-copy:hover { border-color: rgba(194,235,227,.4); background: rgba(236,255,249,.16); }
+    .inspector-variants { padding-top: 17px; margin-top: 17px; border-top: 1px solid rgba(181, 228, 220, .14); }
+    .variants-title { display: flex; justify-content: space-between; margin-bottom: 9px; color: #77aaa5; font-family: "SFMono-Regular", Consolas, monospace; font-size: 8px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .variants-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; }
+    .variant-chip { display: grid; place-items: center; height: 53px; border: 1px solid rgba(181,228,220,.14); border-radius: 9px; background: rgba(255,255,255,.045); }
+    .variant-chip.active { border-color: rgba(157,218,208,.58); background: rgba(157,218,208,.1); }
+    .variant-chip .vector-icon { width: 36px; height: 36px; }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 22px 0 29px;
+      border-top: 1px solid var(--line-strong);
+      color: var(--muted);
+      font-size: 11px;
+    }
+    .footer strong { color: var(--ink); }
+    .footer-right { display: flex; align-items: center; gap: 15px; }
+    .footer-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--coral); }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 25px;
+      z-index: 20;
+      padding: 11px 15px;
+      border: 1px solid rgba(186,229,220,.25);
+      border-radius: 10px;
+      background: var(--ink);
+      color: #f1fffb;
+      box-shadow: 0 12px 25px rgba(23,61,70,.2);
+      font-size: 12px;
+      font-weight: 700;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 10px);
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 1100px) {
+      .shell { width: min(100% - 44px, 920px); }
+      .hero { grid-template-columns: minmax(0, 1fr) minmax(350px, .84fr); gap: 38px; }
+      .hero h1 { font-size: clamp(52px, 7.2vw, 78px); }
+      .workspace { grid-template-columns: minmax(0, 1fr) 250px; }
+      .icon-grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+      .nav-links { gap: 16px; }
+    }
+
+    @media (max-width: 790px) {
+      .shell { width: min(100% - 32px, 620px); }
+      .topbar { height: 70px; }
+      .brand-note, .nav-links { display: none; }
+      .hero { display: flex; flex-direction: column; align-items: stretch; gap: 42px; padding: 61px 0 48px; }
+      .hero h1 { max-width: 560px; font-size: clamp(54px, 15vw, 82px); }
+      .hero-lede { font-size: 16px; }
+      .hero-visual { min-height: 330px; }
+      .hero-card { min-height: 330px; }
+      .hero-scene { top: 32px; left: 12%; width: min(72%, 320px); }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .stat { min-height: 72px; padding: 0 16px; }
+      .stat:first-child { padding-left: 16px; }
+      .stat:nth-child(2)::after { display: none; }
+      .stat:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .library { padding-top: 56px; }
+      .library-heading { align-items: start; flex-direction: column; gap: 13px; }
+      .library-heading p { max-width: 480px; margin: 0; text-align: left; }
+      .library-toolbar { align-items: stretch; flex-direction: column; padding: 8px; }
+      .style-tabs { width: 100%; overflow-x: auto; }
+      .style-tab { flex: 1 0 auto; justify-content: center; }
+      .toolbar-tools { width: 100%; }
+      .category-select, .search-box { flex: 1; width: auto; }
+      .workspace { display: flex; flex-direction: column; }
+      .sets-column, .inspector { width: 100%; }
+      .inspector { position: static; order: -1; }
+      .icon-grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
+      .footer { align-items: start; flex-direction: column; gap: 8px; }
+    }
+
+    @media (max-width: 470px) {
+      .shell { width: calc(100% - 24px); }
+      .version-pill { padding-inline: 9px; font-size: 9px; }
+      .hero { padding-top: 49px; }
+      .hero h1 { font-size: 55px; }
+      .hero-card { padding-inline: 17px; }
+      .hero-card-foot { left: 17px; right: 17px; }
+      .hero-coordinates { gap: 9px; }
+      .hero-coordinates span { font-size: 9px; }
+      .library-toolbar { margin-bottom: 15px; }
+      .toolbar-tools { flex-direction: column; }
+      .category-select, .search-box { width: 100%; flex: unset; }
+      .style-set { padding: 16px 10px 16px; border-radius: 16px; }
+      .style-set-head { margin-inline: 3px; }
+      .style-set-sub { display: none; }
+      .icon-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 7px; }
+      .icon-card { min-height: 139px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Formwork home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>FORMWORK</span>
+        <span class="brand-note">CAD ICON SYSTEM</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#library">Library</a>
+        <a href="#spec">Specification</a>
+        <a href="#usage">Usage</a>
+      </nav>
+      <span class="version-pill">v1.0 / SVG only</span>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">A compact toolkit for technical work</p>
+          <h1 id="hero-title">Make every<br /><em>dimension</em> legible.</h1>
+          <p class="hero-lede">Twenty precise CAD icons built on one calm geometry. Three ready-to-use treatments — duotone, monotone and colour — for interfaces that stay out of the way.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#library">Explore the set <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg></a>
+            <button class="button button-secondary" id="heroCopy" type="button"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.3" y="4.7" width="7" height="8" rx="1.2" stroke="currentColor" stroke-width="1.3"/><path d="M10.7 4.7V3.5A1.2 1.2 0 0 0 9.5 2.3h-6A1.2 1.2 0 0 0 2.3 3.5v7A1.2 1.2 0 0 0 3.5 11.7h1.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Copy SVG</button>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-label="Preview of the icon system">
+          <div class="hero-card">
+            <div class="hero-card-head">
+              <span class="hero-mini-label">Active preview / 20 × 3</span>
+              <span class="mono">48 × 48 GRID</span>
+            </div>
+            <svg class="hero-scene" viewBox="0 0 360 260" fill="none" aria-hidden="true">
+              <path class="scene-guide" d="M33 192h272M50 211h230M86 42v183M112 28v196M265 31v191M292 53v169" />
+              <path class="scene-guide" d="M64 184 222 65 313 113 154 235z" />
+              <path class="scene-soft" d="m77 154 106-80 102 53-105 80-103-53Z" />
+              <path class="scene-ink" d="m77 154 106-80 102 53-105 80-103-53ZM183 74v83M77 154l103 53 105-80M180 207v-50" />
+              <path class="scene-ink" d="m183 74 18 9m-18 74 19 10m-19-10-19 14" opacity=".45" />
+              <path class="scene-accent" d="m183 74 12 6-12 9-12-6 12-9Z" />
+              <path class="scene-gold" d="M183 51v-19m0 0-7 8m7-8 7 8" />
+              <path class="scene-ink" d="M54 181h-18m18 0-7-5m7 5-7 5M304 110h19m-19 0 7-5m-7 5 7 5" />
+              <path class="scene-ink" d="M57 181h247" opacity=".35" />
+              <circle class="scene-accent" cx="77" cy="154" r="4" />
+              <circle class="scene-gold" cx="288" cy="127" r="4" />
+            </svg>
+            <div class="hero-card-foot">
+              <span><strong>Single geometry.</strong> Three expressions.</span>
+              <span class="hero-coordinates"><span><i class="coordinate-dot"></i> X 24</span><span><i class="coordinate-dot gold"></i> Y 18</span></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats" id="spec" aria-label="System specifications">
+        <div class="stat"><span class="stat-value">20</span><span class="stat-label">Core icons</span></div>
+        <div class="stat"><span class="stat-value">03</span><span class="stat-label">Visual sets</span></div>
+        <div class="stat"><span class="stat-value stat-accent">48 px</span><span class="stat-label">Base grid</span></div>
+        <div class="stat"><span class="stat-value">1.75</span><span class="stat-label">Default stroke</span></div>
+      </section>
+
+      <section class="library" id="library" aria-labelledby="library-title">
+        <div class="library-heading">
+          <div>
+            <p class="section-kicker">The working library</p>
+            <h2 id="library-title">Twenty ways to say<br />“make it precise.”</h2>
+          </div>
+          <p>Consistent corners, considered negative space, and enough character to find the right tool at a glance.</p>
+        </div>
+
+        <div class="library-toolbar" aria-label="Icon library controls">
+          <div class="style-tabs" role="tablist" aria-label="Icon styles">
+            <button class="style-tab" type="button" role="tab" data-style="all" aria-selected="true"><span class="tab-dot"></span>All sets <span class="tab-count">60</span></button>
+            <button class="style-tab" type="button" role="tab" data-style="duotone" aria-selected="false"><span class="tab-dot duotone"></span>Duotone <span class="tab-count">20</span></button>
+            <button class="style-tab" type="button" role="tab" data-style="monotone" aria-selected="false"><span class="tab-dot monotone"></span>Monotone <span class="tab-count">20</span></button>
+            <button class="style-tab" type="button" role="tab" data-style="color" aria-selected="false"><span class="tab-dot color"></span>Colour <span class="tab-count">20</span></button>
+          </div>
+          <div class="toolbar-tools">
+            <label class="search-box" aria-label="Search icons">
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.7" cy="8.7" r="5.2" stroke="currentColor" stroke-width="1.5"/><path d="m12.7 12.7 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <input id="search" type="search" placeholder="Search icons" autocomplete="off" />
+            </label>
+            <label>
+              <span class="sr-only">Filter by category</span>
+              <select class="category-select" id="categoryFilter" aria-label="Filter by category">
+                <option value="all">All categories</option>
+                <option value="Draw">Draw</option>
+                <option value="Inspect">Inspect</option>
+                <option value="Modify">Modify</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="workspace">
+          <div class="sets-column" id="sets" aria-live="polite"></div>
+          <aside class="inspector" id="inspector" aria-label="Selected icon details"></aside>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" id="usage">
+      <span><strong>FORMWORK</strong> / built for the drafting desk</span>
+      <span class="footer-right"><span>Open SVG geometry</span><i class="footer-dot"></i><span>Use freely in product UI</span></span>
+    </footer>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite">SVG copied to clipboard</div>
+
+  <script>
+    const icons = [
+      {
+        name: "Select",
+        slug: "select",
+        category: "Draw",
+        description: "Point, pick and move geometry.",
+        markup: `
+          <path class="soft" d="M10 8 31.5 29.5l-8.4 1-4.1 9.8-4.4-1.9 4.1-9.7L10 24.5V8Z"/>
+          <path class="line" d="M10 8 31.5 29.5l-8.4 1-4.1 9.8-4.4-1.9 4.1-9.7L10 24.5V8Z"/>
+          <path class="line secondary" d="M34 8h6v6M40 19v5M40 32v6h-6"/>
+          <circle class="accent" cx="10" cy="8" r="2.1"/>
+        `
+      },
+      {
+        name: "Line",
+        slug: "line",
+        category: "Draw",
+        description: "Create a clean two-point segment.",
+        markup: `
+          <path class="line" d="M9 35 39 13"/>
+          <circle class="accent" cx="9" cy="35" r="3"/>
+          <circle class="accent" cx="39" cy="13" r="3"/>
+          <path class="guide" d="M13 39h11M29 9h8"/>
+        `
+      },
+      {
+        name: "Rectangle",
+        slug: "rectangle",
+        category: "Draw",
+        description: "Frame a plane with four corners.",
+        markup: `
+          <rect class="soft" x="8" y="11" width="32" height="25" rx="2"/>
+          <rect class="line" x="8" y="11" width="32" height="25" rx="2"/>
+          <path class="guide" d="M24 11v25M8 23.5h32"/>
+          <circle class="accent" cx="8" cy="11" r="2"/>
+          <circle class="accent" cx="40" cy="36" r="2"/>
+        `
+      },
+      {
+        name: "Circle",
+        slug: "circle",
+        category: "Draw",
+        description: "Define a radial profile from centre.",
+        markup: `
+          <circle class="soft" cx="24" cy="24" r="13"/>
+          <circle class="line" cx="24" cy="24" r="13"/>
+          <path class="line secondary" d="M24 7v34M7 24h34"/>
+          <circle class="accent" cx="24" cy="24" r="2.6"/>
+          <path class="guide" d="M24 24h13"/>
+        `
+      },
+      {
+        name: "Arc",
+        slug: "arc",
+        category: "Draw",
+        description: "Shape a curve between two points.",
+        markup: `
+          <path class="soft" d="M9 31a16 16 0 0 1 25-19l3 3a20 20 0 0 0-25 20l-3-4Z"/>
+          <path class="line" d="M9 31a16 16 0 0 1 25-19"/>
+          <path class="line secondary" d="m9 31-4 1m29-20 5-1M9 31l-2 5m27-24 3-4"/>
+          <circle class="accent" cx="9" cy="31" r="2.5"/>
+          <circle class="accent" cx="34" cy="12" r="2.5"/>
+        `
+      },
+      {
+        name: "Polygon",
+        slug: "polygon",
+        category: "Draw",
+        description: "Build a closed multi-sided profile.",
+        markup: `
+          <path class="soft" d="m24 7 15 9-4 18-22 5-5-20L24 7Z"/>
+          <path class="line" d="m24 7 15 9-4 18-22 5-5-20L24 7Z"/>
+          <path class="guide" d="M24 7v32M8 19l31-3M13 39l26-23"/>
+          <circle class="accent" cx="24" cy="7" r="2.1"/>
+          <circle class="accent" cx="39" cy="16" r="2.1"/>
+          <circle class="accent" cx="35" cy="34" r="2.1"/>
+          <circle class="accent" cx="13" cy="39" r="2.1"/>
+          <circle class="accent" cx="8" cy="19" r="2.1"/>
+        `
+      },
+      {
+        name: "Measure",
+        slug: "measure",
+        category: "Inspect",
+        description: "Read distance along a true edge.",
+        markup: `
+          <path class="soft" d="m8 32 24-24 8 8-24 24-8-8Z"/>
+          <path class="line" d="m8 32 24-24 8 8-24 24-8-8Z"/>
+          <path class="line secondary" d="m15 32 5 5m0-13 5 5m0-13 5 5m0-13 5 5"/>
+          <path class="line" d="m11 29 8 8"/>
+          <circle class="accent" cx="8" cy="32" r="2.2"/>
+          <circle class="accent" cx="32" cy="8" r="2.2"/>
+        `
+      },
+      {
+        name: "Dimension",
+        slug: "dimension",
+        category: "Inspect",
+        description: "Make size and intent explicit.",
+        markup: `
+          <path class="line secondary" d="M10 11v26M38 11v26M14 17h20M14 31h20"/>
+          <path class="soft" d="M19 20h10v8H19v-8Z"/>
+          <path class="line" d="M14 24h20m-20 0 4-3m-4 3 4 3m16-3-4-3m4 3-4 3"/>
+          <path class="line secondary" d="M21.5 22v4m2.5-4v4m2.5-4v4"/>
+          <circle class="accent" cx="10" cy="11" r="2"/>
+          <circle class="accent" cx="38" cy="37" r="2"/>
+        `
+      },
+      {
+        name: "Layers",
+        slug: "layers",
+        category: "Inspect",
+        description: "Keep planes and parts in order.",
+        markup: `
+          <path class="soft" d="m8 16 16-9 16 9-16 9L8 16Z"/>
+          <path class="line" d="m8 16 16-9 16 9-16 9L8 16Zm0 7 16 9 16-9M8 30l16 9 16-9"/>
+          <path class="line secondary" d="m14 19 10 6 10-6"/>
+          <circle class="accent" cx="24" cy="7" r="2"/>
+        `
+      },
+      {
+        name: "Grid",
+        slug: "grid",
+        category: "Inspect",
+        description: "Align decisions to a shared field.",
+        markup: `
+          <rect class="soft" x="8" y="8" width="32" height="32" rx="3"/>
+          <rect class="line" x="8" y="8" width="32" height="32" rx="3"/>
+          <path class="line secondary" d="M18.7 8v32M29.3 8v32M8 18.7h32M8 29.3h32"/>
+          <circle class="accent" cx="18.7" cy="18.7" r="2.1"/>
+          <circle class="accent" cx="29.3" cy="29.3" r="2.1"/>
+        `
+      },
+      {
+        name: "Snap",
+        slug: "snap",
+        category: "Inspect",
+        description: "Lock onto the nearest useful point.",
+        markup: `
+          <path class="soft" d="M13 23V14a11 11 0 0 1 22 0v9h-7v-9a4 4 0 0 0-8 0v9h-7Z"/>
+          <path class="line" d="M13 23V14a11 11 0 0 1 22 0v9M20 23V14a4 4 0 0 1 8 0v9M13 23h7m8 0h7"/>
+          <path class="line secondary" d="M13 26c0 7.5 4.9 13 11 13s11-5.5 11-13"/>
+          <path class="line" d="m8 31 3-3m0 6-3-3m32 0-3-3m0 6 3-3"/>
+          <circle class="accent" cx="24" cy="39" r="2"/>
+        `
+      },
+      {
+        name: "Extrude",
+        slug: "extrude",
+        category: "Modify",
+        description: "Turn a profile into a solid.",
+        markup: `
+          <path class="soft" d="m24 10 14 8v16l-14 8-14-8V18l14-8Z"/>
+          <path class="line" d="m24 10 14 8-14 8-14-8 14-8Zm0 16v16m14-24v16m-28-16v16"/>
+          <path class="line secondary" d="M24 25V14m-4 4 4-4 4 4"/>
+          <path class="accent" d="M21.5 8h5v-3h-5v3Z"/>
+          <circle class="gold" cx="24" cy="26" r="2.1"/>
+        `
+      },
+      {
+        name: "Revolve",
+        slug: "revolve",
+        category: "Modify",
+        description: "Spin a profile around an axis.",
+        markup: `
+          <ellipse class="soft" cx="24" cy="24" rx="10" ry="15"/>
+          <path class="line" d="M24 9c5.5 0 10 6.7 10 15s-4.5 15-10 15-10-6.7-10-15 4.5-15 10-15Zm0 0v30"/>
+          <path class="line secondary" d="M11 16a16 16 0 0 1 23-7m3 23a16 16 0 0 1-23 7"/>
+          <path class="accent" d="m33 9 5 0-2 5-3-5Zm-18 30-5 0 2-5 3 5Z"/>
+          <circle class="gold" cx="24" cy="24" r="2.3"/>
+        `
+      },
+      {
+        name: "Fillet",
+        slug: "fillet",
+        category: "Modify",
+        description: "Soften a corner without losing control.",
+        markup: `
+          <path class="soft" d="M10 38V16h8a10 10 0 0 1 10 10v12H10Z"/>
+          <path class="line" d="M10 38V16h8a10 10 0 0 1 10 10v12M10 38h18"/>
+          <path class="guide" d="M10 12h12a14 14 0 0 1 14 14v12"/>
+          <path class="line secondary" d="M10 16v-4m0 26h-4m28 0h4"/>
+          <circle class="accent" cx="18" cy="16" r="2.4"/>
+        `
+      },
+      {
+        name: "Chamfer",
+        slug: "chamfer",
+        category: "Modify",
+        description: "Cut a corner to a measured angle.",
+        markup: `
+          <path class="soft" d="M10 38V10h18l10 10v18H10Z"/>
+          <path class="line" d="M10 38V10h18l10 10v18H10Zm18-28v10h10"/>
+          <path class="guide" d="M10 10h28v28"/>
+          <path class="line secondary" d="M28 10v-4m10 14h4m-4 18h4"/>
+          <path class="accent" d="m28 10 10 10H28V10Z"/>
+        `
+      },
+      {
+        name: "Trim",
+        slug: "trim",
+        category: "Modify",
+        description: "Remove the excess and keep the edge.",
+        markup: `
+          <path class="line secondary" d="M8 14h32M8 34h32"/>
+          <circle class="soft" cx="12" cy="14" r="4"/>
+          <circle class="soft" cx="12" cy="34" r="4"/>
+          <path class="line" d="m15 17 22 20M15 31 37 9M18 24h10"/>
+          <circle class="accent" cx="28" cy="24" r="2.4"/>
+        `
+      },
+      {
+        name: "Mirror",
+        slug: "mirror",
+        category: "Modify",
+        description: "Reflect geometry across a clean axis.",
+        markup: `
+          <path class="soft" d="M9 14h11v11H9V14Zm19 9h11v11H28V23Z"/>
+          <path class="line" d="M9 14h11v11H9V14Zm19 9h11v11H28V23Z"/>
+          <path class="line secondary" d="M24 7v34"/>
+          <path class="line" d="m20 17-4-3m4 8-4 3m8-8h-4m8 8 4-3m-4-5 4 3"/>
+          <circle class="accent" cx="24" cy="24" r="2.3"/>
+        `
+      },
+      {
+        name: "Rotate",
+        slug: "rotate",
+        category: "Modify",
+        description: "Turn a selection around its centre.",
+        markup: `
+          <path class="soft" d="M36 17a14 14 0 1 0 2 9"/>
+          <path class="line" d="M36 17a14 14 0 1 0 2 9M36 9v8h-8"/>
+          <path class="line secondary" d="M24 17v14M17 24h14"/>
+          <circle class="accent" cx="24" cy="24" r="2.6"/>
+          <path class="gold" d="m36 9 4 2-4 3V9Z"/>
+        `
+      },
+      {
+        name: "Pan",
+        slug: "pan",
+        category: "Modify",
+        description: "Move the view without changing scale.",
+        markup: `
+          <rect class="soft" x="13" y="13" width="22" height="22" rx="3"/>
+          <rect class="line" x="13" y="13" width="22" height="22" rx="3"/>
+          <path class="line" d="M24 8v8m0 16v8M8 24h8m16 0h8m-16-16-3 3m3-3 3 3m13 13-3-3m3 3-3 3m-13 5 3-3m-3 3-3-3"/>
+          <circle class="accent" cx="24" cy="24" r="2.5"/>
+        `
+      },
+      {
+        name: "Export",
+        slug: "export",
+        category: "Modify",
+        description: "Send a finished drawing out cleanly.",
+        markup: `
+          <path class="soft" d="M10 17h19v23H10V17Z"/>
+          <path class="line" d="M10 17h19v23H10V17Zm5-5h19v23M24 25V8m0 0-5 5m5-5 5 5"/>
+          <path class="line secondary" d="M15 22h6m-6 5h5m-5 5h8"/>
+          <path class="accent" d="M31 31h7v7h-7v-7Z"/>
+        `
+      }
+    ];
+
+    const styles = {
+      all: { label: "All sets", sub: "A full comparison" },
+      duotone: { label: "Duotone", sub: "Soft pair" },
+      monotone: { label: "Monotone", sub: "Single ink" },
+      color: { label: "Colour", sub: "Full signal" }
+    };
+    const palette = {
+      duotone: { primary: "#0b626b", secondary: "#2f8e8c", soft: "#bee8e0", accent: "#bee8e0", gold: "#bee8e0" },
+      monotone: { primary: "#173d46", secondary: "#6c8589", soft: "#dce9e7", accent: "#dce9e7", gold: "#dce9e7" },
+      color: { primary: "#0b5965", secondary: "#369994", soft: "#d5eeea", accent: "#ed815f", gold: "#efc867" }
+    };
+
+    let activeStyle = "all";
+    let activeCategory = "all";
+    let query = "";
+    let selected = { slug: "extrude", style: "duotone" };
+    let toastTimer;
+
+    const sets = document.getElementById("sets");
+    const inspector = document.getElementById("inspector");
+    const search = document.getElementById("search");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const toast = document.getElementById("toast");
+
+    function iconSvg(icon, style, extraClass = "") {
+      return `<svg class="vector-icon ${style} ${extraClass}" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${icon.name} icon">${icon.markup}</svg>`;
+    }
+
+    function filteredIcons() {
+      return icons.filter(icon => {
+        const matchesCategory = activeCategory === "all" || icon.category === activeCategory;
+        const haystack = `${icon.name} ${icon.category} ${icon.description}`.toLowerCase();
+        return matchesCategory && (!query || haystack.includes(query));
+      });
+    }
+
+    function styleSet(style, list) {
+      const styleInfo = styles[style];
+      return `
+        <section class="style-set" aria-labelledby="${style}-title">
+          <div class="style-set-head">
+            <div class="style-name-wrap">
+              <span class="style-name-dot ${style}" aria-hidden="true"></span>
+              <h3 id="${style}-title">${styleInfo.label}</h3>
+              <span class="style-set-sub">${styleInfo.sub}</span>
+            </div>
+            <span class="style-count">${String(list.length).padStart(2, "0")} / 20 ICONS</span>
+          </div>
+          ${list.length ? `<div class="icon-grid">${list.map((icon) => card(icon, style)).join("")}</div>` : `<div class="empty-state"><strong>No geometry found.</strong>Try another name or category.</div>`}
+        </section>
+      `;
+    }
+
+    function card(icon, style) {
+      const isSelected = selected.slug === icon.slug && selected.style === style;
+      const index = String(icons.findIndex(item => item.slug === icon.slug) + 1).padStart(2, "0");
+      return `
+        <button class="icon-card${isSelected ? " is-selected" : ""}" type="button" data-icon="${icon.slug}" data-style="${style}" aria-label="View ${icon.name}, ${styles[style].label} style" aria-pressed="${isSelected}">
+          <span class="icon-card-top"><span class="icon-index">${index}</span><span class="card-glyph" aria-hidden="true">↗</span></span>
+          <span class="icon-visual">${iconSvg(icon, style)}</span>
+          <span class="icon-card-bottom"><strong>${icon.name}</strong><span>${icon.category}</span></span>
+        </button>
+      `;
+    }
+
+    function renderSets() {
+      const list = filteredIcons();
+      const visibleStyles = activeStyle === "all" ? ["duotone", "monotone", "color"] : [activeStyle];
+      sets.innerHTML = visibleStyles.map(style => styleSet(style, list)).join("");
+      sets.querySelectorAll(".icon-card").forEach(button => {
+        button.addEventListener("click", () => {
+          selected = { slug: button.dataset.icon, style: button.dataset.style };
+          renderSets();
+          renderInspector();
+          const current = sets.querySelector(`[data-icon="${selected.slug}"][data-style="${selected.style}"]`);
+          if (current) current.scrollIntoView({ block: "nearest", behavior: "smooth" });
+        });
+      });
+    }
+
+    function renderInspector() {
+      const icon = icons.find(item => item.slug === selected.slug) || icons[11];
+      const style = palette[selected.style] ? selected.style : "duotone";
+      const selectedStyleLabel = styles[style].label;
+      inspector.innerHTML = `
+        <div class="inspector-head">
+          <span class="inspector-label">Selected geometry</span>
+          <span class="inspector-status">Ready to use</span>
+        </div>
+        <div class="inspector-preview">${iconSvg(icon, style)}</div>
+        <div class="inspector-info">
+          <div class="selected-name-row"><h3 class="selected-name">${icon.name}</h3><span class="selected-code">ic-${icon.slug}</span></div>
+          <p class="selected-description">${icon.description}</p>
+          <div class="inspector-specs">
+            <div class="spec"><span class="spec-label">Treatment</span><span class="spec-value">${selectedStyleLabel}</span></div>
+            <div class="spec"><span class="spec-label">Viewbox</span><span class="spec-value">48 × 48</span></div>
+          </div>
+          <button class="button inspector-copy" id="inspectorCopy" type="button"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.3" y="4.7" width="7" height="8" rx="1.2" stroke="currentColor" stroke-width="1.3"/><path d="M10.7 4.7V3.5A1.2 1.2 0 0 0 9.5 2.3h-6A1.2 1.2 0 0 0 2.3 3.5v7A1.2 1.2 0 0 0 3.5 11.7h1.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Copy ${selectedStyleLabel} SVG</button>
+          <div class="inspector-variants">
+            <div class="variants-title"><span>Other treatments</span><span>same geometry</span></div>
+            <div class="variants-row">${["duotone", "monotone", "color"].map(variant => `<button type="button" class="variant-chip${variant === style ? " active" : ""}" data-variant="${variant}" aria-label="Preview ${styles[variant].label}">${iconSvg(icon, variant)}</button>`).join("")}</div>
+          </div>
+        </div>
+      `;
+      document.getElementById("inspectorCopy").addEventListener("click", () => copyIcon(icon, style));
+      inspector.querySelectorAll(".variant-chip").forEach(button => {
+        button.addEventListener("click", () => {
+          selected = { slug: icon.slug, style: button.dataset.variant };
+          if (activeStyle !== "all") activeStyle = selected.style;
+          updateTabs();
+          renderSets();
+          renderInspector();
+        });
+      });
+    }
+
+    function updateTabs() {
+      document.querySelectorAll(".style-tab").forEach(tab => {
+        tab.setAttribute("aria-selected", String(tab.dataset.style === activeStyle));
+      });
+    }
+
+    function standaloneSvg(icon, style) {
+      const c = palette[style];
+      let body = icon.markup
+        .replaceAll('class="line secondary"', `fill="none" stroke="${c.secondary}" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"`)
+        .replaceAll('class="line"', `fill="none" stroke="${c.primary}" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"`)
+        .replaceAll('class="guide"', `fill="none" stroke="${c.secondary}" stroke-width="1.05" stroke-dasharray="2.7 3" stroke-linecap="round"`)
+        .replaceAll('class="soft"', `fill="${c.soft}" stroke="${c.primary}" stroke-width="1.55" stroke-linejoin="round"`)
+        .replaceAll('class="accent"', `fill="${c.accent}" stroke="${c.primary}" stroke-width="1.2" stroke-linejoin="round"`)
+        .replaceAll('class="gold"', `fill="${c.gold}" stroke="${c.primary}" stroke-width="1.2" stroke-linejoin="round"`);
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" aria-label="${icon.name} icon">${body}</svg>`;
+    }
+
+    async function copyIcon(icon, style) {
+      const markup = standaloneSvg(icon, style);
+      try {
+        await navigator.clipboard.writeText(markup);
+        showToast(`${icon.name} SVG copied`);
+      } catch (error) {
+        const helper = document.createElement("textarea");
+        helper.value = markup;
+        helper.style.position = "fixed";
+        helper.style.opacity = "0";
+        document.body.appendChild(helper);
+        helper.select();
+        document.execCommand("copy");
+        helper.remove();
+        showToast(`${icon.name} SVG copied`);
+      }
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 2100);
+    }
+
+    document.querySelectorAll(".style-tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        activeStyle = tab.dataset.style;
+        updateTabs();
+        renderSets();
+      });
+    });
+    search.addEventListener("input", event => {
+      query = event.target.value.trim().toLowerCase();
+      renderSets();
+    });
+    categoryFilter.addEventListener("change", event => {
+      activeCategory = event.target.value;
+      renderSets();
+    });
+    document.getElementById("heroCopy").addEventListener("click", () => {
+      const icon = icons.find(item => item.slug === selected.slug) || icons[11];
+      copyIcon(icon, selected.style);
+    });
+
+    renderSets();
+    renderInspector();
+  </script>
+</body>
+</html>
