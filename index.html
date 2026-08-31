@@ -686,6 +686,80 @@
       .icon-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 7px; }
       .icon-card { min-height: 139px; }
     }
+    /* Night shift theme: a quiet dark drafting desk with warm annotation accents. */
+    :root {
+      --canvas: #0e1416;
+      --paper: #171e21;
+      --paper-soft: #202a2d;
+      --ink: #d2e5e0;
+      --ink-deep: #f3f8f4;
+      --muted: #8b9c9f;
+      --muted-soft: #6e8083;
+      --line: #293539;
+      --line-strong: #3a484b;
+      --teal: #8bd7c4;
+      --teal-bright: #59c8b4;
+      --coral: #ff926c;
+      --gold: #e8c76d;
+      --shadow: 0 18px 42px rgba(0, 0, 0, .24);
+      --shadow-small: 0 8px 20px rgba(0, 0, 0, .2);
+    }
+    body {
+      background-color: var(--canvas);
+      background-image:
+        linear-gradient(rgba(139, 215, 196, .045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139, 215, 196, .045) 1px, transparent 1px);
+    }
+    .topbar { border-bottom-color: var(--line-strong); }
+    .brand { color: var(--ink-deep); }
+    .brand-mark { background: var(--teal); }
+    .brand-mark::before { border-color: #183a3b; }
+    .brand-mark::after { border-color: #c86045; }
+    .brand-note { border-left-color: var(--line-strong); color: var(--muted); }
+    .version-pill { border-color: rgba(139, 215, 196, .3); background: rgba(139, 215, 196, .08); color: var(--teal); }
+    .version-pill::before { background: var(--coral); }
+    .button-primary { background: var(--teal); color: #0c191b; box-shadow: 0 8px 18px rgba(0, 0, 0, .25); }
+    .button-primary:hover { background: var(--teal-bright); box-shadow: 0 10px 22px rgba(0, 0, 0, .3); }
+    .button-secondary { border-color: var(--line-strong); background: rgba(255, 255, 255, .035); color: var(--ink); }
+    .button-secondary:hover { border-color: rgba(139, 215, 196, .55); background: rgba(139, 215, 196, .07); }
+    .hero-card { background: #17282c; box-shadow: 0 24px 48px rgba(0, 0, 0, .3); }
+    .stats { border-top-color: var(--line-strong); border-bottom-color: var(--line-strong); }
+    .stat:not(:last-child)::after { background: var(--line); }
+    .library-toolbar { border-color: var(--line); background: rgba(23, 30, 33, .9); box-shadow: var(--shadow-small); }
+    .style-tab[aria-selected="true"] { background: var(--teal); color: #0c191b; box-shadow: 0 5px 14px rgba(0, 0, 0, .24); }
+    .style-tab[aria-selected="true"] .tab-dot { box-shadow: 0 0 0 3px rgba(12, 25, 27, .14); }
+    .style-tab:hover { color: var(--ink-deep); }
+    .style-tab[aria-selected="true"]:hover { color: #0c191b; }
+    .category-select { border-color: var(--line); background-color: #11181a; color: var(--ink); }
+    .search-box input { border-color: var(--line); background: #11181a; color: var(--ink); }
+    .search-box input::placeholder { color: var(--muted-soft); }
+    .style-set { border-color: var(--line); background: rgba(23, 30, 33, .92); box-shadow: 0 10px 26px rgba(0, 0, 0, .16); }
+    .style-set h3 { color: var(--ink-deep); }
+    .style-set-sub { color: var(--muted); }
+    .style-count { color: var(--muted-soft); }
+    .icon-card { border-color: #2a373a; background: #1a2326; color: var(--ink); }
+    .icon-card:hover { border-color: #4b7773; background: #202c2f; box-shadow: 0 9px 20px rgba(0, 0, 0, .25); }
+    .icon-card.is-selected { border-color: var(--teal-bright); background: #1e3938; box-shadow: inset 0 0 0 1px rgba(139, 215, 196, .16); }
+    .icon-index { color: #708285; }
+    .icon-card.is-selected .icon-index { color: var(--teal); }
+    .card-glyph { border-color: #314043; color: #789093; }
+    .icon-card:hover .card-glyph { border-color: #4d827c; color: var(--teal); }
+    .icon-card.is-selected .card-glyph { border-color: #4d827c; color: var(--teal); background: rgba(139, 215, 196, .1); }
+    .icon-card-bottom strong { color: var(--ink-deep); }
+    .icon-card-bottom span { color: #789093; }
+    .empty-state { color: var(--muted); }
+    .empty-state strong { color: var(--ink-deep); }
+    .vector-icon { --primary: #e2efea; --secondary: #82999b; --soft: #304144; --accent: #304144; --gold: #304144; }
+    .vector-icon.duotone { --primary: #b8eee2; --secondary: #71bdb2; --soft: #285b5b; --accent: #285b5b; --gold: #285b5b; }
+    .vector-icon.monotone { --primary: #e1ece9; --secondary: #819397; --soft: #334346; --accent: #334346; --gold: #334346; }
+    .vector-icon.color { --primary: #d8eee8; --secondary: #64c8b7; --soft: #244c50; --accent: #ff926c; --gold: #e8c76d; }
+    .inspector { background: #0b2226; color: #e8f6f2; box-shadow: 0 18px 38px rgba(0, 0, 0, .3); }
+    .inspector-preview { border-color: rgba(181, 228, 220, .18); background-color: #214b50; }
+    .inspector-copy { background: rgba(139, 215, 196, .1); color: #eafff9; }
+    .inspector-copy:hover { background: rgba(139, 215, 196, .18); }
+    .footer { border-top-color: var(--line-strong); }
+    .footer strong { color: var(--ink-deep); }
+    .toast { border-color: rgba(139, 215, 196, .28); background: var(--teal); color: #0c191b; }
   </style>
 </head>
 <body>
@@ -805,10 +879,10 @@
         category: "Draw",
         description: "Point, pick and move geometry.",
         markup: `
-          <path class="soft" d="M10 8 31.5 29.5l-8.4 1-4.1 9.8-4.4-1.9 4.1-9.7L10 24.5V8Z"/>
-          <path class="line" d="M10 8 31.5 29.5l-8.4 1-4.1 9.8-4.4-1.9 4.1-9.7L10 24.5V8Z"/>
-          <path class="line secondary" d="M34 8h6v6M40 19v5M40 32v6h-6"/>
-          <circle class="accent" cx="10" cy="8" r="2.1"/>
+          <path class="guide" d="M8 17V9h8M32 9h8v8M8 31v8h8M32 39h8v-8"/>
+          <path class="soft" d="m12 7 21 20-8.4 1.4-4.1 10.1-4.2-1.8 4-10.1L12 23V7Z"/>
+          <path class="line" d="m12 7 21 20-8.4 1.4-4.1 10.1-4.2-1.8 4-10.1L12 23V7Z"/>
+          <circle class="accent" cx="12" cy="7" r="2.2"/>
         `
       },
       {
@@ -855,11 +929,13 @@
         category: "Draw",
         description: "Shape a curve between two points.",
         markup: `
-          <path class="soft" d="M9 31a16 16 0 0 1 25-19l3 3a20 20 0 0 0-25 20l-3-4Z"/>
-          <path class="line" d="M9 31a16 16 0 0 1 25-19"/>
-          <path class="line secondary" d="m9 31-4 1m29-20 5-1M9 31l-2 5m27-24 3-4"/>
-          <circle class="accent" cx="9" cy="31" r="2.5"/>
-          <circle class="accent" cx="34" cy="12" r="2.5"/>
+          <path class="line secondary" d="M24 24 10 32m14-8 11-13"/>
+          <path class="soft" d="M10 32a17 17 0 0 1 25-19l3 2a20 20 0 0 0-28 21Z"/>
+          <path class="line" d="M10 32a17 17 0 0 1 25-19"/>
+          <path class="line secondary" d="m10 32-4 1m29-20 5-1"/>
+          <circle class="accent" cx="10" cy="32" r="2.5"/>
+          <circle class="accent" cx="35" cy="13" r="2.5"/>
+          <circle class="gold" cx="24" cy="24" r="2.4"/>
         `
       },
       {
@@ -884,12 +960,12 @@
         category: "Inspect",
         description: "Read distance along a true edge.",
         markup: `
-          <path class="soft" d="m8 32 24-24 8 8-24 24-8-8Z"/>
-          <path class="line" d="m8 32 24-24 8 8-24 24-8-8Z"/>
-          <path class="line secondary" d="m15 32 5 5m0-13 5 5m0-13 5 5m0-13 5 5"/>
-          <path class="line" d="m11 29 8 8"/>
-          <circle class="accent" cx="8" cy="32" r="2.2"/>
-          <circle class="accent" cx="32" cy="8" r="2.2"/>
+          <path class="soft" d="M8 20h32v8H8v-8Z"/>
+          <path class="line" d="M8 20h32v8H8v-8Zm6 0v-9h6v9m9 8v9h6v-9"/>
+          <path class="line secondary" d="M15 23v2m5-2v2m5-2v2m5-2v2"/>
+          <path class="line" d="M14 11h6m9 26h6"/>
+          <circle class="accent" cx="14" cy="11" r="2.2"/>
+          <circle class="accent" cx="34" cy="37" r="2.2"/>
         `
       },
       {
@@ -898,12 +974,12 @@
         category: "Inspect",
         description: "Make size and intent explicit.",
         markup: `
-          <path class="line secondary" d="M10 11v26M38 11v26M14 17h20M14 31h20"/>
-          <path class="soft" d="M19 20h10v8H19v-8Z"/>
-          <path class="line" d="M14 24h20m-20 0 4-3m-4 3 4 3m16-3-4-3m4 3-4 3"/>
-          <path class="line secondary" d="M21.5 22v4m2.5-4v4m2.5-4v4"/>
-          <circle class="accent" cx="10" cy="11" r="2"/>
-          <circle class="accent" cx="38" cy="37" r="2"/>
+          <rect class="soft" x="15" y="24" width="18" height="9" rx="1.5"/>
+          <path class="line" d="M10 15h28m-28 0 4-3m-4 3 4 3m24-3-4-3m4 3-4 3"/>
+          <path class="line secondary" d="M15 24V15m18 9V15M24 24v9"/>
+          <path class="guide" d="M18 28h12"/>
+          <circle class="accent" cx="10" cy="15" r="2.2"/>
+          <circle class="accent" cx="38" cy="15" r="2.2"/>
         `
       },
       {
@@ -950,11 +1026,12 @@
         category: "Modify",
         description: "Turn a profile into a solid.",
         markup: `
-          <path class="soft" d="m24 10 14 8v16l-14 8-14-8V18l14-8Z"/>
-          <path class="line" d="m24 10 14 8-14 8-14-8 14-8Zm0 16v16m14-24v16m-28-16v16"/>
-          <path class="line secondary" d="M24 25V14m-4 4 4-4 4 4"/>
-          <path class="accent" d="M21.5 8h5v-3h-5v3Z"/>
-          <circle class="gold" cx="24" cy="26" r="2.1"/>
+          <path class="soft" d="m11 27 13-7 13 7-13 7-13-7Z"/>
+          <path class="soft" d="M11 27v8l13 7 13-7v-8l-13 7-13-7Z"/>
+          <path class="line" d="m11 27 13-7 13 7-13 7-13-7Zm0 0v8l13 7 13-7v-8m-13 7v8"/>
+          <path class="line secondary" d="M24 20V7m0 0-4 4m4-4 4 4"/>
+          <circle class="accent" cx="24" cy="20" r="2.3"/>
+          <circle class="gold" cx="24" cy="34" r="2.1"/>
         `
       },
       {
@@ -1002,11 +1079,13 @@
         category: "Modify",
         description: "Remove the excess and keep the edge.",
         markup: `
-          <path class="line secondary" d="M8 14h32M8 34h32"/>
+          <path class="guide" d="M8 24h32"/>
           <circle class="soft" cx="12" cy="14" r="4"/>
           <circle class="soft" cx="12" cy="34" r="4"/>
-          <path class="line" d="m15 17 22 20M15 31 37 9M18 24h10"/>
-          <circle class="accent" cx="28" cy="24" r="2.4"/>
+          <path class="line" d="m15 17 22 20M15 31 37 9"/>
+          <path class="line secondary" d="m23 24 6-6m-6 6 6 6"/>
+          <circle class="accent" cx="24" cy="24" r="3"/>
+          <path class="gold" d="m28 24 4-3v6l-4-3Z"/>
         `
       },
       {
@@ -1028,11 +1107,11 @@
         category: "Modify",
         description: "Turn a selection around its centre.",
         markup: `
-          <path class="soft" d="M36 17a14 14 0 1 0 2 9"/>
-          <path class="line" d="M36 17a14 14 0 1 0 2 9M36 9v8h-8"/>
-          <path class="line secondary" d="M24 17v14M17 24h14"/>
-          <circle class="accent" cx="24" cy="24" r="2.6"/>
-          <path class="gold" d="m36 9 4 2-4 3V9Z"/>
+          <rect class="soft" x="18" y="18" width="12" height="12" rx="2" transform="rotate(-18 24 24)"/>
+          <path class="line" d="M35 17a13 13 0 1 0 2 11M35 10v7h-7"/>
+          <path class="line secondary" d="m35 10 4 2-4 3M24 19v10M19 24h10"/>
+          <circle class="gold" cx="24" cy="24" r="5.5"/>
+          <circle class="accent" cx="24" cy="24" r="2.5"/>
         `
       },
       {
@@ -1068,9 +1147,9 @@
       color: { label: "Colour", sub: "Full signal" }
     };
     const palette = {
-      duotone: { primary: "#0b626b", secondary: "#2f8e8c", soft: "#bee8e0", accent: "#bee8e0", gold: "#bee8e0" },
-      monotone: { primary: "#173d46", secondary: "#6c8589", soft: "#dce9e7", accent: "#dce9e7", gold: "#dce9e7" },
-      color: { primary: "#0b5965", secondary: "#369994", soft: "#d5eeea", accent: "#ed815f", gold: "#efc867" }
+      duotone: { primary: "#b8eee2", secondary: "#71bdb2", soft: "#285b5b", accent: "#285b5b", gold: "#285b5b" },
+      monotone: { primary: "#e1ece9", secondary: "#819397", soft: "#334346", accent: "#334346", gold: "#334346" },
+      color: { primary: "#d8eee8", secondary: "#64c8b7", soft: "#244c50", accent: "#ff926c", gold: "#e8c76d" }
     };
 
     let activeStyle = "all";
