@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Trim">
+  <title>Trim</title>
+    <path d="M17.4 4.8L8.83 16.16" fill="none" stroke="currentColor"/>
+    <path d="M6.6 4.8L15.17 16.16" fill="none" stroke="currentColor"/>
+    <path d="M5.55 17.8a2.05 2.05 0 1 0 4.1 0a2.05 2.05 0 1 0 -4.1 0" fill="none" stroke="currentColor"/>
+    <path d="M14.35 17.8a2.05 2.05 0 1 0 4.1 0a2.05 2.05 0 1 0 -4.1 0" fill="none" stroke="currentColor"/>
+</svg>

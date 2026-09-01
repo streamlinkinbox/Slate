@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Array">
+  <title>Array</title>
+    <path d="M10.9 4H13.1A0.9 0.9 0 0 1 14 4.9V7.1A0.9 0.9 0 0 1 13.1 8H10.9A0.9 0.9 0 0 1 10 7.1V4.9A0.9 0.9 0 0 1 10.9 4Z" fill="none" stroke="currentColor"/>
+    <path d="M16.9 4H19.1A0.9 0.9 0 0 1 20 4.9V7.1A0.9 0.9 0 0 1 19.1 8H16.9A0.9 0.9 0 0 1 16 7.1V4.9A0.9 0.9 0 0 1 16.9 4Z" fill="none" stroke="currentColor"/>
+    <path d="M4.9 10H7.1A0.9 0.9 0 0 1 8 10.9V13.1A0.9 0.9 0 0 1 7.1 14H4.9A0.9 0.9 0 0 1 4 13.1V10.9A0.9 0.9 0 0 1 4.9 10Z" fill="none" stroke="currentColor"/>
+    <path d="M10.9 10H13.1A0.9 0.9 0 0 1 14 10.9V13.1A0.9 0.9 0 0 1 13.1 14H10.9A0.9 0.9 0 0 1 10 13.1V10.9A0.9 0.9 0 0 1 10.9 10Z" fill="none" stroke="currentColor"/>
+    <path d="M16.9 10H19.1A0.9 0.9 0 0 1 20 10.9V13.1A0.9 0.9 0 0 1 19.1 14H16.9A0.9 0.9 0 0 1 16 13.1V10.9A0.9 0.9 0 0 1 16.9 10Z" fill="none" stroke="currentColor"/>
+    <path d="M4.9 16H7.1A0.9 0.9 0 0 1 8 16.9V19.1A0.9 0.9 0 0 1 7.1 20H4.9A0.9 0.9 0 0 1 4 19.1V16.9A0.9 0.9 0 0 1 4.9 16Z" fill="none" stroke="currentColor"/>
+    <path d="M10.9 16H13.1A0.9 0.9 0 0 1 14 16.9V19.1A0.9 0.9 0 0 1 13.1 20H10.9A0.9 0.9 0 0 1 10 19.1V16.9A0.9 0.9 0 0 1 10.9 16Z" fill="none" stroke="currentColor"/>
+    <path d="M16.9 16H19.1A0.9 0.9 0 0 1 20 16.9V19.1A0.9 0.9 0 0 1 19.1 20H16.9A0.9 0.9 0 0 1 16 19.1V16.9A0.9 0.9 0 0 1 16.9 16Z" fill="none" stroke="currentColor"/>
+    <path d="M4.9 4H7.1A0.9 0.9 0 0 1 8 4.9V7.1A0.9 0.9 0 0 1 7.1 8H4.9A0.9 0.9 0 0 1 4 7.1V4.9A0.9 0.9 0 0 1 4.9 4Z" fill="currentColor" stroke="none" opacity="0.16"/>
+    <path d="M4.9 4H7.1A0.9 0.9 0 0 1 8 4.9V7.1A0.9 0.9 0 0 1 7.1 8H4.9A0.9 0.9 0 0 1 4 7.1V4.9A0.9 0.9 0 0 1 4.9 4Z" fill="none" stroke="currentColor"/>
+</svg>

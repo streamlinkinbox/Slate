@@ -1,0 +1,5 @@
+# scratch / dev-only (excluded from version control)
+.arena/
+__pycache__/
+*.pyc
+.DS_Store

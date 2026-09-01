@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Offset">
+  <title>Offset</title>
+    <path d="M4.5 12a7.5 7.5 0 1 0 15 0a7.5 7.5 0 1 0 -15 0M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" fill="#fef3c7" stroke="none" fill-rule="evenodd"/>
+    <path d="M4.5 12a7.5 7.5 0 1 0 15 0a7.5 7.5 0 1 0 -15 0" fill="none" stroke="#1e293b"/>
+    <path d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" fill="none" stroke="#d97706"/>
+    <path d="M8.89 8.89L7.33 7.33" fill="none" stroke="#d97706"/>
+</svg>

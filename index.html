@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slate — CAD Icon Set</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --panel:#ffffff; --ink:#0f172a; --body:#475569; --muted:#8a97a8;
+    --line:#e4e8ee; --line-2:#eef1f5; --accent:#2563eb; --tile:#f8fafc;
+    --radius:14px;
+    --shadow:0 1px 2px rgba(15,23,42,.04), 0 8px 24px -16px rgba(15,23,42,.18);
+  }
+  [data-theme="dark"]{
+    --bg:#0b1017; --panel:#111823; --ink:#e8eef6; --body:#9fb0c4; --muted:#6b7c92;
+    --line:#1e2935; --line-2:#18222e; --accent:#60a5fa; --tile:#0f1620;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--bg); color:var(--ink);
+    font:15px/1.5 ui-sans-serif,-apple-system,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+  a{color:var(--accent)}
+  code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+
+  header.hero{padding:56px 0 28px}
+  .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  h1{margin:10px 0 8px;font-size:34px;line-height:1.15;letter-spacing:-.02em;font-weight:650}
+  .lede{margin:0;max-width:62ch;color:var(--body);font-size:16px}
+  .stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
+  .pill{
+    border:1px solid var(--line);background:var(--panel);border-radius:999px;
+    padding:5px 12px;font-size:12px;color:var(--body);
+  }
+  .pill b{color:var(--ink);font-weight:600}
+
+  .bar{
+    position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+  }
+  .bar-in{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:12px 0}
+  .seg{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px}
+  .seg button{
+    border:0;background:transparent;color:var(--body);font:inherit;font-size:13px;
+    padding:6px 13px;border-radius:7px;cursor:pointer;
+  }
+  .seg button[aria-pressed="true"]{background:var(--ink);color:var(--panel);font-weight:550}
+  .search{
+    flex:1;min-width:170px;background:var(--panel);border:1px solid var(--line);
+    border-radius:10px;padding:8px 12px;color:var(--ink);font:inherit;font-size:14px;
+  }
+  .search::placeholder{color:var(--muted)}
+  .grow{flex:1}
+  .ctl{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--body)}
+  input[type=range]{width:96px;accent-color:var(--accent)}
+  .tgl{
+    border:1px solid var(--line);background:var(--panel);color:var(--body);
+    border-radius:10px;padding:8px 12px;font:inherit;font-size:13px;cursor:pointer;
+  }
+  .tgl:hover{color:var(--ink)}
+
+  section{padding:44px 0 8px}
+  h2{font-size:19px;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{margin:0 0 22px;color:var(--body);font-size:14px;max-width:70ch}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:14px}
+  .card{
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:14px;cursor:pointer;transition:transform .12s ease,border-color .12s ease,box-shadow .12s ease;
+    position:relative;
+  }
+  .card:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--accent) 45%,var(--line));box-shadow:var(--shadow)}
+  .tile{
+    background:var(--tile);border-radius:10px;height:104px;display:flex;align-items:center;
+    justify-content:center;color:var(--ink);position:relative;overflow:hidden;
+  }
+  .tile svg{width:var(--size);height:var(--size);display:block}
+  .tile.compare{gap:4px;padding:0 4px}
+  .tile.compare svg{width:calc(var(--size) * .56);height:calc(var(--size) * .56)}
+  .slot{
+    flex:1;display:flex;align-items:center;justify-content:center;height:100%;
+    border-radius:8px;cursor:pointer;transition:background .12s ease;position:relative;
+  }
+  .slot:hover{background:color-mix(in srgb,var(--accent) 8%,transparent)}
+  .slot::after{
+    content:attr(data-v);position:absolute;bottom:4px;left:0;right:0;text-align:center;
+    font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);
+    opacity:0;transition:opacity .12s ease;
+  }
+  .slot:hover::after{opacity:1}
+  .tile .gridlines{position:absolute;inset:0;opacity:.5;pointer-events:none}
+  .meta{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-top:11px}
+  .name{font-size:13px;font-weight:550;letter-spacing:-.005em}
+  .cat{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:22px}
+  .chip{border:1px solid var(--line);border-radius:999px;padding:4px 11px;font-size:12px;color:var(--body);background:var(--panel)}
+  .dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:6px;vertical-align:-1px}
+
+  .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+  .panel h3{margin:0 0 8px;font-size:14px}
+  .panel p{margin:0;color:var(--body);font-size:13.5px}
+  .swatches{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+  .sw{width:34px;height:34px;border-radius:9px;border:1px solid var(--line)}
+  pre{
+    background:var(--tile);border:1px solid var(--line);border-radius:10px;padding:14px;
+    overflow:auto;font-size:12.5px;line-height:1.6;color:var(--body);margin:0
+  }
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line-2)}
+  th{color:var(--muted);font-weight:600;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+  td:first-child{color:var(--ink);font-weight:550;white-space:nowrap}
+  tr:last-child td{border-bottom:0}
+
+  footer{padding:44px 0 64px;color:var(--muted);font-size:13px}
+
+  #toast{
+    position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);
+    background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;
+    font-size:13px;opacity:0;pointer-events:none;transition:.18s ease;z-index:50;
+  }
+  #toast.on{opacity:1;transform:translate(-50%,0)}
+  @media (max-width:640px){ h1{font-size:27px} header.hero{padding:36px 0 20px} }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Slate design system</div>
+    <h1>CAD icon set</h1>
+    <p class="lede">
+      20 drafting primitives drawn on one 24&times;24 grid and published in three
+      interchangeable sets — <b>duotone</b>, <b>monotone</b> and <b>colour</b>.
+      Uniform 1.5px stroke, round terminals, no decoration. Every glyph is hand-built
+      SVG: no auto-traced artwork, no raster fallbacks.
+    </p>
+    <div class="stats">
+      <span class="pill"><b>20</b> icons</span>
+      <span class="pill"><b>3</b> sets</span>
+      <span class="pill"><b>60</b> SVG files</span>
+      <span class="pill">24&times;24 grid · <b>1.5px</b> stroke</span>
+      <span class="pill"><b>currentColor</b> ready</span>
+    </div>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="wrap bar-in">
+    <div class="seg" id="seg">
+      <button data-v="monotone" aria-pressed="false">Monotone</button>
+      <button data-v="duotone"  aria-pressed="true">Duotone</button>
+      <button data-v="colour"   aria-pressed="false">Colour</button>
+      <button data-v="compare"  aria-pressed="false">Compare</button>
+    </div>
+    <input class="search" id="q" type="search" placeholder="Search icons — line, trim, radius…" autocomplete="off">
+    <div class="ctl"><span>Size</span><input type="range" id="size" min="16" max="96" value="44"><span id="sizev" class="mono">44</span></div>
+    <button class="tgl" id="guides">Grid</button>
+    <button class="tgl" id="theme">Dark</button>
+  </div>
+</div>
+
+<main class="wrap">
+  <section>
+    <h2 id="count">Icons</h2>
+    <p class="sub">Click any icon to copy its SVG. Hover for the category.</p>
+    <div class="grid" id="grid"></div>
+    <div class="chips" id="chips"></div>
+  </section>
+
+  <section>
+    <h2>The three sets</h2>
+    <p class="sub">One geometry definition per icon, three paint recipes. Roles stay put, so switching sets never reflows the artwork.</p>
+    <div class="cols">
+      <div class="panel">
+        <h3>Monotone</h3>
+        <p>Flat <code>currentColor</code>, uniform weight, no fills. For toolbars, ribbons and dense UI at 16–20px.</p>
+      </div>
+      <div class="panel">
+        <h3>Duotone</h3>
+        <p>Primary line work at full tone, construction geometry at 38%, silhouette tinted at 16%. Reads depth without colour.</p>
+      </div>
+      <div class="panel">
+        <h3>Colour</h3>
+        <p>Semantic hues by tool family — draw, modify, transform — over graphite line work. For empty states and onboarding.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Geometry</h2>
+    <p class="sub">Rules that keep the set optically consistent when icons sit side by side.</p>
+    <div class="cols">
+      <div class="panel">
+        <h3>Grid &amp; safe area</h3>
+        <p>24&times;24 viewBox, 18&times;18 live area, 3px padding. Terminals may bleed to 1.5px from the edge so round caps optically align.</p>
+      </div>
+      <div class="panel">
+        <h3>Weight</h3>
+        <p>1.5px stroke everywhere — primary, secondary, accent and node dots alike. Node dots are 3px round caps, never scaled circles.</p>
+      </div>
+      <div class="panel">
+        <h3>Terminals</h3>
+        <p>Round caps and joins throughout. Dashed construction lines switch to butt caps so the dash rhythm stays even.</p>
+      </div>
+      <div class="panel">
+        <h3>Roles</h3>
+        <p><b>primary</b> subject · <b>secondary</b> guides &amp; removed material · <b>accent</b> focal detail · <b>soft</b> silhouette fill.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Palette</h2>
+    <p class="sub">Colour set only. Monotone and duotone inherit <code>currentColor</code> and need no tokens.</p>
+    <div class="panel">
+      <table>
+        <thead><tr><th>Token</th><th>Value</th><th>Role</th><th>Used for</th></tr></thead>
+        <tbody id="palette"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Usage</h2>
+    <p class="sub">Standalone files, a sprite, or copy straight out of the grid above.</p>
+    <div class="cols">
+      <div class="panel">
+        <h3>Inline</h3>
+        <pre>&lt;svg width="24" height="24" viewBox="0 0 24 24"
+     fill="none" stroke="currentColor"
+     stroke-width="1.5" stroke-linecap="round"
+     stroke-linejoin="round"&gt;
+  &lt;use href="icons/slate-icons.svg#slate-line-duotone"/&gt;
+&lt;/svg&gt;</pre>
+      </div>
+      <div class="panel">
+        <h3>File</h3>
+        <pre>icons/duotone/line.svg
+icons/monotone/line.svg
+icons/colour/line.svg</pre>
+        <div class="swatches" id="sw"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>Generated by <code>scripts/build_icons.py</code> — regenerate after editing geometry.</footer>
+</main>
+
+<div id="toast">SVG copied</div>
+
+<script>
+const VARIANTS = ["monotone", "duotone", "colour"];
+const ICONS = [{"name":"select","label":"Select","cat":"neutral","kw":["cursor","pointer","pick","arrow"]},{"name":"line","label":"Line","cat":"draw","kw":["segment","edge","straight"]},{"name":"polyline","label":"Polyline","cat":"draw","kw":["pline","chain","vertex"]},{"name":"rectangle","label":"Rectangle","cat":"draw","kw":["box","rect","ortho"]},{"name":"circle","label":"Circle","cat":"draw","kw":["round","radius","centre"]},{"name":"arc","label":"Arc","cat":"draw","kw":["curve","sweep","radius"]},{"name":"ellipse","label":"Ellipse","cat":"draw","kw":["oval","elliptical"]},{"name":"polygon","label":"Polygon","cat":"draw","kw":["hexagon","ngon","regular"]},{"name":"spline","label":"Spline","cat":"draw","kw":["nurbs","bezier","curve","fit"]},{"name":"hatch","label":"Hatch","cat":"draw","kw":["fill","pattern","section","po"]},{"name":"trim","label":"Trim","cat":"modify","kw":["cut","scissors","clip"]},{"name":"extend","label":"Extend","cat":"modify","kw":["lengthen","boundary","meet"]},{"name":"fillet","label":"Fillet","cat":"modify","kw":["round","radius","blend","corner"]},{"name":"chamfer","label":"Chamfer","cat":"modify","kw":["bevel","corner","cut"]},{"name":"offset","label":"Offset","cat":"modify","kw":["parallel","concentric","copy"]},{"name":"mirror","label":"Mirror","cat":"transform","kw":["reflect","symmetry","flip"]},{"name":"array","label":"Array","cat":"transform","kw":["pattern","grid","rectangular","repeat"]},{"name":"move","label":"Move","cat":"transform","kw":["translate","pan","shift"]},{"name":"rotate","label":"Rotate","cat":"transform","kw":["spin","angle","turn"]},{"name":"dimension","label":"Dimension","cat":"transform","kw":["annotate","measure","length","dim"]}];
+const DATA = {"select":{"monotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Select\"> <title>Select</title>  <path d=\"M4.5 4L11.5 19.5L13.8 12.4L19.5 10.3Z\" fill=\"none\" stroke=\"currentColor\"/></svg>","duotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Select\"> <title>Select</title>  <path d=\"M4.5 4L11.5 19.5L13.8 12.4L19.5 10.3Z\" fill=\"currentColor\" stroke=\"none\" opacity=\"0.16\"/>  <path d=\"M4.5 4L11.5 19.5L13.8 12.4L19.5 10.3Z\" fill=\"none\" stroke=\"currentColor\"/></svg>","colour":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Select\"> <title>Select</title>  <path d=\"M4.5 4L11.5 19.5L13.8 12.4L19.5 10.3Z\" fill=\"#e2e8f0\" stroke=\"none\"/>  <path d=\"M4.5 4L11.5 19.5L13.8 12.4L19.5 10.3Z\" fill=\"none\" stroke=\"#475569\"/></svg>"},"line":{"monotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Line\"> <title>Line</title>  <path d=\"M4.5 19.5L19.5 4.5\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M4.5 19.5h.01\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\"/>  <path d=\"M19.5 4.5h.01\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\"/></svg>","duotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Line\"> <title>Line</title>  <path d=\"M4.5 19.5L19.5 4.5\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M4.5 19.5h.01\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\"/>  <path d=\"M19.5 4.5h.01\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\"/></svg>","colour":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Line\"> <title>Line</title>  <path d=\"M4.5 19.5L19.5 4.5\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M4.5 19.5h.01\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"3\"/>  <path d=\"M19.5 4.5h.01\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"3\"/></svg>"},"polyline":{"monotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Polyline\"> <title>Polyline</title>  <path d=\"M4.5 17L9 8.5L14 15L19.5 7\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M4.5 17h.01M9 8.5h.01M14 15h.01M19.5 7h.01\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\"/></svg>","duotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Polyline\"> <title>Polyline</title>  <path d=\"M4.5 17L9 8.5L14 15L19.5 7\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M4.5 17h.01M9 8.5h.01M14 15h.01M19.5 7h.01\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\"/></svg>","colour":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Polyline\"> <title>Polyline</title>  <path d=\"M4.5 17L9 8.5L14 15L19.5 7\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M4.5 17h.01M9 8.5h.01M14 15h.01M19.5 7h.01\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"3\"/></svg>"},"rectangle":{"monotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Rectangle\"> <title>Rectangle</title>  <path d=\"M6 6.5H18A1.5 1.5 0 0 1 19.5 8V16A1.5 1.5 0 0 1 18 17.5H6A1.5 1.5 0 0 1 4.5 16V8A1.5 1.5 0 0 1 6 6.5Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M12 12h.01\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\"/></svg>","duotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Rectangle\"> <title>Rectangle</title>  <path d=\"M6 6.5H18A1.5 1.5 0 0 1 19.5 8V16A1.5 1.5 0 0 1 18 17.5H6A1.5 1.5 0 0 1 4.5 16V8A1.5 1.5 0 0 1 6 6.5Z\" fill=\"currentColor\" stroke=\"none\" opacity=\"0.16\"/>  <path d=\"M6 6.5H18A1.5 1.5 0 0 1 19.5 8V16A1.5 1.5 0 0 1 18 17.5H6A1.5 1.5 0 0 1 4.5 16V8A1.5 1.5 0 0 1 6 6.5Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M12 12h.01\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\"/></svg>","colour":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Rectangle\"> <title>Rectangle</title>  <path d=\"M6 6.5H18A1.5 1.5 0 0 1 19.5 8V16A1.5 1.5 0 0 1 18 17.5H6A1.5 1.5 0 0 1 4.5 16V8A1.5 1.5 0 0 1 6 6.5Z\" fill=\"#dbeafe\" stroke=\"none\"/>  <path d=\"M6 6.5H18A1.5 1.5 0 0 1 19.5 8V16A1.5 1.5 0 0 1 18 17.5H6A1.5 1.5 0 0 1 4.5 16V8A1.5 1.5 0 0 1 6 6.5Z\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M12 12h.01\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"3\"/></svg>"},"circle":{"monotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Circle\"> <title>Circle</title>  <path d=\"M4.5 12a7.5 7.5 0 1 0 15 0a7.5 7.5 0 1 0 -15 0\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M12 10.2V13.8M10.2 12H13.8\" fill=\"none\" stroke=\"currentColor\"/></svg>","duotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Circle\"> <title>Circle</title>  <path d=\"M4.5 12a7.5 7.5 0 1 0 15 0a7.5 7.5 0 1 0 -15 0\" fill=\"currentColor\" stroke=\"none\" opacity=\"0.16\"/>  <path d=\"M4.5 12a7.5 7.5 0 1 0 15 0a7.5 7.5 0 1 0 -15 0\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M12 10.2V13.8M10.2 12H13.8\" fill=\"none\" stroke=\"currentColor\"/></svg>","colour":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Circle\"> <title>Circle</title>  <path d=\"M4.5 12a7.5 7.5 0 1 0 15 0a7.5 7.5 0 1 0 -15 0\" fill=\"#dbeafe\" stroke=\"none\"/>  <path d=\"M4.5 12a7.5 7.5 0 1 0 15 0a7.5 7.5 0 1 0 -15 0\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M12 10.2V13.8M10.2 12H13.8\" fill=\"none\" stroke=\"#2563eb\"/></svg>"},"arc":{"monotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Arc\"> <title>Arc</title>  <path d=\"M5.5 17.25A7.5 7.5 0 1 1 18.5 17.25\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M5.5 17.25h.01M18.5 17.25h.01\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\"/></svg>","duotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Arc\"> <title>Arc</title>  <path d=\"M5.5 17.25A7.5 7.5 0 1 1 18.5 17.25\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M5.5 17.25h.01M18.5 17.25h.01\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\"/></svg>","colour":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Arc\"> <title>Arc</title>  <path d=\"M5.5 17.25A7.5 7.5 0 1 1 18.5 17.25\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M5.5 17.25h.01M18.5 17.25h.01\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"3\"/></svg>"},"ellipse":{"monotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Ellipse\"> <title>Ellipse</title>  <path d=\"M4 12a8 6 0 1 0 16 0a8 6 0 1 0-16 0\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M12 10.2V13.8M10.2 12H13.8\" fill=\"none\" stroke=\"currentColor\"/></svg>","duotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Ellipse\"> <title>Ellipse</title>  <path d=\"M4 12a8 6 0 1 0 16 0a8 6 0 1 0-16 0\" fill=\"currentColor\" stroke=\"none\" opacity=\"0.16\"/>  <path d=\"M4 12a8 6 0 1 0 16 0a8 6 0 1 0-16 0\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M12 10.2V13.8M10.2 12H13.8\" fill=\"none\" stroke=\"currentColor\"/></svg>","colour":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Ellipse\"> <title>Ellipse</title>  <path d=\"M4 12a8 6 0 1 0 16 0a8 6 0 1 0-16 0\" fill=\"#dbeafe\" stroke=\"none\"/>  <path d=\"M4 12a8 6 0 1 0 16 0a8 6 0 1 0-16 0\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M12 10.2V13.8M10.2 12H13.8\" fill=\"none\" stroke=\"#2563eb\"/></svg>"},"polygon":{"monotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Polygon\"> <title>Polygon</title>  <path d=\"M12 4L18.93 8L18.93 16L12 20L5.07 16L5.07 8Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M12 12h.01\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\"/></svg>","duotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Polygon\"> <title>Polygon</title>  <path d=\"M12 4L18.93 8L18.93 16L12 20L5.07 16L5.07 8Z\" fill=\"currentColor\" stroke=\"none\" opacity=\"0.16\"/>  <path d=\"M12 4L18.93 8L18.93 16L12 20L5.07 16L5.07 8Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M12 12h.01\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\"/></svg>","colour":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Polygon\"> <title>Polygon</title>  <path d=\"M12 4L18.93 8L18.93 16L12 20L5.07 16L5.07 8Z\" fill=\"#dbeafe\" stroke=\"none\"/>  <path d=\"M12 4L18.93 8L18.93 16L12 20L5.07 16L5.07 8Z\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M12 12h.01\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"3\"/></svg>"},"spline":{"monotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Spline\"> <title>Spline</title>  <path d=\"M4.5 15C6 14.5 7 8 9 7.5C11 7 12.5 16.5 14.5 16C16.5 15.5 18 9.5 19.5 8\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M4.5 15h.01M9 7.5h.01M14.5 16h.01M19.5 8h.01\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\"/></svg>","duotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Spline\"> <title>Spline</title>  <path d=\"M4.5 15C6 14.5 7 8 9 7.5C11 7 12.5 16.5 14.5 16C16.5 15.5 18 9.5 19.5 8\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M4.5 15h.01M9 7.5h.01M14.5 16h.01M19.5 8h.01\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\"/></svg>","colour":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Spline\"> <title>Spline</title>  <path d=\"M4.5 15C6 14.5 7 8 9 7.5C11 7 12.5 16.5 14.5 16C16.5 15.5 18 9.5 19.5 8\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M4.5 15h.01M9 7.5h.01M14.5 16h.01M19.5 8h.01\" fill=\"none\" stroke=\"#2563eb\" stroke-width=\"3\"/></svg>"},"hatch":{"monotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Hatch\"> <title>Hatch</title>  <path d=\"M6 4.5H18A1.5 1.5 0 0 1 19.5 6V18A1.5 1.5 0 0 1 18 19.5H6A1.5 1.5 0 0 1 4.5 18V6A1.5 1.5 0 0 1 6 4.5Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M4.5 13.5L13.5 4.5M4.5 18.5L18.5 4.5M8.5 19.5L19.5 8.5\" fill=\"none\" stroke=\"currentColor\"/></svg>","duotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Hatch\"> <title>Hatch</title>  <path d=\"M6 4.5H18A1.5 1.5 0 0 1 19.5 6V18A1.5 1.5 0 0 1 18 19.5H6A1.5 1.5 0 0 1 4.5 18V6A1.5 1.5 0 0 1 6 4.5Z\" fill=\"currentColor\" stroke=\"none\" opacity=\"0.16\"/>  <path d=\"M6 4.5H18A1.5 1.5 0 0 1 19.5 6V18A1.5 1.5 0 0 1 18 19.5H6A1.5 1.5 0 0 1 4.5 18V6A1.5 1.5 0 0 1 6 4.5Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M4.5 13.5L13.5 4.5M4.5 18.5L18.5 4.5M8.5 19.5L19.5 8.5\" fill=\"none\" stroke=\"currentColor\" opacity=\"0.38\"/></svg>","colour":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Hatch\"> <title>Hatch</title>  <path d=\"M6 4.5H18A1.5 1.5 0 0 1 19.5 6V18A1.5 1.5 0 0 1 18 19.5H6A1.5 1.5 0 0 1 4.5 18V6A1.5 1.5 0 0 1 6 4.5Z\" fill=\"#dbeafe\" stroke=\"none\"/>  <path d=\"M6 4.5H18A1.5 1.5 0 0 1 19.5 6V18A1.5 1.5 0 0 1 18 19.5H6A1.5 1.5 0 0 1 4.5 18V6A1.5 1.5 0 0 1 6 4.5Z\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M4.5 13.5L13.5 4.5M4.5 18.5L18.5 4.5M8.5 19.5L19.5 8.5\" fill=\"none\" stroke=\"#94a3b8\"/></svg>"},"trim":{"monotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Trim\"> <title>Trim</title>  <path d=\"M17.4 4.8L8.83 16.16\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M6.6 4.8L15.17 16.16\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M5.55 17.8a2.05 2.05 0 1 0 4.1 0a2.05 2.05 0 1 0 -4.1 0\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M14.35 17.8a2.05 2.05 0 1 0 4.1 0a2.05 2.05 0 1 0 -4.1 0\" fill=\"none\" stroke=\"currentColor\"/></svg>","duotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Trim\"> <title>Trim</title>  <path d=\"M5.55 17.8a2.05 2.05 0 1 0 4.1 0a2.05 2.05 0 1 0 -4.1 0\" fill=\"currentColor\" stroke=\"none\" opacity=\"0.16\"/>  <path d=\"M14.35 17.8a2.05 2.05 0 1 0 4.1 0a2.05 2.05 0 1 0 -4.1 0\" fill=\"currentColor\" stroke=\"none\" opacity=\"0.16\"/>  <path d=\"M17.4 4.8L8.83 16.16\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M6.6 4.8L15.17 16.16\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M5.55 17.8a2.05 2.05 0 1 0 4.1 0a2.05 2.05 0 1 0 -4.1 0\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M14.35 17.8a2.05 2.05 0 1 0 4.1 0a2.05 2.05 0 1 0 -4.1 0\" fill=\"none\" stroke=\"currentColor\"/></svg>","colour":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Trim\"> <title>Trim</title>  <path d=\"M5.55 17.8a2.05 2.05 0 1 0 4.1 0a2.05 2.05 0 1 0 -4.1 0\" fill=\"#fef3c7\" stroke=\"none\"/>  <path d=\"M14.35 17.8a2.05 2.05 0 1 0 4.1 0a2.05 2.05 0 1 0 -4.1 0\" fill=\"#fef3c7\" stroke=\"none\"/>  <path d=\"M17.4 4.8L8.83 16.16\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M6.6 4.8L15.17 16.16\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M5.55 17.8a2.05 2.05 0 1 0 4.1 0a2.05 2.05 0 1 0 -4.1 0\" fill=\"none\" stroke=\"#d97706\"/>  <path d=\"M14.35 17.8a2.05 2.05 0 1 0 4.1 0a2.05 2.05 0 1 0 -4.1 0\" fill=\"none\" stroke=\"#d97706\"/></svg>"},"extend":{"monotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Extend\"> <title>Extend</title>  <path d=\"M19.5 5V19\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M3.75 12H9\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M9 12H16\" fill=\"none\" stroke=\"currentColor\" stroke-dasharray=\"2.33 2.33\" stroke-linecap=\"butt\"/>  <path d=\"M16 14.3L19.5 12L16 9.7\" fill=\"none\" stroke=\"currentColor\"/></svg>","duotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Extend\"> <title>Extend</title>  <path d=\"M19.5 5V19\" fill=\"none\" stroke=\"currentColor\" opacity=\"0.38\"/>  <path d=\"M3.75 12H9\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M9 12H16\" fill=\"none\" stroke=\"currentColor\" stroke-dasharray=\"2.33 2.33\" stroke-linecap=\"butt\"/>  <path d=\"M16 14.3L19.5 12L16 9.7\" fill=\"none\" stroke=\"currentColor\"/></svg>","colour":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Extend\"> <title>Extend</title>  <path d=\"M19.5 5V19\" fill=\"none\" stroke=\"#94a3b8\"/>  <path d=\"M3.75 12H9\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M9 12H16\" fill=\"none\" stroke=\"#d97706\" stroke-dasharray=\"2.33 2.33\" stroke-linecap=\"butt\"/>  <path d=\"M16 14.3L19.5 12L16 9.7\" fill=\"none\" stroke=\"#d97706\"/></svg>"},"fillet":{"monotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Fillet\"> <title>Fillet</title>  <path d=\"M18.5 5.5H10\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M5.5 10V18.5\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M10 5.5A4.5 4.5 0 0 0 5.5 10\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M10 5.5H5.5V10\" fill=\"none\" stroke=\"currentColor\" stroke-dasharray=\"3 3\" stroke-linecap=\"butt\"/></svg>","duotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Fillet\"> <title>Fillet</title>  <path d=\"M18.5 5.5H10\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M5.5 10V18.5\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M10 5.5A4.5 4.5 0 0 0 5.5 10\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M10 5.5H5.5V10\" fill=\"none\" stroke=\"currentColor\" stroke-dasharray=\"3 3\" stroke-linecap=\"butt\" opacity=\"0.38\"/></svg>","colour":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Fillet\"> <title>Fillet</title>  <path d=\"M18.5 5.5H10\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M5.5 10V18.5\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M10 5.5A4.5 4.5 0 0 0 5.5 10\" fill=\"none\" stroke=\"#d97706\"/>  <path d=\"M10 5.5H5.5V10\" fill=\"none\" stroke=\"#94a3b8\" stroke-dasharray=\"3 3\" stroke-linecap=\"butt\"/></svg>"},"chamfer":{"monotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Chamfer\"> <title>Chamfer</title>  <path d=\"M18.5 5.5H10\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M5.5 10V18.5\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M10 5.5L5.5 10\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M10 5.5H5.5V10\" fill=\"none\" stroke=\"currentColor\" stroke-dasharray=\"3 3\" stroke-linecap=\"butt\"/></svg>","duotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Chamfer\"> <title>Chamfer</title>  <path d=\"M18.5 5.5H10\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M5.5 10V18.5\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M10 5.5L5.5 10\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M10 5.5H5.5V10\" fill=\"none\" stroke=\"currentColor\" stroke-dasharray=\"3 3\" stroke-linecap=\"butt\" opacity=\"0.38\"/></svg>","colour":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Chamfer\"> <title>Chamfer</title>  <path d=\"M18.5 5.5H10\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M5.5 10V18.5\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M10 5.5L5.5 10\" fill=\"none\" stroke=\"#d97706\"/>  <path d=\"M10 5.5H5.5V10\" fill=\"none\" stroke=\"#94a3b8\" stroke-dasharray=\"3 3\" stroke-linecap=\"butt\"/></svg>"},"offset":{"monotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Offset\"> <title>Offset</title>  <path d=\"M4.5 12a7.5 7.5 0 1 0 15 0a7.5 7.5 0 1 0 -15 0\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M8.89 8.89L7.33 7.33\" fill=\"none\" stroke=\"currentColor\"/></svg>","duotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Offset\"> <title>Offset</title>  <path d=\"M4.5 12a7.5 7.5 0 1 0 15 0a7.5 7.5 0 1 0 -15 0M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0\" fill=\"currentColor\" stroke=\"none\" fill-rule=\"evenodd\" opacity=\"0.16\"/>  <path d=\"M4.5 12a7.5 7.5 0 1 0 15 0a7.5 7.5 0 1 0 -15 0\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M8.89 8.89L7.33 7.33\" fill=\"none\" stroke=\"currentColor\"/></svg>","colour":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Offset\"> <title>Offset</title>  <path d=\"M4.5 12a7.5 7.5 0 1 0 15 0a7.5 7.5 0 1 0 -15 0M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0\" fill=\"#fef3c7\" stroke=\"none\" fill-rule=\"evenodd\"/>  <path d=\"M4.5 12a7.5 7.5 0 1 0 15 0a7.5 7.5 0 1 0 -15 0\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0\" fill=\"none\" stroke=\"#d97706\"/>  <path d=\"M8.89 8.89L7.33 7.33\" fill=\"none\" stroke=\"#d97706\"/></svg>"},"mirror":{"monotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Mirror\"> <title>Mirror</title>  <path d=\"M9.5 5L4.5 12L9.5 19Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M14.5 5L19.5 12L14.5 19Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M12 4V20\" fill=\"none\" stroke=\"currentColor\" stroke-dasharray=\"4 3\" stroke-linecap=\"butt\"/></svg>","duotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Mirror\"> <title>Mirror</title>  <path d=\"M9.5 5L4.5 12L9.5 19Z\" fill=\"currentColor\" stroke=\"none\" opacity=\"0.16\"/>  <path d=\"M14.5 5L19.5 12L14.5 19Z\" fill=\"currentColor\" stroke=\"none\" opacity=\"0.16\"/>  <path d=\"M9.5 5L4.5 12L9.5 19Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M14.5 5L19.5 12L14.5 19Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M12 4V20\" fill=\"none\" stroke=\"currentColor\" stroke-dasharray=\"4 3\" stroke-linecap=\"butt\" opacity=\"0.38\"/></svg>","colour":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Mirror\"> <title>Mirror</title>  <path d=\"M9.5 5L4.5 12L9.5 19Z\" fill=\"#ccfbf1\" stroke=\"none\"/>  <path d=\"M14.5 5L19.5 12L14.5 19Z\" fill=\"#ccfbf1\" stroke=\"none\"/>  <path d=\"M9.5 5L4.5 12L9.5 19Z\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M14.5 5L19.5 12L14.5 19Z\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M12 4V20\" fill=\"none\" stroke=\"#94a3b8\" stroke-dasharray=\"4 3\" stroke-linecap=\"butt\"/></svg>"},"array":{"monotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Array\"> <title>Array</title>  <path d=\"M10.9 4H13.1A0.9 0.9 0 0 1 14 4.9V7.1A0.9 0.9 0 0 1 13.1 8H10.9A0.9 0.9 0 0 1 10 7.1V4.9A0.9 0.9 0 0 1 10.9 4Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M16.9 4H19.1A0.9 0.9 0 0 1 20 4.9V7.1A0.9 0.9 0 0 1 19.1 8H16.9A0.9 0.9 0 0 1 16 7.1V4.9A0.9 0.9 0 0 1 16.9 4Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M4.9 10H7.1A0.9 0.9 0 0 1 8 10.9V13.1A0.9 0.9 0 0 1 7.1 14H4.9A0.9 0.9 0 0 1 4 13.1V10.9A0.9 0.9 0 0 1 4.9 10Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M10.9 10H13.1A0.9 0.9 0 0 1 14 10.9V13.1A0.9 0.9 0 0 1 13.1 14H10.9A0.9 0.9 0 0 1 10 13.1V10.9A0.9 0.9 0 0 1 10.9 10Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M16.9 10H19.1A0.9 0.9 0 0 1 20 10.9V13.1A0.9 0.9 0 0 1 19.1 14H16.9A0.9 0.9 0 0 1 16 13.1V10.9A0.9 0.9 0 0 1 16.9 10Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M4.9 16H7.1A0.9 0.9 0 0 1 8 16.9V19.1A0.9 0.9 0 0 1 7.1 20H4.9A0.9 0.9 0 0 1 4 19.1V16.9A0.9 0.9 0 0 1 4.9 16Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M10.9 16H13.1A0.9 0.9 0 0 1 14 16.9V19.1A0.9 0.9 0 0 1 13.1 20H10.9A0.9 0.9 0 0 1 10 19.1V16.9A0.9 0.9 0 0 1 10.9 16Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M16.9 16H19.1A0.9 0.9 0 0 1 20 16.9V19.1A0.9 0.9 0 0 1 19.1 20H16.9A0.9 0.9 0 0 1 16 19.1V16.9A0.9 0.9 0 0 1 16.9 16Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M4.9 4H7.1A0.9 0.9 0 0 1 8 4.9V7.1A0.9 0.9 0 0 1 7.1 8H4.9A0.9 0.9 0 0 1 4 7.1V4.9A0.9 0.9 0 0 1 4.9 4Z\" fill=\"none\" stroke=\"currentColor\"/></svg>","duotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Array\"> <title>Array</title>  <path d=\"M10.9 4H13.1A0.9 0.9 0 0 1 14 4.9V7.1A0.9 0.9 0 0 1 13.1 8H10.9A0.9 0.9 0 0 1 10 7.1V4.9A0.9 0.9 0 0 1 10.9 4Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M16.9 4H19.1A0.9 0.9 0 0 1 20 4.9V7.1A0.9 0.9 0 0 1 19.1 8H16.9A0.9 0.9 0 0 1 16 7.1V4.9A0.9 0.9 0 0 1 16.9 4Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M4.9 10H7.1A0.9 0.9 0 0 1 8 10.9V13.1A0.9 0.9 0 0 1 7.1 14H4.9A0.9 0.9 0 0 1 4 13.1V10.9A0.9 0.9 0 0 1 4.9 10Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M10.9 10H13.1A0.9 0.9 0 0 1 14 10.9V13.1A0.9 0.9 0 0 1 13.1 14H10.9A0.9 0.9 0 0 1 10 13.1V10.9A0.9 0.9 0 0 1 10.9 10Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M16.9 10H19.1A0.9 0.9 0 0 1 20 10.9V13.1A0.9 0.9 0 0 1 19.1 14H16.9A0.9 0.9 0 0 1 16 13.1V10.9A0.9 0.9 0 0 1 16.9 10Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M4.9 16H7.1A0.9 0.9 0 0 1 8 16.9V19.1A0.9 0.9 0 0 1 7.1 20H4.9A0.9 0.9 0 0 1 4 19.1V16.9A0.9 0.9 0 0 1 4.9 16Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M10.9 16H13.1A0.9 0.9 0 0 1 14 16.9V19.1A0.9 0.9 0 0 1 13.1 20H10.9A0.9 0.9 0 0 1 10 19.1V16.9A0.9 0.9 0 0 1 10.9 16Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M16.9 16H19.1A0.9 0.9 0 0 1 20 16.9V19.1A0.9 0.9 0 0 1 19.1 20H16.9A0.9 0.9 0 0 1 16 19.1V16.9A0.9 0.9 0 0 1 16.9 16Z\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M4.9 4H7.1A0.9 0.9 0 0 1 8 4.9V7.1A0.9 0.9 0 0 1 7.1 8H4.9A0.9 0.9 0 0 1 4 7.1V4.9A0.9 0.9 0 0 1 4.9 4Z\" fill=\"currentColor\" stroke=\"none\" opacity=\"0.16\"/>  <path d=\"M4.9 4H7.1A0.9 0.9 0 0 1 8 4.9V7.1A0.9 0.9 0 0 1 7.1 8H4.9A0.9 0.9 0 0 1 4 7.1V4.9A0.9 0.9 0 0 1 4.9 4Z\" fill=\"none\" stroke=\"currentColor\"/></svg>","colour":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Array\"> <title>Array</title>  <path d=\"M10.9 4H13.1A0.9 0.9 0 0 1 14 4.9V7.1A0.9 0.9 0 0 1 13.1 8H10.9A0.9 0.9 0 0 1 10 7.1V4.9A0.9 0.9 0 0 1 10.9 4Z\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M16.9 4H19.1A0.9 0.9 0 0 1 20 4.9V7.1A0.9 0.9 0 0 1 19.1 8H16.9A0.9 0.9 0 0 1 16 7.1V4.9A0.9 0.9 0 0 1 16.9 4Z\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M4.9 10H7.1A0.9 0.9 0 0 1 8 10.9V13.1A0.9 0.9 0 0 1 7.1 14H4.9A0.9 0.9 0 0 1 4 13.1V10.9A0.9 0.9 0 0 1 4.9 10Z\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M10.9 10H13.1A0.9 0.9 0 0 1 14 10.9V13.1A0.9 0.9 0 0 1 13.1 14H10.9A0.9 0.9 0 0 1 10 13.1V10.9A0.9 0.9 0 0 1 10.9 10Z\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M16.9 10H19.1A0.9 0.9 0 0 1 20 10.9V13.1A0.9 0.9 0 0 1 19.1 14H16.9A0.9 0.9 0 0 1 16 13.1V10.9A0.9 0.9 0 0 1 16.9 10Z\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M4.9 16H7.1A0.9 0.9 0 0 1 8 16.9V19.1A0.9 0.9 0 0 1 7.1 20H4.9A0.9 0.9 0 0 1 4 19.1V16.9A0.9 0.9 0 0 1 4.9 16Z\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M10.9 16H13.1A0.9 0.9 0 0 1 14 16.9V19.1A0.9 0.9 0 0 1 13.1 20H10.9A0.9 0.9 0 0 1 10 19.1V16.9A0.9 0.9 0 0 1 10.9 16Z\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M16.9 16H19.1A0.9 0.9 0 0 1 20 16.9V19.1A0.9 0.9 0 0 1 19.1 20H16.9A0.9 0.9 0 0 1 16 19.1V16.9A0.9 0.9 0 0 1 16.9 16Z\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M4.9 4H7.1A0.9 0.9 0 0 1 8 4.9V7.1A0.9 0.9 0 0 1 7.1 8H4.9A0.9 0.9 0 0 1 4 7.1V4.9A0.9 0.9 0 0 1 4.9 4Z\" fill=\"#ccfbf1\" stroke=\"none\"/>  <path d=\"M4.9 4H7.1A0.9 0.9 0 0 1 8 4.9V7.1A0.9 0.9 0 0 1 7.1 8H4.9A0.9 0.9 0 0 1 4 7.1V4.9A0.9 0.9 0 0 1 4.9 4Z\" fill=\"none\" stroke=\"#0d9488\"/></svg>"},"move":{"monotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Move\"> <title>Move</title>  <path d=\"M12 4.5V19.5M4.5 12H19.5\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M14.2 7.5L12 4.5L9.8 7.5 M9.8 16.5L12 19.5L14.2 16.5 M7.5 9.8L4.5 12L7.5 14.2 M16.5 14.2L19.5 12L16.5 9.8\" fill=\"none\" stroke=\"currentColor\"/></svg>","duotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Move\"> <title>Move</title>  <path d=\"M12 4.5V19.5M4.5 12H19.5\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M14.2 7.5L12 4.5L9.8 7.5 M9.8 16.5L12 19.5L14.2 16.5 M7.5 9.8L4.5 12L7.5 14.2 M16.5 14.2L19.5 12L16.5 9.8\" fill=\"none\" stroke=\"currentColor\"/></svg>","colour":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Move\"> <title>Move</title>  <path d=\"M12 4.5V19.5M4.5 12H19.5\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M14.2 7.5L12 4.5L9.8 7.5 M9.8 16.5L12 19.5L14.2 16.5 M7.5 9.8L4.5 12L7.5 14.2 M16.5 14.2L19.5 12L16.5 9.8\" fill=\"none\" stroke=\"#0d9488\"/></svg>"},"rotate":{"monotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Rotate\"> <title>Rotate</title>  <path d=\"M15.17 5.2A7.5 7.5 0 1 1 8.83 5.2\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M7 8.37L8.83 5.2L5.22 4.57\" fill=\"none\" stroke=\"currentColor\"/></svg>","duotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Rotate\"> <title>Rotate</title>  <path d=\"M15.17 5.2A7.5 7.5 0 1 1 8.83 5.2\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M7 8.37L8.83 5.2L5.22 4.57\" fill=\"none\" stroke=\"currentColor\"/></svg>","colour":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Rotate\"> <title>Rotate</title>  <path d=\"M15.17 5.2A7.5 7.5 0 1 1 8.83 5.2\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M7 8.37L8.83 5.2L5.22 4.57\" fill=\"none\" stroke=\"#0d9488\"/></svg>"},"dimension":{"monotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Dimension\"> <title>Dimension</title>  <path d=\"M5 6.5H19\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M5 6.5V18.5M19 6.5V18.5\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M5 15H10.4M13.6 15H19\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M7.8 12.9L5 15L7.8 17.1 M16.2 17.1L19 15L16.2 12.9\" fill=\"none\" stroke=\"currentColor\"/></svg>","duotone":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Dimension\"> <title>Dimension</title>  <path d=\"M5 6.5H19\" fill=\"none\" stroke=\"currentColor\" opacity=\"0.38\"/>  <path d=\"M5 6.5V18.5M19 6.5V18.5\" fill=\"none\" stroke=\"currentColor\" opacity=\"0.38\"/>  <path d=\"M5 15H10.4M13.6 15H19\" fill=\"none\" stroke=\"currentColor\"/>  <path d=\"M7.8 12.9L5 15L7.8 17.1 M16.2 17.1L19 15L16.2 12.9\" fill=\"none\" stroke=\"currentColor\"/></svg>","colour":"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" role=\"img\" aria-label=\"Dimension\"> <title>Dimension</title>  <path d=\"M5 6.5H19\" fill=\"none\" stroke=\"#94a3b8\"/>  <path d=\"M5 6.5V18.5M19 6.5V18.5\" fill=\"none\" stroke=\"#94a3b8\"/>  <path d=\"M5 15H10.4M13.6 15H19\" fill=\"none\" stroke=\"#1e293b\"/>  <path d=\"M7.8 12.9L5 15L7.8 17.1 M16.2 17.1L19 15L16.2 12.9\" fill=\"none\" stroke=\"#0d9488\"/></svg>"}};
+const CATS = {"neutral":{"label":"Interface","accent":"#475569","tint":"#e2e8f0"},"draw":{"label":"Draw","accent":"#2563eb","tint":"#dbeafe"},"modify":{"label":"Modify","accent":"#d97706","tint":"#fef3c7"},"transform":{"label":"Transform","accent":"#0d9488","tint":"#ccfbf1"}};
+const PALETTE = [{"token":"ink","value":"#1e293b","role":"Primary","use":"Subject line work"},{"token":"mist","value":"#94a3b8","role":"Secondary","use":"Guides, removed material"},{"token":"draw","value":"#2563eb","role":"Accent","use":"Draw tools"},{"token":"draw-tint","value":"#dbeafe","role":"Soft","use":"Draw silhouettes"},{"token":"modify","value":"#d97706","role":"Accent","use":"Modify tools"},{"token":"modify-tint","value":"#fef3c7","role":"Soft","use":"Modify silhouettes"},{"token":"transform","value":"#0d9488","role":"Accent","use":"Transform tools"},{"token":"transform-tint","value":"#ccfbf1","role":"Soft","use":"Transform silhouettes"},{"token":"neutral","value":"#475569","role":"Accent","use":"Interface / cursor"}];
+
+const grid = document.getElementById('grid');
+const chips = document.getElementById('chips');
+const toast = document.getElementById('toast');
+let variant = 'duotone', size = 44, guides = false, query = '';
+
+const GUIDES = `<svg class="gridlines" viewBox="0 0 24 24" preserveAspectRatio="none" aria-hidden="true">
+  <g fill="none" stroke="#94a3b8" stroke-width=".15" opacity=".55">
+    ${Array.from({length:25},(_,i)=>`<path d="M${i} 0V24"/><path d="M0 ${i}H24"/>`).join('')}
+    <path d="M0 0H24V24H0Z"/>
+    <rect x="3" y="3" width="18" height="18" stroke="#f43f5e" stroke-width=".25" opacity=".8"/>
+  </g></svg>`;
+
+const setOf = v => v === 'compare' ? ['monotone','duotone','colour'] : [v];
+
+function card(ic){
+  const el = document.createElement('div');
+  el.className = 'card';
+  if(variant === 'compare'){
+    el.innerHTML = `<div class="tile compare">${guides?GUIDES:''}${
+      VARIANTS.map(v => `<span class="slot" data-v="${v}" title="Copy ${ic.label} — ${v}">${DATA[ic.name][v]}</span>`).join('')
+    }</div>
+    <div class="meta"><span class="name">${ic.label}</span><span class="cat">${CATS[ic.cat].label}</span></div>`;
+  } else {
+    el.innerHTML = `<div class="tile" data-v="${variant}" title="Copy ${ic.label} — ${variant}">${guides?GUIDES:''}${DATA[ic.name][variant]}</div>
+    <div class="meta"><span class="name">${ic.label}</span><span class="cat">${CATS[ic.cat].label}</span></div>`;
+  }
+  el.querySelectorAll('[data-v]').forEach(t => t.addEventListener('click', () =>
+    copy(DATA[ic.name][t.dataset.v], ic, t.dataset.v)));
+  return el;
+}
+
+function render(){
+  const q = query.trim().toLowerCase();
+  const list = ICONS.filter(ic => !q || (ic.label+' '+ic.cat+' '+ic.kw.join(' ')).toLowerCase().includes(q));
+  grid.innerHTML = '';
+  list.forEach(ic => grid.appendChild(card(ic)));
+  document.getElementById('count').textContent = `Icons · ${list.length}`;
+  document.documentElement.style.setProperty('--size', size + 'px');
+  chips.innerHTML = list.map(ic => `<span class="chip"><span class="dot" style="background:${CATS[ic.cat].accent}"></span>${ic.label}</span>`).join('');
+}
+
+async function copy(svg, ic, v){
+  svg = svg.replace('<svg ', '<svg width="24" height="24" ');
+  try { await navigator.clipboard.writeText(svg.trimEnd() + String.fromCharCode(10)); }
+  catch(e){
+    const t = document.createElement('textarea');
+    t.value = svg; document.body.appendChild(t); t.select();
+    document.execCommand('copy'); t.remove();
+  }
+  toast.textContent = ic.label + ' · ' + v + ' — SVG copied';
+  toast.classList.add('on');
+  clearTimeout(copy.t);
+  copy.t = setTimeout(()=>toast.classList.remove('on'), 1400);
+}
+
+// ---- controls -------------------------------------------------------------
+document.getElementById('seg').addEventListener('click', e => {
+  const b = e.target.closest('button'); if(!b) return;
+  variant = b.dataset.v;
+  [...e.currentTarget.children].forEach(x => x.setAttribute('aria-pressed', x === b));
+  render();
+});
+document.getElementById('q').addEventListener('input', e => { query = e.target.value; render(); });
+document.getElementById('size').addEventListener('input', e => {
+  size = +e.target.value; document.getElementById('sizev').textContent = size; render();
+});
+document.getElementById('guides').addEventListener('click', e => {
+  guides = !guides;
+  e.target.textContent = guides ? 'Hide grid' : 'Grid';
+  e.target.style.color = guides ? 'var(--accent)' : '';
+  render();
+});
+document.getElementById('theme').addEventListener('click', e => {
+  const dark = document.documentElement.dataset.theme === 'dark';
+  document.documentElement.dataset.theme = dark ? 'light' : 'dark';
+  e.target.textContent = dark ? 'Dark' : 'Light';
+});
+
+// ---- static sections ------------------------------------------------------
+document.getElementById('palette').innerHTML = PALETTE.map(p =>
+  `<tr><td><span class="dot" style="background:${p.value}"></span>${p.token}</td><td class="mono">${p.value}</td><td>${p.role}</td><td>${p.use}</td></tr>`).join('');
+document.getElementById('sw').innerHTML = PALETTE.map(p =>
+  `<span class="sw" style="background:${p.value}" title="${p.token}"></span>`).join('');
+
+render();
+</script>
+</body>
+</html>

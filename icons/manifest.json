@@ -1,0 +1,359 @@
+{
+  "name": "Slate CAD icons",
+  "grid": 24,
+  "stroke": 1.5,
+  "variants": [
+    "monotone",
+    "duotone",
+    "colour"
+  ],
+  "categories": {
+    "neutral": {
+      "label": "Interface",
+      "accent": "#475569",
+      "tint": "#e2e8f0"
+    },
+    "draw": {
+      "label": "Draw",
+      "accent": "#2563eb",
+      "tint": "#dbeafe"
+    },
+    "modify": {
+      "label": "Modify",
+      "accent": "#d97706",
+      "tint": "#fef3c7"
+    },
+    "transform": {
+      "label": "Transform",
+      "accent": "#0d9488",
+      "tint": "#ccfbf1"
+    }
+  },
+  "icons": [
+    {
+      "name": "select",
+      "label": "Select",
+      "category": "neutral",
+      "keywords": [
+        "cursor",
+        "pointer",
+        "pick",
+        "arrow"
+      ],
+      "note": "Classic pick cursor, 5 points.",
+      "files": {
+        "monotone": "icons/monotone/select.svg",
+        "duotone": "icons/duotone/select.svg",
+        "colour": "icons/colour/select.svg"
+      }
+    },
+    {
+      "name": "line",
+      "label": "Line",
+      "category": "draw",
+      "keywords": [
+        "segment",
+        "edge",
+        "straight"
+      ],
+      "note": "Two-point segment with end nodes.",
+      "files": {
+        "monotone": "icons/monotone/line.svg",
+        "duotone": "icons/duotone/line.svg",
+        "colour": "icons/colour/line.svg"
+      }
+    },
+    {
+      "name": "polyline",
+      "label": "Polyline",
+      "category": "draw",
+      "keywords": [
+        "pline",
+        "chain",
+        "vertex"
+      ],
+      "note": "Chained segments with vertex nodes.",
+      "files": {
+        "monotone": "icons/monotone/polyline.svg",
+        "duotone": "icons/duotone/polyline.svg",
+        "colour": "icons/colour/polyline.svg"
+      }
+    },
+    {
+      "name": "rectangle",
+      "label": "Rectangle",
+      "category": "draw",
+      "keywords": [
+        "box",
+        "rect",
+        "ortho"
+      ],
+      "note": "Axis-aligned box with centre node.",
+      "files": {
+        "monotone": "icons/monotone/rectangle.svg",
+        "duotone": "icons/duotone/rectangle.svg",
+        "colour": "icons/colour/rectangle.svg"
+      }
+    },
+    {
+      "name": "circle",
+      "label": "Circle",
+      "category": "draw",
+      "keywords": [
+        "round",
+        "radius",
+        "centre"
+      ],
+      "note": "Centre + radius construction.",
+      "files": {
+        "monotone": "icons/monotone/circle.svg",
+        "duotone": "icons/duotone/circle.svg",
+        "colour": "icons/colour/circle.svg"
+      }
+    },
+    {
+      "name": "arc",
+      "label": "Arc",
+      "category": "draw",
+      "keywords": [
+        "curve",
+        "sweep",
+        "radius"
+      ],
+      "note": "270 degree sweep with end nodes.",
+      "files": {
+        "monotone": "icons/monotone/arc.svg",
+        "duotone": "icons/duotone/arc.svg",
+        "colour": "icons/colour/arc.svg"
+      }
+    },
+    {
+      "name": "ellipse",
+      "label": "Ellipse",
+      "category": "draw",
+      "keywords": [
+        "oval",
+        "elliptical"
+      ],
+      "note": "Major / minor axis, centre marked.",
+      "files": {
+        "monotone": "icons/monotone/ellipse.svg",
+        "duotone": "icons/duotone/ellipse.svg",
+        "colour": "icons/colour/ellipse.svg"
+      }
+    },
+    {
+      "name": "polygon",
+      "label": "Polygon",
+      "category": "draw",
+      "keywords": [
+        "hexagon",
+        "ngon",
+        "regular"
+      ],
+      "note": "Regular hexagon, centre node.",
+      "files": {
+        "monotone": "icons/monotone/polygon.svg",
+        "duotone": "icons/duotone/polygon.svg",
+        "colour": "icons/colour/polygon.svg"
+      }
+    },
+    {
+      "name": "spline",
+      "label": "Spline",
+      "category": "draw",
+      "keywords": [
+        "nurbs",
+        "bezier",
+        "curve",
+        "fit"
+      ],
+      "note": "Curve through four fit points.",
+      "files": {
+        "monotone": "icons/monotone/spline.svg",
+        "duotone": "icons/duotone/spline.svg",
+        "colour": "icons/colour/spline.svg"
+      }
+    },
+    {
+      "name": "hatch",
+      "label": "Hatch",
+      "category": "draw",
+      "keywords": [
+        "fill",
+        "pattern",
+        "section",
+        "po"
+      ],
+      "note": "Boundary with 45 degree section lines.",
+      "files": {
+        "monotone": "icons/monotone/hatch.svg",
+        "duotone": "icons/duotone/hatch.svg",
+        "colour": "icons/colour/hatch.svg"
+      }
+    },
+    {
+      "name": "trim",
+      "label": "Trim",
+      "category": "modify",
+      "keywords": [
+        "cut",
+        "scissors",
+        "clip"
+      ],
+      "note": "Blades cross at the pivot; handles end in rings.",
+      "files": {
+        "monotone": "icons/monotone/trim.svg",
+        "duotone": "icons/duotone/trim.svg",
+        "colour": "icons/colour/trim.svg"
+      }
+    },
+    {
+      "name": "extend",
+      "label": "Extend",
+      "category": "modify",
+      "keywords": [
+        "lengthen",
+        "boundary",
+        "meet"
+      ],
+      "note": "Segment lengthened until it meets the boundary edge.",
+      "files": {
+        "monotone": "icons/monotone/extend.svg",
+        "duotone": "icons/duotone/extend.svg",
+        "colour": "icons/colour/extend.svg"
+      }
+    },
+    {
+      "name": "fillet",
+      "label": "Fillet",
+      "category": "modify",
+      "keywords": [
+        "round",
+        "radius",
+        "blend",
+        "corner"
+      ],
+      "note": "Radiused corner; the removed sharp corner is dashed.",
+      "files": {
+        "monotone": "icons/monotone/fillet.svg",
+        "duotone": "icons/duotone/fillet.svg",
+        "colour": "icons/colour/fillet.svg"
+      }
+    },
+    {
+      "name": "chamfer",
+      "label": "Chamfer",
+      "category": "modify",
+      "keywords": [
+        "bevel",
+        "corner",
+        "cut"
+      ],
+      "note": "Bevelled corner; the removed sharp corner is dashed, as in fillet.",
+      "files": {
+        "monotone": "icons/monotone/chamfer.svg",
+        "duotone": "icons/duotone/chamfer.svg",
+        "colour": "icons/colour/chamfer.svg"
+      }
+    },
+    {
+      "name": "offset",
+      "label": "Offset",
+      "category": "modify",
+      "keywords": [
+        "parallel",
+        "concentric",
+        "copy"
+      ],
+      "note": "Parallel copy of a closed contour.",
+      "files": {
+        "monotone": "icons/monotone/offset.svg",
+        "duotone": "icons/duotone/offset.svg",
+        "colour": "icons/colour/offset.svg"
+      }
+    },
+    {
+      "name": "mirror",
+      "label": "Mirror",
+      "category": "transform",
+      "keywords": [
+        "reflect",
+        "symmetry",
+        "flip"
+      ],
+      "note": "Paired geometry across a dash-dot axis.",
+      "files": {
+        "monotone": "icons/monotone/mirror.svg",
+        "duotone": "icons/duotone/mirror.svg",
+        "colour": "icons/colour/mirror.svg"
+      }
+    },
+    {
+      "name": "array",
+      "label": "Array",
+      "category": "transform",
+      "keywords": [
+        "pattern",
+        "grid",
+        "rectangular",
+        "repeat"
+      ],
+      "note": "3 x 3 rectangular array, source cell marked.",
+      "files": {
+        "monotone": "icons/monotone/array.svg",
+        "duotone": "icons/duotone/array.svg",
+        "colour": "icons/colour/array.svg"
+      }
+    },
+    {
+      "name": "move",
+      "label": "Move",
+      "category": "transform",
+      "keywords": [
+        "translate",
+        "pan",
+        "shift"
+      ],
+      "note": "Four-way translation.",
+      "files": {
+        "monotone": "icons/monotone/move.svg",
+        "duotone": "icons/duotone/move.svg",
+        "colour": "icons/colour/move.svg"
+      }
+    },
+    {
+      "name": "rotate",
+      "label": "Rotate",
+      "category": "transform",
+      "keywords": [
+        "spin",
+        "angle",
+        "turn"
+      ],
+      "note": "310 degree sweep, rotation arrow at the gap.",
+      "files": {
+        "monotone": "icons/monotone/rotate.svg",
+        "duotone": "icons/duotone/rotate.svg",
+        "colour": "icons/colour/rotate.svg"
+      }
+    },
+    {
+      "name": "dimension",
+      "label": "Dimension",
+      "category": "transform",
+      "keywords": [
+        "annotate",
+        "measure",
+        "length",
+        "dim"
+      ],
+      "note": "Linear dimension: extension lines, witness line, arrow heads.",
+      "files": {
+        "monotone": "icons/monotone/dimension.svg",
+        "duotone": "icons/duotone/dimension.svg",
+        "colour": "icons/colour/dimension.svg"
+      }
+    }
+  ]
+}

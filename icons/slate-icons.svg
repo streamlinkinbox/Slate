@@ -1,0 +1,323 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="slate-select-monotone" viewBox="0 0 24 24">
+    <path d="M4.5 4L11.5 19.5L13.8 12.4L19.5 10.3Z" fill="none" stroke="currentColor"/>
+  </symbol>
+  <symbol id="slate-select-duotone" viewBox="0 0 24 24">
+    <path d="M4.5 4L11.5 19.5L13.8 12.4L19.5 10.3Z" fill="currentColor" stroke="none" opacity="0.16"/>
+    <path d="M4.5 4L11.5 19.5L13.8 12.4L19.5 10.3Z" fill="none" stroke="currentColor"/>
+  </symbol>
+  <symbol id="slate-select-colour" viewBox="0 0 24 24">
+    <path d="M4.5 4L11.5 19.5L13.8 12.4L19.5 10.3Z" fill="#e2e8f0" stroke="none"/>
+    <path d="M4.5 4L11.5 19.5L13.8 12.4L19.5 10.3Z" fill="none" stroke="#475569"/>
+  </symbol>
+  <symbol id="slate-line-monotone" viewBox="0 0 24 24">
+    <path d="M4.5 19.5L19.5 4.5" fill="none" stroke="currentColor"/>
+    <path d="M4.5 19.5h.01" fill="none" stroke="currentColor" stroke-width="3"/>
+    <path d="M19.5 4.5h.01" fill="none" stroke="currentColor" stroke-width="3"/>
+  </symbol>
+  <symbol id="slate-line-duotone" viewBox="0 0 24 24">
+    <path d="M4.5 19.5L19.5 4.5" fill="none" stroke="currentColor"/>
+    <path d="M4.5 19.5h.01" fill="none" stroke="currentColor" stroke-width="3"/>
+    <path d="M19.5 4.5h.01" fill="none" stroke="currentColor" stroke-width="3"/>
+  </symbol>
+  <symbol id="slate-line-colour" viewBox="0 0 24 24">
+    <path d="M4.5 19.5L19.5 4.5" fill="none" stroke="#1e293b"/>
+    <path d="M4.5 19.5h.01" fill="none" stroke="#2563eb" stroke-width="3"/>
+    <path d="M19.5 4.5h.01" fill="none" stroke="#2563eb" stroke-width="3"/>
+  </symbol>
+  <symbol id="slate-polyline-monotone" viewBox="0 0 24 24">
+    <path d="M4.5 17L9 8.5L14 15L19.5 7" fill="none" stroke="currentColor"/>
+    <path d="M4.5 17h.01M9 8.5h.01M14 15h.01M19.5 7h.01" fill="none" stroke="currentColor" stroke-width="3"/>
+  </symbol>
+  <symbol id="slate-polyline-duotone" viewBox="0 0 24 24">
+    <path d="M4.5 17L9 8.5L14 15L19.5 7" fill="none" stroke="currentColor"/>
+    <path d="M4.5 17h.01M9 8.5h.01M14 15h.01M19.5 7h.01" fill="none" stroke="currentColor" stroke-width="3"/>
+  </symbol>
+  <symbol id="slate-polyline-colour" viewBox="0 0 24 24">
+    <path d="M4.5 17L9 8.5L14 15L19.5 7" fill="none" stroke="#1e293b"/>
+    <path d="M4.5 17h.01M9 8.5h.01M14 15h.01M19.5 7h.01" fill="none" stroke="#2563eb" stroke-width="3"/>
+  </symbol>
+  <symbol id="slate-rectangle-monotone" viewBox="0 0 24 24">
+    <path d="M6 6.5H18A1.5 1.5 0 0 1 19.5 8V16A1.5 1.5 0 0 1 18 17.5H6A1.5 1.5 0 0 1 4.5 16V8A1.5 1.5 0 0 1 6 6.5Z" fill="none" stroke="currentColor"/>
+    <path d="M12 12h.01" fill="none" stroke="currentColor" stroke-width="3"/>
+  </symbol>
+  <symbol id="slate-rectangle-duotone" viewBox="0 0 24 24">
+    <path d="M6 6.5H18A1.5 1.5 0 0 1 19.5 8V16A1.5 1.5 0 0 1 18 17.5H6A1.5 1.5 0 0 1 4.5 16V8A1.5 1.5 0 0 1 6 6.5Z" fill="currentColor" stroke="none" opacity="0.16"/>
+    <path d="M6 6.5H18A1.5 1.5 0 0 1 19.5 8V16A1.5 1.5 0 0 1 18 17.5H6A1.5 1.5 0 0 1 4.5 16V8A1.5 1.5 0 0 1 6 6.5Z" fill="none" stroke="currentColor"/>
+    <path d="M12 12h.01" fill="none" stroke="currentColor" stroke-width="3"/>
+  </symbol>
+  <symbol id="slate-rectangle-colour" viewBox="0 0 24 24">
+    <path d="M6 6.5H18A1.5 1.5 0 0 1 19.5 8V16A1.5 1.5 0 0 1 18 17.5H6A1.5 1.5 0 0 1 4.5 16V8A1.5 1.5 0 0 1 6 6.5Z" fill="#dbeafe" stroke="none"/>
+    <path d="M6 6.5H18A1.5 1.5 0 0 1 19.5 8V16A1.5 1.5 0 0 1 18 17.5H6A1.5 1.5 0 0 1 4.5 16V8A1.5 1.5 0 0 1 6 6.5Z" fill="none" stroke="#1e293b"/>
+    <path d="M12 12h.01" fill="none" stroke="#2563eb" stroke-width="3"/>
+  </symbol>
+  <symbol id="slate-circle-monotone" viewBox="0 0 24 24">
+    <path d="M4.5 12a7.5 7.5 0 1 0 15 0a7.5 7.5 0 1 0 -15 0" fill="none" stroke="currentColor"/>
+    <path d="M12 10.2V13.8M10.2 12H13.8" fill="none" stroke="currentColor"/>
+  </symbol>
+  <symbol id="slate-circle-duotone" viewBox="0 0 24 24">
+    <path d="M4.5 12a7.5 7.5 0 1 0 15 0a7.5 7.5 0 1 0 -15 0" fill="currentColor" stroke="none" opacity="0.16"/>
+    <path d="M4.5 12a7.5 7.5 0 1 0 15 0a7.5 7.5 0 1 0 -15 0" fill="none" stroke="currentColor"/>
+    <path d="M12 10.2V13.8M10.2 12H13.8" fill="none" stroke="currentColor"/>
+  </symbol>
+  <symbol id="slate-circle-colour" viewBox="0 0 24 24">
+    <path d="M4.5 12a7.5 7.5 0 1 0 15 0a7.5 7.5 0 1 0 -15 0" fill="#dbeafe" stroke="none"/>
+    <path d="M4.5 12a7.5 7.5 0 1 0 15 0a7.5 7.5 0 1 0 -15 0" fill="none" stroke="#1e293b"/>
+    <path d="M12 10.2V13.8M10.2 12H13.8" fill="none" stroke="#2563eb"/>
+  </symbol>
+  <symbol id="slate-arc-monotone" viewBox="0 0 24 24">
+    <path d="M5.5 17.25A7.5 7.5 0 1 1 18.5 17.25" fill="none" stroke="currentColor"/>
+    <path d="M5.5 17.25h.01M18.5 17.25h.01" fill="none" stroke="currentColor" stroke-width="3"/>
+  </symbol>
+  <symbol id="slate-arc-duotone" viewBox="0 0 24 24">
+    <path d="M5.5 17.25A7.5 7.5 0 1 1 18.5 17.25" fill="none" stroke="currentColor"/>
+    <path d="M5.5 17.25h.01M18.5 17.25h.01" fill="none" stroke="currentColor" stroke-width="3"/>
+  </symbol>
+  <symbol id="slate-arc-colour" viewBox="0 0 24 24">
+    <path d="M5.5 17.25A7.5 7.5 0 1 1 18.5 17.25" fill="none" stroke="#1e293b"/>
+    <path d="M5.5 17.25h.01M18.5 17.25h.01" fill="none" stroke="#2563eb" stroke-width="3"/>
+  </symbol>
+  <symbol id="slate-ellipse-monotone" viewBox="0 0 24 24">
+    <path d="M4 12a8 6 0 1 0 16 0a8 6 0 1 0-16 0" fill="none" stroke="currentColor"/>
+    <path d="M12 10.2V13.8M10.2 12H13.8" fill="none" stroke="currentColor"/>
+  </symbol>
+  <symbol id="slate-ellipse-duotone" viewBox="0 0 24 24">
+    <path d="M4 12a8 6 0 1 0 16 0a8 6 0 1 0-16 0" fill="currentColor" stroke="none" opacity="0.16"/>
+    <path d="M4 12a8 6 0 1 0 16 0a8 6 0 1 0-16 0" fill="none" stroke="currentColor"/>
+    <path d="M12 10.2V13.8M10.2 12H13.8" fill="none" stroke="currentColor"/>
+  </symbol>
+  <symbol id="slate-ellipse-colour" viewBox="0 0 24 24">
+    <path d="M4 12a8 6 0 1 0 16 0a8 6 0 1 0-16 0" fill="#dbeafe" stroke="none"/>
+    <path d="M4 12a8 6 0 1 0 16 0a8 6 0 1 0-16 0" fill="none" stroke="#1e293b"/>
+    <path d="M12 10.2V13.8M10.2 12H13.8" fill="none" stroke="#2563eb"/>
+  </symbol>
+  <symbol id="slate-polygon-monotone" viewBox="0 0 24 24">
+    <path d="M12 4L18.93 8L18.93 16L12 20L5.07 16L5.07 8Z" fill="none" stroke="currentColor"/>
+    <path d="M12 12h.01" fill="none" stroke="currentColor" stroke-width="3"/>
+  </symbol>
+  <symbol id="slate-polygon-duotone" viewBox="0 0 24 24">
+    <path d="M12 4L18.93 8L18.93 16L12 20L5.07 16L5.07 8Z" fill="currentColor" stroke="none" opacity="0.16"/>
+    <path d="M12 4L18.93 8L18.93 16L12 20L5.07 16L5.07 8Z" fill="none" stroke="currentColor"/>
+    <path d="M12 12h.01" fill="none" stroke="currentColor" stroke-width="3"/>
+  </symbol>
+  <symbol id="slate-polygon-colour" viewBox="0 0 24 24">
+    <path d="M12 4L18.93 8L18.93 16L12 20L5.07 16L5.07 8Z" fill="#dbeafe" stroke="none"/>
+    <path d="M12 4L18.93 8L18.93 16L12 20L5.07 16L5.07 8Z" fill="none" stroke="#1e293b"/>
+    <path d="M12 12h.01" fill="none" stroke="#2563eb" stroke-width="3"/>
+  </symbol>
+  <symbol id="slate-spline-monotone" viewBox="0 0 24 24">
+    <path d="M4.5 15C6 14.5 7 8 9 7.5C11 7 12.5 16.5 14.5 16C16.5 15.5 18 9.5 19.5 8" fill="none" stroke="currentColor"/>
+    <path d="M4.5 15h.01M9 7.5h.01M14.5 16h.01M19.5 8h.01" fill="none" stroke="currentColor" stroke-width="3"/>
+  </symbol>
+  <symbol id="slate-spline-duotone" viewBox="0 0 24 24">
+    <path d="M4.5 15C6 14.5 7 8 9 7.5C11 7 12.5 16.5 14.5 16C16.5 15.5 18 9.5 19.5 8" fill="none" stroke="currentColor"/>
+    <path d="M4.5 15h.01M9 7.5h.01M14.5 16h.01M19.5 8h.01" fill="none" stroke="currentColor" stroke-width="3"/>
+  </symbol>
+  <symbol id="slate-spline-colour" viewBox="0 0 24 24">
+    <path d="M4.5 15C6 14.5 7 8 9 7.5C11 7 12.5 16.5 14.5 16C16.5 15.5 18 9.5 19.5 8" fill="none" stroke="#1e293b"/>
+    <path d="M4.5 15h.01M9 7.5h.01M14.5 16h.01M19.5 8h.01" fill="none" stroke="#2563eb" stroke-width="3"/>
+  </symbol>
+  <symbol id="slate-hatch-monotone" viewBox="0 0 24 24">
+    <path d="M6 4.5H18A1.5 1.5 0 0 1 19.5 6V18A1.5 1.5 0 0 1 18 19.5H6A1.5 1.5 0 0 1 4.5 18V6A1.5 1.5 0 0 1 6 4.5Z" fill="none" stroke="currentColor"/>
+    <path d="M4.5 13.5L13.5 4.5M4.5 18.5L18.5 4.5M8.5 19.5L19.5 8.5" fill="none" stroke="currentColor"/>
+  </symbol>
+  <symbol id="slate-hatch-duotone" viewBox="0 0 24 24">
+    <path d="M6 4.5H18A1.5 1.5 0 0 1 19.5 6V18A1.5 1.5 0 0 1 18 19.5H6A1.5 1.5 0 0 1 4.5 18V6A1.5 1.5 0 0 1 6 4.5Z" fill="currentColor" stroke="none" opacity="0.16"/>
+    <path d="M6 4.5H18A1.5 1.5 0 0 1 19.5 6V18A1.5 1.5 0 0 1 18 19.5H6A1.5 1.5 0 0 1 4.5 18V6A1.5 1.5 0 0 1 6 4.5Z" fill="none" stroke="currentColor"/>
+    <path d="M4.5 13.5L13.5 4.5M4.5 18.5L18.5 4.5M8.5 19.5L19.5 8.5" fill="none" stroke="currentColor" opacity="0.38"/>
+  </symbol>
+  <symbol id="slate-hatch-colour" viewBox="0 0 24 24">
+    <path d="M6 4.5H18A1.5 1.5 0 0 1 19.5 6V18A1.5 1.5 0 0 1 18 19.5H6A1.5 1.5 0 0 1 4.5 18V6A1.5 1.5 0 0 1 6 4.5Z" fill="#dbeafe" stroke="none"/>
+    <path d="M6 4.5H18A1.5 1.5 0 0 1 19.5 6V18A1.5 1.5 0 0 1 18 19.5H6A1.5 1.5 0 0 1 4.5 18V6A1.5 1.5 0 0 1 6 4.5Z" fill="none" stroke="#1e293b"/>
+    <path d="M4.5 13.5L13.5 4.5M4.5 18.5L18.5 4.5M8.5 19.5L19.5 8.5" fill="none" stroke="#94a3b8"/>
+  </symbol>
+  <symbol id="slate-trim-monotone" viewBox="0 0 24 24">
+    <path d="M17.4 4.8L8.83 16.16" fill="none" stroke="currentColor"/>
+    <path d="M6.6 4.8L15.17 16.16" fill="none" stroke="currentColor"/>
+    <path d="M5.55 17.8a2.05 2.05 0 1 0 4.1 0a2.05 2.05 0 1 0 -4.1 0" fill="none" stroke="currentColor"/>
+    <path d="M14.35 17.8a2.05 2.05 0 1 0 4.1 0a2.05 2.05 0 1 0 -4.1 0" fill="none" stroke="currentColor"/>
+  </symbol>
+  <symbol id="slate-trim-duotone" viewBox="0 0 24 24">
+    <path d="M5.55 17.8a2.05 2.05 0 1 0 4.1 0a2.05 2.05 0 1 0 -4.1 0" fill="currentColor" stroke="none" opacity="0.16"/>
+    <path d="M14.35 17.8a2.05 2.05 0 1 0 4.1 0a2.05 2.05 0 1 0 -4.1 0" fill="currentColor" stroke="none" opacity="0.16"/>
+    <path d="M17.4 4.8L8.83 16.16" fill="none" stroke="currentColor"/>
+    <path d="M6.6 4.8L15.17 16.16" fill="none" stroke="currentColor"/>
+    <path d="M5.55 17.8a2.05 2.05 0 1 0 4.1 0a2.05 2.05 0 1 0 -4.1 0" fill="none" stroke="currentColor"/>
+    <path d="M14.35 17.8a2.05 2.05 0 1 0 4.1 0a2.05 2.05 0 1 0 -4.1 0" fill="none" stroke="currentColor"/>
+  </symbol>
+  <symbol id="slate-trim-colour" viewBox="0 0 24 24">
+    <path d="M5.55 17.8a2.05 2.05 0 1 0 4.1 0a2.05 2.05 0 1 0 -4.1 0" fill="#fef3c7" stroke="none"/>
+    <path d="M14.35 17.8a2.05 2.05 0 1 0 4.1 0a2.05 2.05 0 1 0 -4.1 0" fill="#fef3c7" stroke="none"/>
+    <path d="M17.4 4.8L8.83 16.16" fill="none" stroke="#1e293b"/>
+    <path d="M6.6 4.8L15.17 16.16" fill="none" stroke="#1e293b"/>
+    <path d="M5.55 17.8a2.05 2.05 0 1 0 4.1 0a2.05 2.05 0 1 0 -4.1 0" fill="none" stroke="#d97706"/>
+    <path d="M14.35 17.8a2.05 2.05 0 1 0 4.1 0a2.05 2.05 0 1 0 -4.1 0" fill="none" stroke="#d97706"/>
+  </symbol>
+  <symbol id="slate-extend-monotone" viewBox="0 0 24 24">
+    <path d="M19.5 5V19" fill="none" stroke="currentColor"/>
+    <path d="M3.75 12H9" fill="none" stroke="currentColor"/>
+    <path d="M9 12H16" fill="none" stroke="currentColor" stroke-dasharray="2.33 2.33" stroke-linecap="butt"/>
+    <path d="M16 14.3L19.5 12L16 9.7" fill="none" stroke="currentColor"/>
+  </symbol>
+  <symbol id="slate-extend-duotone" viewBox="0 0 24 24">
+    <path d="M19.5 5V19" fill="none" stroke="currentColor" opacity="0.38"/>
+    <path d="M3.75 12H9" fill="none" stroke="currentColor"/>
+    <path d="M9 12H16" fill="none" stroke="currentColor" stroke-dasharray="2.33 2.33" stroke-linecap="butt"/>
+    <path d="M16 14.3L19.5 12L16 9.7" fill="none" stroke="currentColor"/>
+  </symbol>
+  <symbol id="slate-extend-colour" viewBox="0 0 24 24">
+    <path d="M19.5 5V19" fill="none" stroke="#94a3b8"/>
+    <path d="M3.75 12H9" fill="none" stroke="#1e293b"/>
+    <path d="M9 12H16" fill="none" stroke="#d97706" stroke-dasharray="2.33 2.33" stroke-linecap="butt"/>
+    <path d="M16 14.3L19.5 12L16 9.7" fill="none" stroke="#d97706"/>
+  </symbol>
+  <symbol id="slate-fillet-monotone" viewBox="0 0 24 24">
+    <path d="M18.5 5.5H10" fill="none" stroke="currentColor"/>
+    <path d="M5.5 10V18.5" fill="none" stroke="currentColor"/>
+    <path d="M10 5.5A4.5 4.5 0 0 0 5.5 10" fill="none" stroke="currentColor"/>
+    <path d="M10 5.5H5.5V10" fill="none" stroke="currentColor" stroke-dasharray="3 3" stroke-linecap="butt"/>
+  </symbol>
+  <symbol id="slate-fillet-duotone" viewBox="0 0 24 24">
+    <path d="M18.5 5.5H10" fill="none" stroke="currentColor"/>
+    <path d="M5.5 10V18.5" fill="none" stroke="currentColor"/>
+    <path d="M10 5.5A4.5 4.5 0 0 0 5.5 10" fill="none" stroke="currentColor"/>
+    <path d="M10 5.5H5.5V10" fill="none" stroke="currentColor" stroke-dasharray="3 3" stroke-linecap="butt" opacity="0.38"/>
+  </symbol>
+  <symbol id="slate-fillet-colour" viewBox="0 0 24 24">
+    <path d="M18.5 5.5H10" fill="none" stroke="#1e293b"/>
+    <path d="M5.5 10V18.5" fill="none" stroke="#1e293b"/>
+    <path d="M10 5.5A4.5 4.5 0 0 0 5.5 10" fill="none" stroke="#d97706"/>
+    <path d="M10 5.5H5.5V10" fill="none" stroke="#94a3b8" stroke-dasharray="3 3" stroke-linecap="butt"/>
+  </symbol>
+  <symbol id="slate-chamfer-monotone" viewBox="0 0 24 24">
+    <path d="M18.5 5.5H10" fill="none" stroke="currentColor"/>
+    <path d="M5.5 10V18.5" fill="none" stroke="currentColor"/>
+    <path d="M10 5.5L5.5 10" fill="none" stroke="currentColor"/>
+    <path d="M10 5.5H5.5V10" fill="none" stroke="currentColor" stroke-dasharray="3 3" stroke-linecap="butt"/>
+  </symbol>
+  <symbol id="slate-chamfer-duotone" viewBox="0 0 24 24">
+    <path d="M18.5 5.5H10" fill="none" stroke="currentColor"/>
+    <path d="M5.5 10V18.5" fill="none" stroke="currentColor"/>
+    <path d="M10 5.5L5.5 10" fill="none" stroke="currentColor"/>
+    <path d="M10 5.5H5.5V10" fill="none" stroke="currentColor" stroke-dasharray="3 3" stroke-linecap="butt" opacity="0.38"/>
+  </symbol>
+  <symbol id="slate-chamfer-colour" viewBox="0 0 24 24">
+    <path d="M18.5 5.5H10" fill="none" stroke="#1e293b"/>
+    <path d="M5.5 10V18.5" fill="none" stroke="#1e293b"/>
+    <path d="M10 5.5L5.5 10" fill="none" stroke="#d97706"/>
+    <path d="M10 5.5H5.5V10" fill="none" stroke="#94a3b8" stroke-dasharray="3 3" stroke-linecap="butt"/>
+  </symbol>
+  <symbol id="slate-offset-monotone" viewBox="0 0 24 24">
+    <path d="M4.5 12a7.5 7.5 0 1 0 15 0a7.5 7.5 0 1 0 -15 0" fill="none" stroke="currentColor"/>
+    <path d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" fill="none" stroke="currentColor"/>
+    <path d="M8.89 8.89L7.33 7.33" fill="none" stroke="currentColor"/>
+  </symbol>
+  <symbol id="slate-offset-duotone" viewBox="0 0 24 24">
+    <path d="M4.5 12a7.5 7.5 0 1 0 15 0a7.5 7.5 0 1 0 -15 0M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" fill="currentColor" stroke="none" fill-rule="evenodd" opacity="0.16"/>
+    <path d="M4.5 12a7.5 7.5 0 1 0 15 0a7.5 7.5 0 1 0 -15 0" fill="none" stroke="currentColor"/>
+    <path d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" fill="none" stroke="currentColor"/>
+    <path d="M8.89 8.89L7.33 7.33" fill="none" stroke="currentColor"/>
+  </symbol>
+  <symbol id="slate-offset-colour" viewBox="0 0 24 24">
+    <path d="M4.5 12a7.5 7.5 0 1 0 15 0a7.5 7.5 0 1 0 -15 0M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" fill="#fef3c7" stroke="none" fill-rule="evenodd"/>
+    <path d="M4.5 12a7.5 7.5 0 1 0 15 0a7.5 7.5 0 1 0 -15 0" fill="none" stroke="#1e293b"/>
+    <path d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" fill="none" stroke="#d97706"/>
+    <path d="M8.89 8.89L7.33 7.33" fill="none" stroke="#d97706"/>
+  </symbol>
+  <symbol id="slate-mirror-monotone" viewBox="0 0 24 24">
+    <path d="M9.5 5L4.5 12L9.5 19Z" fill="none" stroke="currentColor"/>
+    <path d="M14.5 5L19.5 12L14.5 19Z" fill="none" stroke="currentColor"/>
+    <path d="M12 4V20" fill="none" stroke="currentColor" stroke-dasharray="4 3" stroke-linecap="butt"/>
+  </symbol>
+  <symbol id="slate-mirror-duotone" viewBox="0 0 24 24">
+    <path d="M9.5 5L4.5 12L9.5 19Z" fill="currentColor" stroke="none" opacity="0.16"/>
+    <path d="M14.5 5L19.5 12L14.5 19Z" fill="currentColor" stroke="none" opacity="0.16"/>
+    <path d="M9.5 5L4.5 12L9.5 19Z" fill="none" stroke="currentColor"/>
+    <path d="M14.5 5L19.5 12L14.5 19Z" fill="none" stroke="currentColor"/>
+    <path d="M12 4V20" fill="none" stroke="currentColor" stroke-dasharray="4 3" stroke-linecap="butt" opacity="0.38"/>
+  </symbol>
+  <symbol id="slate-mirror-colour" viewBox="0 0 24 24">
+    <path d="M9.5 5L4.5 12L9.5 19Z" fill="#ccfbf1" stroke="none"/>
+    <path d="M14.5 5L19.5 12L14.5 19Z" fill="#ccfbf1" stroke="none"/>
+    <path d="M9.5 5L4.5 12L9.5 19Z" fill="none" stroke="#1e293b"/>
+    <path d="M14.5 5L19.5 12L14.5 19Z" fill="none" stroke="#1e293b"/>
+    <path d="M12 4V20" fill="none" stroke="#94a3b8" stroke-dasharray="4 3" stroke-linecap="butt"/>
+  </symbol>
+  <symbol id="slate-array-monotone" viewBox="0 0 24 24">
+    <path d="M10.9 4H13.1A0.9 0.9 0 0 1 14 4.9V7.1A0.9 0.9 0 0 1 13.1 8H10.9A0.9 0.9 0 0 1 10 7.1V4.9A0.9 0.9 0 0 1 10.9 4Z" fill="none" stroke="currentColor"/>
+    <path d="M16.9 4H19.1A0.9 0.9 0 0 1 20 4.9V7.1A0.9 0.9 0 0 1 19.1 8H16.9A0.9 0.9 0 0 1 16 7.1V4.9A0.9 0.9 0 0 1 16.9 4Z" fill="none" stroke="currentColor"/>
+    <path d="M4.9 10H7.1A0.9 0.9 0 0 1 8 10.9V13.1A0.9 0.9 0 0 1 7.1 14H4.9A0.9 0.9 0 0 1 4 13.1V10.9A0.9 0.9 0 0 1 4.9 10Z" fill="none" stroke="currentColor"/>
+    <path d="M10.9 10H13.1A0.9 0.9 0 0 1 14 10.9V13.1A0.9 0.9 0 0 1 13.1 14H10.9A0.9 0.9 0 0 1 10 13.1V10.9A0.9 0.9 0 0 1 10.9 10Z" fill="none" stroke="currentColor"/>
+    <path d="M16.9 10H19.1A0.9 0.9 0 0 1 20 10.9V13.1A0.9 0.9 0 0 1 19.1 14H16.9A0.9 0.9 0 0 1 16 13.1V10.9A0.9 0.9 0 0 1 16.9 10Z" fill="none" stroke="currentColor"/>
+    <path d="M4.9 16H7.1A0.9 0.9 0 0 1 8 16.9V19.1A0.9 0.9 0 0 1 7.1 20H4.9A0.9 0.9 0 0 1 4 19.1V16.9A0.9 0.9 0 0 1 4.9 16Z" fill="none" stroke="currentColor"/>
+    <path d="M10.9 16H13.1A0.9 0.9 0 0 1 14 16.9V19.1A0.9 0.9 0 0 1 13.1 20H10.9A0.9 0.9 0 0 1 10 19.1V16.9A0.9 0.9 0 0 1 10.9 16Z" fill="none" stroke="currentColor"/>
+    <path d="M16.9 16H19.1A0.9 0.9 0 0 1 20 16.9V19.1A0.9 0.9 0 0 1 19.1 20H16.9A0.9 0.9 0 0 1 16 19.1V16.9A0.9 0.9 0 0 1 16.9 16Z" fill="none" stroke="currentColor"/>
+    <path d="M4.9 4H7.1A0.9 0.9 0 0 1 8 4.9V7.1A0.9 0.9 0 0 1 7.1 8H4.9A0.9 0.9 0 0 1 4 7.1V4.9A0.9 0.9 0 0 1 4.9 4Z" fill="none" stroke="currentColor"/>
+  </symbol>
+  <symbol id="slate-array-duotone" viewBox="0 0 24 24">
+    <path d="M10.9 4H13.1A0.9 0.9 0 0 1 14 4.9V7.1A0.9 0.9 0 0 1 13.1 8H10.9A0.9 0.9 0 0 1 10 7.1V4.9A0.9 0.9 0 0 1 10.9 4Z" fill="none" stroke="currentColor"/>
+    <path d="M16.9 4H19.1A0.9 0.9 0 0 1 20 4.9V7.1A0.9 0.9 0 0 1 19.1 8H16.9A0.9 0.9 0 0 1 16 7.1V4.9A0.9 0.9 0 0 1 16.9 4Z" fill="none" stroke="currentColor"/>
+    <path d="M4.9 10H7.1A0.9 0.9 0 0 1 8 10.9V13.1A0.9 0.9 0 0 1 7.1 14H4.9A0.9 0.9 0 0 1 4 13.1V10.9A0.9 0.9 0 0 1 4.9 10Z" fill="none" stroke="currentColor"/>
+    <path d="M10.9 10H13.1A0.9 0.9 0 0 1 14 10.9V13.1A0.9 0.9 0 0 1 13.1 14H10.9A0.9 0.9 0 0 1 10 13.1V10.9A0.9 0.9 0 0 1 10.9 10Z" fill="none" stroke="currentColor"/>
+    <path d="M16.9 10H19.1A0.9 0.9 0 0 1 20 10.9V13.1A0.9 0.9 0 0 1 19.1 14H16.9A0.9 0.9 0 0 1 16 13.1V10.9A0.9 0.9 0 0 1 16.9 10Z" fill="none" stroke="currentColor"/>
+    <path d="M4.9 16H7.1A0.9 0.9 0 0 1 8 16.9V19.1A0.9 0.9 0 0 1 7.1 20H4.9A0.9 0.9 0 0 1 4 19.1V16.9A0.9 0.9 0 0 1 4.9 16Z" fill="none" stroke="currentColor"/>
+    <path d="M10.9 16H13.1A0.9 0.9 0 0 1 14 16.9V19.1A0.9 0.9 0 0 1 13.1 20H10.9A0.9 0.9 0 0 1 10 19.1V16.9A0.9 0.9 0 0 1 10.9 16Z" fill="none" stroke="currentColor"/>
+    <path d="M16.9 16H19.1A0.9 0.9 0 0 1 20 16.9V19.1A0.9 0.9 0 0 1 19.1 20H16.9A0.9 0.9 0 0 1 16 19.1V16.9A0.9 0.9 0 0 1 16.9 16Z" fill="none" stroke="currentColor"/>
+    <path d="M4.9 4H7.1A0.9 0.9 0 0 1 8 4.9V7.1A0.9 0.9 0 0 1 7.1 8H4.9A0.9 0.9 0 0 1 4 7.1V4.9A0.9 0.9 0 0 1 4.9 4Z" fill="currentColor" stroke="none" opacity="0.16"/>
+    <path d="M4.9 4H7.1A0.9 0.9 0 0 1 8 4.9V7.1A0.9 0.9 0 0 1 7.1 8H4.9A0.9 0.9 0 0 1 4 7.1V4.9A0.9 0.9 0 0 1 4.9 4Z" fill="none" stroke="currentColor"/>
+  </symbol>
+  <symbol id="slate-array-colour" viewBox="0 0 24 24">
+    <path d="M10.9 4H13.1A0.9 0.9 0 0 1 14 4.9V7.1A0.9 0.9 0 0 1 13.1 8H10.9A0.9 0.9 0 0 1 10 7.1V4.9A0.9 0.9 0 0 1 10.9 4Z" fill="none" stroke="#1e293b"/>
+    <path d="M16.9 4H19.1A0.9 0.9 0 0 1 20 4.9V7.1A0.9 0.9 0 0 1 19.1 8H16.9A0.9 0.9 0 0 1 16 7.1V4.9A0.9 0.9 0 0 1 16.9 4Z" fill="none" stroke="#1e293b"/>
+    <path d="M4.9 10H7.1A0.9 0.9 0 0 1 8 10.9V13.1A0.9 0.9 0 0 1 7.1 14H4.9A0.9 0.9 0 0 1 4 13.1V10.9A0.9 0.9 0 0 1 4.9 10Z" fill="none" stroke="#1e293b"/>
+    <path d="M10.9 10H13.1A0.9 0.9 0 0 1 14 10.9V13.1A0.9 0.9 0 0 1 13.1 14H10.9A0.9 0.9 0 0 1 10 13.1V10.9A0.9 0.9 0 0 1 10.9 10Z" fill="none" stroke="#1e293b"/>
+    <path d="M16.9 10H19.1A0.9 0.9 0 0 1 20 10.9V13.1A0.9 0.9 0 0 1 19.1 14H16.9A0.9 0.9 0 0 1 16 13.1V10.9A0.9 0.9 0 0 1 16.9 10Z" fill="none" stroke="#1e293b"/>
+    <path d="M4.9 16H7.1A0.9 0.9 0 0 1 8 16.9V19.1A0.9 0.9 0 0 1 7.1 20H4.9A0.9 0.9 0 0 1 4 19.1V16.9A0.9 0.9 0 0 1 4.9 16Z" fill="none" stroke="#1e293b"/>
+    <path d="M10.9 16H13.1A0.9 0.9 0 0 1 14 16.9V19.1A0.9 0.9 0 0 1 13.1 20H10.9A0.9 0.9 0 0 1 10 19.1V16.9A0.9 0.9 0 0 1 10.9 16Z" fill="none" stroke="#1e293b"/>
+    <path d="M16.9 16H19.1A0.9 0.9 0 0 1 20 16.9V19.1A0.9 0.9 0 0 1 19.1 20H16.9A0.9 0.9 0 0 1 16 19.1V16.9A0.9 0.9 0 0 1 16.9 16Z" fill="none" stroke="#1e293b"/>
+    <path d="M4.9 4H7.1A0.9 0.9 0 0 1 8 4.9V7.1A0.9 0.9 0 0 1 7.1 8H4.9A0.9 0.9 0 0 1 4 7.1V4.9A0.9 0.9 0 0 1 4.9 4Z" fill="#ccfbf1" stroke="none"/>
+    <path d="M4.9 4H7.1A0.9 0.9 0 0 1 8 4.9V7.1A0.9 0.9 0 0 1 7.1 8H4.9A0.9 0.9 0 0 1 4 7.1V4.9A0.9 0.9 0 0 1 4.9 4Z" fill="none" stroke="#0d9488"/>
+  </symbol>
+  <symbol id="slate-move-monotone" viewBox="0 0 24 24">
+    <path d="M12 4.5V19.5M4.5 12H19.5" fill="none" stroke="currentColor"/>
+    <path d="M14.2 7.5L12 4.5L9.8 7.5 M9.8 16.5L12 19.5L14.2 16.5 M7.5 9.8L4.5 12L7.5 14.2 M16.5 14.2L19.5 12L16.5 9.8" fill="none" stroke="currentColor"/>
+  </symbol>
+  <symbol id="slate-move-duotone" viewBox="0 0 24 24">
+    <path d="M12 4.5V19.5M4.5 12H19.5" fill="none" stroke="currentColor"/>
+    <path d="M14.2 7.5L12 4.5L9.8 7.5 M9.8 16.5L12 19.5L14.2 16.5 M7.5 9.8L4.5 12L7.5 14.2 M16.5 14.2L19.5 12L16.5 9.8" fill="none" stroke="currentColor"/>
+  </symbol>
+  <symbol id="slate-move-colour" viewBox="0 0 24 24">
+    <path d="M12 4.5V19.5M4.5 12H19.5" fill="none" stroke="#1e293b"/>
+    <path d="M14.2 7.5L12 4.5L9.8 7.5 M9.8 16.5L12 19.5L14.2 16.5 M7.5 9.8L4.5 12L7.5 14.2 M16.5 14.2L19.5 12L16.5 9.8" fill="none" stroke="#0d9488"/>
+  </symbol>
+  <symbol id="slate-rotate-monotone" viewBox="0 0 24 24">
+    <path d="M15.17 5.2A7.5 7.5 0 1 1 8.83 5.2" fill="none" stroke="currentColor"/>
+    <path d="M7 8.37L8.83 5.2L5.22 4.57" fill="none" stroke="currentColor"/>
+  </symbol>
+  <symbol id="slate-rotate-duotone" viewBox="0 0 24 24">
+    <path d="M15.17 5.2A7.5 7.5 0 1 1 8.83 5.2" fill="none" stroke="currentColor"/>
+    <path d="M7 8.37L8.83 5.2L5.22 4.57" fill="none" stroke="currentColor"/>
+  </symbol>
+  <symbol id="slate-rotate-colour" viewBox="0 0 24 24">
+    <path d="M15.17 5.2A7.5 7.5 0 1 1 8.83 5.2" fill="none" stroke="#1e293b"/>
+    <path d="M7 8.37L8.83 5.2L5.22 4.57" fill="none" stroke="#0d9488"/>
+  </symbol>
+  <symbol id="slate-dimension-monotone" viewBox="0 0 24 24">
+    <path d="M5 6.5H19" fill="none" stroke="currentColor"/>
+    <path d="M5 6.5V18.5M19 6.5V18.5" fill="none" stroke="currentColor"/>
+    <path d="M5 15H10.4M13.6 15H19" fill="none" stroke="currentColor"/>
+    <path d="M7.8 12.9L5 15L7.8 17.1 M16.2 17.1L19 15L16.2 12.9" fill="none" stroke="currentColor"/>
+  </symbol>
+  <symbol id="slate-dimension-duotone" viewBox="0 0 24 24">
+    <path d="M5 6.5H19" fill="none" stroke="currentColor" opacity="0.38"/>
+    <path d="M5 6.5V18.5M19 6.5V18.5" fill="none" stroke="currentColor" opacity="0.38"/>
+    <path d="M5 15H10.4M13.6 15H19" fill="none" stroke="currentColor"/>
+    <path d="M7.8 12.9L5 15L7.8 17.1 M16.2 17.1L19 15L16.2 12.9" fill="none" stroke="currentColor"/>
+  </symbol>
+  <symbol id="slate-dimension-colour" viewBox="0 0 24 24">
+    <path d="M5 6.5H19" fill="none" stroke="#94a3b8"/>
+    <path d="M5 6.5V18.5M19 6.5V18.5" fill="none" stroke="#94a3b8"/>
+    <path d="M5 15H10.4M13.6 15H19" fill="none" stroke="#1e293b"/>
+    <path d="M7.8 12.9L5 15L7.8 17.1 M16.2 17.1L19 15L16.2 12.9" fill="none" stroke="#0d9488"/>
+  </symbol>
+</svg>
