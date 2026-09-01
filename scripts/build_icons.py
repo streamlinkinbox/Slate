@@ -40,6 +40,7 @@ ICONS_DIR = os.path.join(ROOT, "icons")
 GRID = 24
 STROKE = 1.5
 DOT = 3.0
+DOT_S = 2.4      # control vertices: smaller so a hull of 5 stays readable
 
 # --------------------------------------------------------------------------
 # palette
@@ -53,6 +54,7 @@ CATEGORIES = {
     "draw":      {"label": "Draw",      "accent": "#2563eb", "tint": "#dbeafe"},
     "modify":    {"label": "Modify",    "accent": "#d97706", "tint": "#fef3c7"},
     "transform": {"label": "Transform", "accent": "#0d9488", "tint": "#ccfbf1"},
+    "curve":     {"label": "Curve",     "accent": "#7c3aed", "tint": "#ede9fe"},
 }
 
 VARIANTS = ("monotone", "duotone", "colour")
@@ -155,6 +157,101 @@ def shorten(start, end, back: float):
     return (start[0] + dx * t, start[1] + dy * t)
 
 
+def fit_cubic(f, t0: float, t1: float):
+    """Exact-ish cubic Bezier for the parametric curve `f` over [t0, t1].
+
+    Matches f at t0, t0+d/3, t0+2d/3 and t1. For anything that already is a
+    cubic polynomial (a B-spline span, a helix half turn) the fit is exact.
+    """
+    q0 = f(t0)
+    q1 = f(t0 + (t1 - t0) / 3)
+    q2 = f(t0 + 2 * (t1 - t0) / 3)
+    q3 = f(t1)
+    a = [27 * q1[i] - 8 * q0[i] - q3[i] for i in (0, 1)]
+    b = [27 * q2[i] - q0[i] - 8 * q3[i] for i in (0, 1)]
+    p1 = tuple((2 * a[i] - b[i]) / 18 for i in (0, 1))
+    p2 = tuple((2 * b[i] - a[i]) / 18 for i in (0, 1))
+    return q0, p1, p2, q3
+
+
+def curve_path(f, t0: float, t1: float, segs: int = 4) -> str:
+    """Chain `segs` fitted cubics into one smooth path."""
+    out = []
+    for i in range(segs):
+        a = t0 + (t1 - t0) * i / segs
+        b = t0 + (t1 - t0) * (i + 1) / segs
+        q0, c1, c2, q3 = fit_cubic(f, a, b)
+        if i == 0:
+            out.append("M%s %s" % (n(q0[0]), n(q0[1])))
+        out.append("C%s %s %s %s %s %s"
+                   % (n(c1[0]), n(c1[1]), n(c2[0]), n(c2[1]), n(q3[0]), n(q3[1])))
+    return "".join(out)
+
+
+def _bs_basis(u: float):
+    """Uniform cubic B-spline basis functions."""
+    return ((1 - u) ** 3 / 6,
+            (3 * u ** 3 - 6 * u ** 2 + 4) / 6,
+            (-3 * u ** 3 + 3 * u ** 2 + 3 * u + 1) / 6,
+            u ** 3 / 6)
+
+
+def bspline_path(pts, weights=None, per_span: int = 1) -> str:
+    """Uniform cubic B-spline through `pts`; `weights` makes it rational (NURBS).
+
+    A cubic B-spline span is exactly a cubic, so one Bezier per span is exact
+    for the non-rational case.
+    """
+    spans = len(pts) - 3
+
+    def at(s):
+        s = max(0.0, min(float(spans), s))
+        i = min(int(s), spans - 1)
+        u = s - i
+        N = _bs_basis(u)
+        if weights is None:
+            return (sum(N[j] * pts[i + j][0] for j in range(4)),
+                    sum(N[j] * pts[i + j][1] for j in range(4)))
+        nx = ny = d = 0.0
+        for j in range(4):
+            w = weights[i + j] * N[j]
+            nx += w * pts[i + j][0]
+            ny += w * pts[i + j][1]
+            d += w
+        return (nx / d, ny / d)
+
+    return curve_path(at, 0.0, float(spans), segs=spans * per_span)
+
+
+def helix(cx: float, rx: float, y0: float, pitch: float, turns: float = 2.0,
+          depth: float = 2.2):
+    """Helix -> (front path, back path).
+
+    Oblique projection: x = cx + rx*cos(t), y = y0 + k*t - depth*sin(t).
+    With depth > k the curve crosses itself and reads as a coil rather than a
+    flat sine wave. Front halves (nearest the viewer) sit lower.
+    """
+    k = pitch / (2 * math.pi)
+
+    def f(th):
+        return (cx + rx * math.cos(th), y0 + k * th - depth * math.sin(th))
+
+    front, back = [], []
+    for i in range(int(turns * 2)):
+        d = curve_path(f, i * math.pi, (i + 1) * math.pi, segs=1)
+        (front if i % 2 == 1 else back).append(d)
+    return "".join(front), "".join(back)
+
+
+def spiral(cx: float, cy: float, r0: float, r1: float, turns: float = 2.0) -> str:
+    """Archimedean spiral, r growing linearly from r0 to r1."""
+    def f(th):
+        r = r0 + (r1 - r0) * th / (turns * 2 * math.pi)
+        return (cx + r * math.cos(th), cy + r * math.sin(th))
+
+    return curve_path(f, 0.0, turns * 2 * math.pi, segs=int(turns * 4))
+
+
 class P:
     """One stroked (or filled) sub-path, tagged with a semantic role."""
 
@@ -245,10 +342,82 @@ icon("polygon", "Polygon", "draw", ["hexagon", "ngon", "regular"], [
 
 # -- 09 spline --------------------------------------------------------------
 _SPL = "M4.5 15C6 14.5 7 8 9 7.5C11 7 12.5 16.5 14.5 16C16.5 15.5 18 9.5 19.5 8"
-icon("spline", "Spline", "draw", ["nurbs", "bezier", "curve", "fit"], [
+icon("spline", "Spline", "curve", ["fit points", "interpolated", "nurbs"], [
     P(_SPL, "primary"),
     P("".join([dot(4.5, 15), dot(9, 7.5), dot(14.5, 16), dot(19.5, 8)]), "accent", DOT),
 ], "Curve through four fit points.")
+
+# -- 09b bezier ---------------------------------------------------------------
+# An arch with two handle levers: the curve meets its end points, the two
+# off-curve handles stick out on tangents. Dots mark the handles.
+icon("bezier", "Bezier", "curve", ["cubic", "bezier", "handle", "control point"], [
+    P("M4.5 17C8 8 16 8 19.5 17", "primary"),
+    P("M4.5 17L8 8", "secondary", None, "2.4 2.4"),
+    P("M16 8L19.5 17", "secondary", None, "2.4 2.4"),
+    P(dot(8, 8) + dot(16, 8), "accent", DOT),
+], "Cubic Bezier: curve meets its ends, handles sit off the curve.")
+
+# -- 09c hermite --------------------------------------------------------------
+# Defined by tangent VECTORS, not control points: an arrow at each end. Both
+# arrows point away from the curve (one behind the start, one past the end) so
+# neither ever sits on top of the span itself.
+_HM_P0, _HM_P3 = (7, 13.3), (17, 13.3)
+_HM_C = "M7 13.3C9.5 5.3 14.5 5.3 17 13.3"
+_HM_D0, _HM_D1 = (2.5, -7.5), (2.5, 7.5)          # tangent directions
+_HM_U0 = (0.3162, -0.9487)
+_HM_U1 = (0.3162, 0.9487)
+_HM_L = 3.5
+_HM_A0 = (_HM_P0[0] - _HM_L * _HM_U0[0], _HM_P0[1] - _HM_L * _HM_U0[1])   # behind start
+_HM_A1 = (_HM_P3[0] + _HM_L * _HM_U1[0], _HM_P3[1] + _HM_L * _HM_U1[1])   # past end
+icon("hermite", "Hermite", "curve", ["tangent", "vector", "endpoint", "interpolation"], [
+    P(_HM_C, "primary"),
+    P("M%s %sL%s %s" % (n(_HM_A0[0]), n(_HM_A0[1]), n(_HM_P0[0]), n(_HM_P0[1])), "accent"),
+    P(chevron(_HM_P0, _HM_D0, 2.6, 1.5), "accent"),
+    P("M%s %sL%s %s" % (n(_HM_P3[0]), n(_HM_P3[1]), n(_HM_A1[0]), n(_HM_A1[1])), "accent"),
+    P(chevron(_HM_A1, _HM_D1, 2.6, 1.5), "accent"),
+], "Hermite: position plus tangent vector at each end.")
+
+# -- 09d b-spline -------------------------------------------------------------
+# Five control vertices; the curve sits inside the hull and deliberately does
+# NOT touch the first or last CV - that is the tell against a Bezier.
+_BS = [(4.5, 16), (8, 9), (12, 7.5), (16, 9), (19.5, 16)]
+icon("bspline", "B-spline", "curve", ["spline", "control vertex", "cv", "degree"], [
+    P("M4.5 16L8 9L12 7.5L16 9L19.5 16", "secondary", None, "2.5 2.5"),
+    P(bspline_path(_BS), "primary"),
+    P("".join(dot(x, y) for x, y in _BS), "accent", DOT_S),
+], "Uniform cubic B-spline: control hull, five CVs, curve inside.")
+
+# -- 09e nurbs ----------------------------------------------------------------
+# Same construction, one CV weighted - the leader shows which one pulls the
+# curve, which is the whole point of the rational part.
+_NU = [(4.5, 16), (8, 9), (12, 7.5), (16, 9), (19.5, 16)]
+_NU_W = [1, 8, 1, 1, 1]
+icon("nurbs", "NURBS", "curve", ["rational", "weight", "bspline", "control vertex"], [
+    P("M4.5 16L8 9L12 7.5L16 9L19.5 16", "secondary", None, "2.5 2.5"),
+    P(bspline_path(_NU, _NU_W, per_span=2), "primary"),
+    P("".join(dot(x, y) for x, y in _NU), "accent", DOT_S),
+    P("M8 9V6.3", "accent"),
+], "Rational B-spline: one weighted control vertex pulls the curve.")
+
+# -- 09f conic ----------------------------------------------------------------
+icon("conic", "Conic", "curve", ["parabola", "hyperbola", "rho", "shoulder"], [
+    P("M4.5 16.5Q12 -1.5 19.5 16.5", "primary"),
+    P("M4.5 16.5H19.5", "secondary", None, "3 3"),
+    P(dot(4.5, 16.5) + dot(19.5, 16.5) + dot(12, 7.5), "accent", DOT),
+], "Conic section: chord, apex, two endpoints.")
+
+# -- 09g helix ----------------------------------------------------------------
+_HEL_FRONT, _HEL_BACK = helix(12, 5.8, 4.95, 4.7, turns=3, depth=2.0)
+icon("helix", "Helix", "curve", ["coil", "spring", "thread", "screw"], [
+    P(_HEL_FRONT, "primary"),
+    P(_HEL_BACK, "secondary")
+], "Helix: four joined turns, open to the right.")
+
+# -- 09h spiral ---------------------------------------------------------------
+icon("spiral", "Spiral", "curve", ["archimedean", "logarithmic", "coil"], [
+    P(spiral(11.2, 12.85, 1.4, 8.3, turns=2.0), "primary"),
+    P(dot(11.2, 12.85), "accent", DOT_S),
+], "Archimedean spiral, pole marked.")
 
 # -- 10 hatch ---------------------------------------------------------------
 _HATCH_BOX = rrect(4.5, 4.5, 15, 15, 1.5)
@@ -286,18 +455,18 @@ icon("extend", "Extend", "modify", ["lengthen", "boundary", "meet"], [
 # but the two legs are joined by an arc of radius 3.5. That single difference
 # is what separates fillet from chamfer at 16px.
 icon("fillet", "Fillet", "modify", ["round", "radius", "blend", "corner"], [
-    P("M18.5 5.5H10", "primary"),
-    P("M5.5 10V18.5", "primary"),
-    P("M10 5.5" + arc_seg(10, 10, 4.5, 270, 180), "accent"),
-    P("M10 5.5H5.5V10", "secondary", None, "3 3"),
+    P("M19.5 4.5H12", "primary"),
+    P("M4.5 12V19.5", "primary"),
+    P("M12 4.5" + arc_seg(12, 12, 7.5, 270, 180), "accent"),
+    P("M12 4.5H4.5V12", "secondary", None, "5 5"),
 ], "Radiused corner; the removed sharp corner is dashed.")
 
 # -- 14 chamfer -------------------------------------------------------------
 icon("chamfer", "Chamfer", "modify", ["bevel", "corner", "cut"], [
-    P("M18.5 5.5H10", "primary"),
-    P("M5.5 10V18.5", "primary"),
-    P("M10 5.5L5.5 10", "accent"),
-    P("M10 5.5H5.5V10", "secondary", None, "3 3"),
+    P("M19.5 4.5H12", "primary"),
+    P("M4.5 12V19.5", "primary"),
+    P("M12 4.5L4.5 12", "accent"),
+    P("M12 4.5H4.5V12", "secondary", None, "5 5"),
 ], "Bevelled corner; the removed sharp corner is dashed, as in fillet.")
 
 # -- 15 offset --------------------------------------------------------------
@@ -805,6 +974,8 @@ PALETTE_ROWS = [
     {"token": "modify-tint", "value": CATEGORIES["modify"]["tint"], "role": "Soft", "use": "Modify silhouettes"},
     {"token": "transform", "value": CATEGORIES["transform"]["accent"], "role": "Accent", "use": "Transform tools"},
     {"token": "transform-tint", "value": CATEGORIES["transform"]["tint"], "role": "Soft", "use": "Transform silhouettes"},
+    {"token": "curve", "value": CATEGORIES["curve"]["accent"], "role": "Accent", "use": "Curve tools"},
+    {"token": "curve-tint", "value": CATEGORIES["curve"]["tint"], "role": "Soft", "use": "Curve silhouettes"},
     {"token": "neutral", "value": CATEGORIES["neutral"]["accent"], "role": "Accent", "use": "Interface / cursor"},
 ]
 

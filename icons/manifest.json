@@ -27,6 +27,11 @@
       "label": "Transform",
       "accent": "#0d9488",
       "tint": "#ccfbf1"
+    },
+    "curve": {
+      "label": "Curve",
+      "accent": "#7c3aed",
+      "tint": "#ede9fe"
     }
   },
   "icons": [
@@ -161,18 +166,135 @@
     {
       "name": "spline",
       "label": "Spline",
-      "category": "draw",
+      "category": "curve",
       "keywords": [
-        "nurbs",
-        "bezier",
-        "curve",
-        "fit"
+        "fit points",
+        "interpolated",
+        "nurbs"
       ],
       "note": "Curve through four fit points.",
       "files": {
         "monotone": "icons/monotone/spline.svg",
         "duotone": "icons/duotone/spline.svg",
         "colour": "icons/colour/spline.svg"
+      }
+    },
+    {
+      "name": "bezier",
+      "label": "Bezier",
+      "category": "curve",
+      "keywords": [
+        "cubic",
+        "bezier",
+        "handle",
+        "control point"
+      ],
+      "note": "Cubic Bezier: curve meets its ends, handles sit off the curve.",
+      "files": {
+        "monotone": "icons/monotone/bezier.svg",
+        "duotone": "icons/duotone/bezier.svg",
+        "colour": "icons/colour/bezier.svg"
+      }
+    },
+    {
+      "name": "hermite",
+      "label": "Hermite",
+      "category": "curve",
+      "keywords": [
+        "tangent",
+        "vector",
+        "endpoint",
+        "interpolation"
+      ],
+      "note": "Hermite: position plus tangent vector at each end.",
+      "files": {
+        "monotone": "icons/monotone/hermite.svg",
+        "duotone": "icons/duotone/hermite.svg",
+        "colour": "icons/colour/hermite.svg"
+      }
+    },
+    {
+      "name": "bspline",
+      "label": "B-spline",
+      "category": "curve",
+      "keywords": [
+        "spline",
+        "control vertex",
+        "cv",
+        "degree"
+      ],
+      "note": "Uniform cubic B-spline: control hull, five CVs, curve inside.",
+      "files": {
+        "monotone": "icons/monotone/bspline.svg",
+        "duotone": "icons/duotone/bspline.svg",
+        "colour": "icons/colour/bspline.svg"
+      }
+    },
+    {
+      "name": "nurbs",
+      "label": "NURBS",
+      "category": "curve",
+      "keywords": [
+        "rational",
+        "weight",
+        "bspline",
+        "control vertex"
+      ],
+      "note": "Rational B-spline: one weighted control vertex pulls the curve.",
+      "files": {
+        "monotone": "icons/monotone/nurbs.svg",
+        "duotone": "icons/duotone/nurbs.svg",
+        "colour": "icons/colour/nurbs.svg"
+      }
+    },
+    {
+      "name": "conic",
+      "label": "Conic",
+      "category": "curve",
+      "keywords": [
+        "parabola",
+        "hyperbola",
+        "rho",
+        "shoulder"
+      ],
+      "note": "Conic section: chord, apex, two endpoints.",
+      "files": {
+        "monotone": "icons/monotone/conic.svg",
+        "duotone": "icons/duotone/conic.svg",
+        "colour": "icons/colour/conic.svg"
+      }
+    },
+    {
+      "name": "helix",
+      "label": "Helix",
+      "category": "curve",
+      "keywords": [
+        "coil",
+        "spring",
+        "thread",
+        "screw"
+      ],
+      "note": "Helix: four joined turns, open to the right.",
+      "files": {
+        "monotone": "icons/monotone/helix.svg",
+        "duotone": "icons/duotone/helix.svg",
+        "colour": "icons/colour/helix.svg"
+      }
+    },
+    {
+      "name": "spiral",
+      "label": "Spiral",
+      "category": "curve",
+      "keywords": [
+        "archimedean",
+        "logarithmic",
+        "coil"
+      ],
+      "note": "Archimedean spiral, pole marked.",
+      "files": {
+        "monotone": "icons/monotone/spiral.svg",
+        "duotone": "icons/duotone/spiral.svg",
+        "colour": "icons/colour/spiral.svg"
       }
     },
     {

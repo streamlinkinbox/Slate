@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Helix">
+  <title>Helix</title>
+    <path d="M6.2 7.3C5.72 10.68 18.28 11.46 17.8 9.65M6.2 12C5.72 15.38 18.28 16.16 17.8 14.35M6.2 16.7C5.72 20.08 18.28 20.86 17.8 19.05" fill="none" stroke="#1e293b"/>
+    <path d="M17.8 4.95C18.28 3.14 5.72 3.92 6.2 7.3M17.8 9.65C18.28 7.84 5.72 8.62 6.2 12M17.8 14.35C18.28 12.54 5.72 13.32 6.2 16.7" fill="none" stroke="#94a3b8"/>
+</svg>

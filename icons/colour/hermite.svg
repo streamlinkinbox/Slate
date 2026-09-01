@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Hermite">
+  <title>Hermite</title>
+    <path d="M7 13.3C9.5 5.3 14.5 5.3 17 13.3" fill="none" stroke="#1e293b"/>
+    <path d="M5.89 16.62L7 13.3" fill="none" stroke="#7c3aed"/>
+    <path d="M7.6 16.24L7 13.3L4.75 15.29" fill="none" stroke="#7c3aed"/>
+    <path d="M17 13.3L18.11 16.62" fill="none" stroke="#7c3aed"/>
+    <path d="M15.86 14.63L18.11 16.62L18.71 13.68" fill="none" stroke="#7c3aed"/>
+</svg>

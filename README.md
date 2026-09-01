@@ -1,6 +1,6 @@
 # Slate — CAD icon set
 
-A 20-glyph icon set for CAD and drafting tools, published in **three interchangeable sets**:
+A 27-glyph icon set for CAD and drafting tools, published in **three interchangeable sets**:
 `monotone`, `duotone` and `colour`. Every glyph is hand-authored SVG on a single 24×24 grid —
 no auto-traced artwork, no raster fallbacks, no icon fonts.
 
@@ -8,7 +8,7 @@ Open **`index.html`** for the live spec sheet: switch sets, scrub the size, togg
 construction grid, search, and click any icon to copy its SVG.
 
 ```
-20 icons × 3 sets = 60 SVG files + 1 sprite
+27 icons × 3 sets = 81 SVG files + 1 sprite
 ```
 
 ---
@@ -69,25 +69,44 @@ for the same roles:
 
 | | | | |
 | --- | --- | --- | --- |
+| | | | |
+| --- | --- | --- | --- |
 | select | line | polyline | rectangle |
 | circle | arc | ellipse | polygon |
-| spline | hatch | trim | extend |
-| fillet | chamfer | offset | mirror |
-| array | move | rotate | dimension |
+| **spline** | **bezier** | **hermite** | **bspline** |
+| **nurbs** | **conic** | **helix** | **spiral** |
+| hatch | trim | extend | fillet |
+| chamfer | offset | mirror | array |
+| move | rotate | dimension | |
+
+Bold rows are the **curve** family. Each one differs from its neighbours in exactly one
+legible way:
+
+| icon | reads as | the one thing that separates it |
+| --- | --- | --- |
+| spline | dots joined by a smooth curve | curve passes *through* every point |
+| bezier | arch + two handle levers | curve meets its **ends**; handles sit off it |
+| hermite | arch + a tangent arrow at each end | driven by tangent **vectors**, not points |
+| bspline | curve floating inside its hull | curve does **not** touch the hull ends |
+| nurbs | bspline + a leader on one vertex | a **weight** pulls the curve off the hull |
+| conic | arc over a dashed chord | second-degree, single shoulder point |
+| helix | coil | turns stacked in **depth** |
+| spiral | flat concentric rings | one continuous turn, no depth |
 
 `fillet` and `chamfer` are deliberately built as a matched pair: identical legs, identical
-dashed "removed" sharp corner. The only difference is the connector — an arc versus a
-straight bevel — which is what separates them at 16px.
+dashed "removed" sharp corner, and the corner detail zoomed to fill the frame. The only
+difference is the connector — an arc versus a straight bevel — which is what separates
+them at 16px.
 
 ---
 
 ## Files
 
 ```
-index.html                 spec sheet + live preview (all 60 SVGs inlined)
-icons/monotone/<name>.svg  20 files
-icons/duotone/<name>.svg   20 files
-icons/colour/<name>.svg    20 files
+index.html                 spec sheet + live preview (all 81 SVGs inlined)
+icons/monotone/<name>.svg  27 files
+icons/duotone/<name>.svg   27 files
+icons/colour/<name>.svg    27 files
 icons/slate-icons.svg      sprite — <symbol id="slate-<name>-<variant>">
 icons/manifest.json        metadata for tooling and docs
 scripts/build_icons.py     the generator (stdlib only)

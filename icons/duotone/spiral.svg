@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Spiral">
+  <title>Spiral</title>
+    <path d="M12.6 12.85C12.94 13.57 12.44 14.83 11.2 15.11C10.02 15.46 8.34 14.55 8.07 12.85C7.71 11.21 9.04 9.12 11.2 8.86C13.3 8.49 15.81 10.23 16.05 12.85C16.44 15.41 14.28 18.33 11.2 18.56C8.18 18.96 4.84 16.39 4.62 12.85C4.21 9.37 7.2 5.62 11.2 5.41C15.15 4.99 19.31 8.39 19.5 12.85" fill="none" stroke="currentColor"/>
+    <path d="M11.2 12.85h.01" fill="none" stroke="currentColor" stroke-width="2.4"/>
+</svg>
