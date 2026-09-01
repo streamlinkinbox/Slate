@@ -1,50 +1,66 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#f4f8f8" />
-  <title>Formwork — CAD icon system</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#1b1b1b" />
+  <title>SLATE / 3D CAD icon set</title>
   <style>
     :root {
-      --canvas: #f4f8f8;
-      --paper: #ffffff;
-      --paper-soft: #edf4f3;
-      --ink: #173d46;
-      --ink-deep: #0f3038;
-      --muted: #6b8286;
-      --muted-soft: #8fa2a4;
-      --line: #dce8e7;
-      --line-strong: #c8d9d8;
-      --teal: #0d6d74;
-      --teal-bright: #2a9691;
-      --coral: #ed815f;
-      --gold: #efc867;
-      --shadow: 0 18px 42px rgba(22, 67, 74, 0.08);
-      --shadow-small: 0 8px 20px rgba(22, 67, 74, 0.07);
-      --radius-large: 28px;
-      --radius: 18px;
-      --radius-small: 12px;
+      --bg: #1b1b1b;
+      --bg-deep: #151515;
+      --panel: #242424;
+      --panel-raised: #2b2b2b;
+      --panel-soft: #303030;
+      --border: rgba(255, 255, 255, .1);
+      --border-strong: rgba(255, 255, 255, .16);
+      --white: #f4f1eb;
+      --white-soft: #dedbd5;
+      --muted: #96938e;
+      --muted-dark: #6e6b68;
+      --orange: #ff8966;
+      --orange-light: #ffc19f;
+      --yellow: #f4c84f;
+      --blue: #72a8df;
+      --lavender: #b49bed;
+      --green: #86c9ad;
+      --shadow: 0 22px 50px rgba(0, 0, 0, .28);
+      --shadow-tight: 0 10px 25px rgba(0, 0, 0, .2);
+      --r-lg: 28px;
+      --r-md: 19px;
+      --r-sm: 12px;
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
-      margin: 0;
       min-width: 320px;
-      background-color: var(--canvas);
-      background-image:
-        linear-gradient(rgba(37, 104, 107, 0.026) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(37, 104, 107, 0.026) 1px, transparent 1px);
-      background-size: 32px 32px;
-      color: var(--ink);
+      margin: 0;
+      background:
+        radial-gradient(circle at 78% 9%, rgba(255, 137, 102, .08), transparent 25rem),
+        radial-gradient(circle at 16% 42%, rgba(114, 168, 223, .045), transparent 22rem),
+        var(--bg);
+      color: var(--white);
       font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       -webkit-font-smoothing: antialiased;
     }
-
-    button, input { font: inherit; }
+    body::before {
+      position: fixed;
+      z-index: -1;
+      inset: 0;
+      content: "";
+      pointer-events: none;
+      opacity: .23;
+      background-image:
+        linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, black, transparent 86%);
+    }
+    button, input, select { font: inherit; }
     button { cursor: pointer; }
     a { color: inherit; text-decoration: none; }
+    ::selection { background: rgba(255, 137, 102, .35); color: #fff; }
     .sr-only {
       position: absolute;
       width: 1px;
@@ -56,798 +72,463 @@
       white-space: nowrap;
       border: 0;
     }
-    ::selection { background: #bfe8e1; color: var(--ink-deep); }
-
-    .shell {
-      width: min(1440px, calc(100% - 64px));
-      margin: 0 auto;
+    .mono {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      letter-spacing: .04em;
     }
+    .shell { width: min(1400px, calc(100% - 64px)); margin: 0 auto; }
 
+    /* Navigation */
     .topbar {
       height: 78px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 24px;
-      border-bottom: 1px solid rgba(191, 211, 210, 0.7);
+      border-bottom: 1px solid var(--border);
     }
-
     .brand {
       display: inline-flex;
       align-items: center;
-      gap: 11px;
+      gap: 12px;
+      color: var(--white);
       font-size: 14px;
       font-weight: 800;
-      letter-spacing: -0.02em;
-      color: var(--ink-deep);
+      letter-spacing: .04em;
       white-space: nowrap;
     }
-
     .brand-mark {
-      width: 29px;
-      height: 29px;
       position: relative;
       display: grid;
+      width: 31px;
+      height: 31px;
       place-items: center;
-      border-radius: 9px;
-      background: var(--ink);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.1);
       overflow: hidden;
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 10px;
+      background: linear-gradient(145deg, #fbf4e9, #96918a);
+      box-shadow: 0 5px 12px rgba(0,0,0,.24), inset 1px 1px rgba(255,255,255,.7);
     }
     .brand-mark::before,
     .brand-mark::after {
-      content: "";
       position: absolute;
-      border: 1.5px solid #b8e0d9;
-      transform: rotate(45deg);
+      content: "";
+      border-radius: 4px;
+      transform: rotate(30deg) skewY(-12deg);
     }
-    .brand-mark::before { width: 13px; height: 13px; }
-    .brand-mark::after { width: 5px; height: 5px; border-color: var(--coral); }
-
+    .brand-mark::before { width: 13px; height: 13px; border: 2px solid #292929; }
+    .brand-mark::after { width: 6px; height: 6px; background: var(--orange); box-shadow: 0 0 0 2px #f4f1eb; }
     .brand-note {
-      padding-left: 11px;
-      margin-left: 2px;
-      border-left: 1px solid var(--line-strong);
+      padding-left: 12px;
+      border-left: 1px solid var(--border-strong);
       color: var(--muted);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 600;
-      letter-spacing: .08em;
+      letter-spacing: .1em;
       text-transform: uppercase;
     }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 27px;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 650;
-    }
+    .nav-links { display: flex; align-items: center; gap: 28px; color: var(--muted); font-size: 12px; font-weight: 650; }
     .nav-links a { transition: color .2s ease; }
-    .nav-links a:hover { color: var(--teal); }
-
-    .version-pill,
-    .eyebrow,
-    .mono,
-    .icon-index,
-    .style-count,
-    .panel-kicker,
-    .inspector-label,
-    .code-label,
-    .stat-label,
-    .hero-mini-label {
-      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-    }
-
-    .version-pill {
+    .nav-links a:hover { color: var(--white); }
+    .status-pill {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 11px;
-      border: 1px solid var(--line-strong);
+      padding: 9px 12px;
+      border: 1px solid var(--border-strong);
       border-radius: 999px;
-      color: var(--teal);
-      background: rgba(255,255,255,.56);
-      font-size: 10px;
+      color: var(--white-soft);
+      background: rgba(255,255,255,.045);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 9px;
       font-weight: 700;
       letter-spacing: .08em;
       text-transform: uppercase;
       white-space: nowrap;
     }
-    .version-pill::before {
-      content: "";
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--coral);
-      box-shadow: 0 0 0 3px rgba(237, 129, 95, .14);
-    }
+    .status-pill::before { width: 6px; height: 6px; content: ""; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 3px rgba(255,137,102,.14); }
 
+    /* Intro */
     .hero {
       display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(430px, .92fr);
+      grid-template-columns: minmax(0, 1fr) minmax(430px, .82fr);
       align-items: center;
-      gap: clamp(38px, 6vw, 100px);
-      min-height: 500px;
-      padding: 76px 0 70px;
+      gap: clamp(44px, 8vw, 120px);
+      padding: 82px 0 78px;
     }
-
     .eyebrow {
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: 9px;
+      gap: 10px;
       margin: 0 0 21px;
-      color: var(--teal);
-      font-size: 11px;
+      color: var(--orange);
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 10px;
       font-weight: 700;
-      letter-spacing: .11em;
+      letter-spacing: .12em;
       text-transform: uppercase;
     }
-    .eyebrow::before {
-      content: "";
-      width: 22px;
-      height: 1px;
-      background: var(--coral);
-    }
-
+    .eyebrow::before { width: 25px; height: 1px; content: ""; background: var(--orange); }
     .hero h1 {
-      max-width: 750px;
+      max-width: 710px;
       margin: 0;
-      color: var(--ink-deep);
-      font-size: clamp(54px, 7vw, 96px);
-      line-height: .91;
-      letter-spacing: -.075em;
+      color: var(--white);
+      font-size: clamp(52px, 7.2vw, 100px);
       font-weight: 760;
+      line-height: .87;
+      letter-spacing: -.075em;
     }
-    .hero h1 em {
-      color: var(--teal);
-      font-style: normal;
-    }
-    .hero-lede {
-      max-width: 510px;
-      margin: 28px 0 0;
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.65;
-      letter-spacing: -.015em;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 11px;
-      margin-top: 31px;
-    }
+    .hero h1 em { color: var(--orange); font-style: normal; }
+    .hero-copy p:not(.eyebrow) { max-width: 475px; margin: 28px 0 0; color: var(--muted); font-size: 16px; line-height: 1.65; letter-spacing: -.012em; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 29px; }
     .button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 9px;
       min-height: 43px;
-      padding: 0 16px;
+      padding: 0 15px;
       border: 1px solid transparent;
-      border-radius: 10px;
+      border-radius: 11px;
       font-size: 12px;
-      font-weight: 750;
-      letter-spacing: -.01em;
-      transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+      font-weight: 760;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
     }
     .button:hover { transform: translateY(-2px); }
-    .button-primary {
-      background: var(--ink);
-      color: #f8ffff;
-      box-shadow: 0 8px 18px rgba(23, 61, 70, .16);
-    }
-    .button-primary:hover { background: var(--teal); box-shadow: 0 10px 22px rgba(13, 109, 116, .2); }
-    .button-secondary {
-      border-color: var(--line-strong);
-      background: rgba(255,255,255,.66);
-      color: var(--ink);
-    }
-    .button-secondary:hover { border-color: #9ec5c1; background: var(--paper); }
     .button svg { width: 15px; height: 15px; }
+    .button-primary { color: #221b18; background: var(--orange); box-shadow: 0 9px 20px rgba(0,0,0,.25); }
+    .button-primary:hover { background: #ff9b7e; box-shadow: 0 12px 25px rgba(0,0,0,.34); }
+    .button-quiet { border-color: var(--border-strong); color: var(--white-soft); background: rgba(255,255,255,.035); }
+    .button-quiet:hover { border-color: rgba(255,137,102,.58); background: rgba(255,137,102,.08); }
 
-    .hero-visual {
+    /* Floating hero object */
+    .hero-stage {
       position: relative;
-      min-height: 385px;
-    }
-    .hero-card {
-      position: relative;
-      min-height: 385px;
-      padding: 23px 24px 21px;
+      min-height: 390px;
       overflow: hidden;
-      border-radius: var(--radius-large);
-      background: #173f47;
-      box-shadow: 0 24px 48px rgba(20, 64, 70, .18);
-      color: #e9f7f4;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--r-lg);
+      background: linear-gradient(145deg, #2c2c2c, #202020 68%, #1e1e1e);
+      box-shadow: var(--shadow);
     }
-    .hero-card::before {
-      content: "";
+    .hero-stage::before {
       position: absolute;
       inset: 0;
-      opacity: .4;
-      background-image:
-        linear-gradient(rgba(172, 231, 220, .08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(172, 231, 220, .08) 1px, transparent 1px);
+      content: "";
+      opacity: .72;
+      background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
       background-size: 28px 28px;
-      mask-image: linear-gradient(135deg, rgba(0,0,0,.92), transparent 80%);
-      pointer-events: none;
+      mask-image: linear-gradient(145deg, black, transparent 75%);
     }
-    .hero-card::after {
-      content: "";
+    .hero-stage::after {
       position: absolute;
-      width: 250px;
-      height: 250px;
-      top: -140px;
-      right: -70px;
+      right: -80px;
+      bottom: -130px;
+      width: 300px;
+      height: 300px;
+      content: "";
+      border: 1px solid rgba(255,255,255,.13);
       border-radius: 50%;
-      border: 1px solid rgba(179, 229, 220, .16);
-      box-shadow: 0 0 0 24px rgba(179,229,220,.035), 0 0 0 48px rgba(179,229,220,.025);
-      pointer-events: none;
+      box-shadow: 0 0 0 24px rgba(255,255,255,.025), 0 0 0 48px rgba(255,255,255,.018);
     }
-    .hero-card-head,
-    .hero-card-foot { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; }
-    .hero-card-head { color: #a9d3ce; }
-    .hero-mini-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-    .hero-card-head .mono { color: #6da8a2; font-size: 10px; }
-    .hero-scene {
-      position: absolute;
-      width: min(78%, 340px);
-      height: auto;
-      left: 11%;
-      top: 43px;
-      overflow: visible;
-    }
-    .hero-scene .scene-guide { fill: none; stroke: #67ada5; stroke-width: 1; stroke-dasharray: 3 5; opacity: .45; }
-    .hero-scene .scene-ink { fill: none; stroke: #d5f0ea; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-    .hero-scene .scene-soft { fill: #276b6d; stroke: #a6dcd2; stroke-width: 1.4; stroke-linejoin: round; }
-    .hero-scene .scene-accent { fill: #ed815f; stroke: #f7b095; stroke-width: 1.1; }
-    .hero-scene .scene-gold { fill: #efc867; stroke: #f8dfa0; stroke-width: 1.1; }
-    .hero-card-foot {
-      position: absolute;
-      left: 24px;
-      right: 24px;
-      bottom: 21px;
-      padding-top: 15px;
-      border-top: 1px solid rgba(171, 224, 215, .16);
-      color: #a9d3ce;
-      font-size: 11px;
-    }
-    .hero-card-foot strong { color: #eefbf8; font-weight: 700; }
-    .hero-coordinates { display: flex; gap: 17px; }
-    .hero-coordinates span { display: inline-flex; align-items: center; gap: 5px; }
-    .coordinate-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--coral); }
-    .coordinate-dot.gold { background: var(--gold); }
+    .stage-label, .stage-meta { position: absolute; z-index: 2; top: 20px; color: var(--muted); font-family: "SFMono-Regular", Consolas, monospace; font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .stage-label { left: 22px; }
+    .stage-meta { right: 22px; color: #c8c4bd; }
+    .hero-art { position: absolute; z-index: 1; top: 35px; left: 7%; width: 86%; height: auto; overflow: visible; }
+    .hero-art .h-shadow { fill: rgba(0,0,0,.35); }
+    .hero-art .h-face { fill: #474747; stroke: #141414; stroke-width: 1.1; stroke-linejoin: round; }
+    .hero-art .h-top { fill: #f4f0e8; stroke: #bab5ad; stroke-width: 1.1; stroke-linejoin: round; }
+    .hero-art .h-side { fill: #292929; stroke: #111; stroke-width: 1.1; stroke-linejoin: round; }
+    .hero-art .h-orange { fill: #ff8966; stroke: #c95f45; stroke-width: 1; }
+    .hero-art .h-yellow { fill: #f4c84f; stroke: #a27e1e; stroke-width: 1; }
+    .hero-art .h-blue { fill: #72a8df; stroke: #426d9e; stroke-width: 1; }
+    .hero-art .h-highlight { fill: none; stroke: rgba(255,255,255,.57); stroke-width: 1.7; stroke-linecap: round; }
+    .hero-footer { position: absolute; z-index: 2; right: 22px; bottom: 20px; left: 22px; display: flex; align-items: center; justify-content: space-between; padding-top: 14px; border-top: 1px solid rgba(255,255,255,.12); color: var(--muted); font-size: 10px; }
+    .hero-footer strong { color: var(--white-soft); font-weight: 700; }
+    .hero-footer .mono { color: #c7c2bb; font-size: 9px; }
 
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      border-top: 1px solid var(--line-strong);
-      border-bottom: 1px solid var(--line-strong);
-    }
-    .stat {
-      position: relative;
-      min-height: 82px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 6px;
-      padding: 0 22px;
-    }
-    .stat:first-child { padding-left: 0; }
-    .stat:not(:last-child)::after {
-      content: "";
-      position: absolute;
-      right: 0;
-      top: 22px;
-      bottom: 22px;
-      width: 1px;
-      background: var(--line);
-    }
-    .stat-value { color: var(--ink-deep); font-size: 20px; font-weight: 780; letter-spacing: -.045em; }
-    .stat-label { color: var(--muted); font-size: 9px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; }
-    .stat-accent { color: var(--teal); }
+    .spec-strip { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .spec-item { position: relative; display: flex; min-height: 83px; flex-direction: column; justify-content: center; gap: 6px; padding: 0 22px; }
+    .spec-item:first-child { padding-left: 0; }
+    .spec-item:not(:last-child)::after { position: absolute; top: 22px; right: 0; bottom: 22px; width: 1px; content: ""; background: var(--border); }
+    .spec-value { color: var(--white); font-size: 20px; font-weight: 750; letter-spacing: -.05em; }
+    .spec-value.accent { color: var(--orange); }
+    .spec-label { color: var(--muted); font-family: "SFMono-Regular", Consolas, monospace; font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
 
-    .library {
-      padding: 68px 0 82px;
-    }
-    .library-heading {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 28px;
-      margin-bottom: 25px;
-    }
-    .section-kicker { margin: 0 0 9px; color: var(--teal); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
-    .library-heading h2 { margin: 0; color: var(--ink-deep); font-size: clamp(32px, 4vw, 48px); line-height: .98; letter-spacing: -.06em; }
-    .library-heading p { max-width: 355px; margin: 0 0 2px; color: var(--muted); font-size: 13px; line-height: 1.55; text-align: right; }
-
-    .library-toolbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      min-height: 62px;
-      margin-bottom: 21px;
-      padding: 9px;
-      border: 1px solid var(--line);
-      border-radius: 15px;
-      background: rgba(255,255,255,.73);
-      box-shadow: var(--shadow-small);
-    }
+    /* Library controls */
+    .library { padding: 76px 0 85px; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 25px; }
+    .section-kicker { margin: 0 0 9px; color: var(--orange); font-family: "SFMono-Regular", Consolas, monospace; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .section-head h2 { margin: 0; color: var(--white); font-size: clamp(34px, 4.2vw, 55px); font-weight: 740; line-height: .93; letter-spacing: -.065em; }
+    .section-head p { max-width: 340px; margin: 0 0 3px; color: var(--muted); font-size: 12px; line-height: 1.6; text-align: right; }
+    .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; margin-bottom: 20px; padding: 9px; border: 1px solid var(--border); border-radius: 16px; background: rgba(36,36,36,.92); box-shadow: var(--shadow-tight); }
     .style-tabs { display: flex; align-items: center; gap: 4px; }
-    .style-tab {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      min-height: 42px;
-      padding: 0 13px;
-      border: 0;
-      border-radius: 9px;
-      background: transparent;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 720;
-      transition: color .18s ease, background .18s ease, box-shadow .18s ease;
-    }
-    .style-tab:hover { color: var(--ink); }
-    .style-tab[aria-selected="true"] {
-      background: var(--ink);
-      color: #f6fffd;
-      box-shadow: 0 5px 11px rgba(23,61,70,.13);
-    }
-    .tab-dot { width: 7px; height: 7px; border-radius: 50%; background: #81aaa8; }
-    .tab-dot.duotone { background: #68c0b3; }
-    .tab-dot.monotone { background: #4b6971; }
-    .tab-dot.color { background: var(--coral); }
-    .style-tab[aria-selected="true"] .tab-dot { box-shadow: 0 0 0 3px rgba(255,255,255,.11); }
-    .tab-count { opacity: .6; font-family: "SFMono-Regular", Consolas, monospace; font-size: 10px; }
-
-    .toolbar-tools { display: flex; align-items: center; gap: 9px; }
-    .category-select {
-      height: 42px;
-      padding: 0 30px 0 12px;
-      border: 1px solid var(--line);
-      border-radius: 9px;
+    .style-tab { display: inline-flex; min-height: 43px; align-items: center; gap: 8px; padding: 0 13px; border: 0; border-radius: 10px; color: var(--muted); background: transparent; font-size: 11px; font-weight: 750; transition: color .18s ease, background .18s ease, box-shadow .18s ease; }
+    .style-tab:hover { color: var(--white); }
+    .style-tab[aria-selected="true"] { color: #251d1a; background: var(--orange); box-shadow: 0 6px 14px rgba(0,0,0,.26); }
+    .style-tab[aria-selected="true"]:hover { color: #251d1a; }
+    .tab-dot { width: 7px; height: 7px; border-radius: 50%; background: #aaa6a0; }
+    .tab-dot.duotone { background: var(--blue); }
+    .tab-dot.monotone { background: #e5e0d7; }
+    .tab-dot.color { background: var(--orange); }
+    .style-tab[aria-selected="true"] .tab-dot { background: #fff1df; box-shadow: 0 0 0 3px rgba(255,255,255,.18); }
+    .tab-count { opacity: .62; font-family: "SFMono-Regular", Consolas, monospace; font-size: 9px; }
+    .toolbar-tools { display: flex; align-items: center; gap: 8px; }
+    .search { position: relative; display: flex; align-items: center; width: 190px; }
+    .search svg { position: absolute; left: 12px; width: 15px; height: 15px; color: var(--muted); pointer-events: none; }
+    .search input, .category {
+      height: 43px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
       outline: none;
-      appearance: none;
-      color: var(--muted);
-      background-color: var(--paper);
-      background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
-      background-position: calc(100% - 15px) 18px, calc(100% - 11px) 18px;
-      background-size: 4px 4px, 4px 4px;
-      background-repeat: no-repeat;
+      color: var(--white-soft);
+      background: #1b1b1b;
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 650;
     }
-    .category-select:focus { border-color: var(--teal-bright); box-shadow: 0 0 0 3px rgba(42,150,145,.12); }
-    .search-box {
-      position: relative;
-      display: flex;
-      align-items: center;
-      width: 185px;
-    }
-    .search-box svg { position: absolute; left: 12px; width: 15px; height: 15px; color: #8ea1a3; pointer-events: none; }
-    .search-box input {
-      width: 100%;
-      height: 42px;
-      padding: 0 11px 0 35px;
-      border: 1px solid var(--line);
-      border-radius: 9px;
-      outline: none;
-      color: var(--ink);
-      background: var(--paper);
-      font-size: 11px;
-      font-weight: 600;
-    }
-    .search-box input::placeholder { color: #a4b2b3; }
-    .search-box input:focus { border-color: var(--teal-bright); box-shadow: 0 0 0 3px rgba(42,150,145,.12); }
+    .search input { width: 100%; padding: 0 11px 0 35px; }
+    .search input::placeholder { color: var(--muted-dark); }
+    .search input:focus, .category:focus { border-color: rgba(255,137,102,.65); box-shadow: 0 0 0 3px rgba(255,137,102,.12); }
+    .category { width: 135px; padding: 0 28px 0 11px; appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%); background-position: calc(100% - 14px) 18px, calc(100% - 10px) 18px; background-repeat: no-repeat; background-size: 4px 4px, 4px 4px; }
 
-    .workspace {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 285px;
-      align-items: start;
-      gap: 22px;
-    }
+    /* Icon library */
+    .workspace { display: grid; grid-template-columns: minmax(0, 1fr) 286px; align-items: start; gap: 20px; }
     .sets-column { min-width: 0; }
-    .style-set {
-      margin-bottom: 19px;
-      padding: 21px 21px 23px;
-      border: 1px solid var(--line);
-      border-radius: 21px;
-      background: rgba(255,255,255,.86);
-      box-shadow: 0 10px 26px rgba(20, 73, 77, .045);
-      animation: rise .28s ease both;
-    }
-    @keyframes rise { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-    .style-set-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin: 0 1px 17px;
-    }
-    .style-name-wrap { display: flex; align-items: center; gap: 10px; }
-    .style-name-dot { width: 9px; height: 9px; border-radius: 50%; }
-    .style-name-dot.duotone { background: #69bfb2; }
-    .style-name-dot.monotone { background: #41616a; }
-    .style-name-dot.color { background: var(--coral); }
-    .style-set h3 { margin: 0; color: var(--ink-deep); font-size: 15px; letter-spacing: -.025em; }
-    .style-set-sub { margin-left: 5px; color: var(--muted); font-size: 11px; }
-    .style-count { color: var(--muted-soft); font-size: 10px; font-weight: 700; letter-spacing: .05em; }
-
-    .icon-grid {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 9px;
-    }
+    .style-set { margin-bottom: 19px; padding: 22px 21px 23px; border: 1px solid var(--border); border-radius: 22px; background: rgba(36,36,36,.88); box-shadow: var(--shadow-tight); animation: rise .3s ease both; }
+    @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    .set-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 2px 17px; }
+    .set-title { display: flex; align-items: center; gap: 10px; }
+    .set-title h3 { margin: 0; color: var(--white); font-size: 15px; letter-spacing: -.025em; }
+    .set-title p { margin: 0 0 0 3px; color: var(--muted); font-size: 11px; }
+    .set-dot { width: 9px; height: 9px; border-radius: 3px; transform: rotate(45deg); }
+    .set-dot.duotone { background: var(--blue); }
+    .set-dot.monotone { background: var(--white-soft); }
+    .set-dot.color { background: var(--orange); }
+    .set-count { color: var(--muted-dark); font-family: "SFMono-Regular", Consolas, monospace; font-size: 9px; font-weight: 700; letter-spacing: .06em; }
+    .icon-grid { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 9px; }
     .icon-card {
       position: relative;
       min-width: 0;
-      min-height: 142px;
-      padding: 11px 12px 10px;
-      border: 1px solid #e1ebea;
-      border-radius: 13px;
-      outline: none;
-      background: #fbfdfd;
-      color: var(--ink);
-      text-align: left;
-      transition: border-color .18s ease, background .18s ease, box-shadow .18s ease, transform .18s ease;
-    }
-    .icon-card:hover {
-      z-index: 1;
-      border-color: #9fcac5;
-      background: #ffffff;
-      box-shadow: 0 9px 20px rgba(21, 73, 77, .1);
-      transform: translateY(-2px);
-    }
-    .icon-card:focus-visible { box-shadow: 0 0 0 3px rgba(42,150,145,.2); }
-    .icon-card.is-selected { border-color: var(--teal); background: #f1faf8; box-shadow: inset 0 0 0 1px rgba(13,109,116,.12); }
-    .icon-card-top { display: flex; align-items: center; justify-content: space-between; height: 15px; }
-    .icon-index { color: #9aabad; font-size: 9px; font-weight: 700; letter-spacing: .03em; }
-    .icon-card.is-selected .icon-index { color: var(--teal); }
-    .card-glyph {
-      display: grid;
-      place-items: center;
-      width: 16px;
-      height: 16px;
-      border: 1px solid #e1ebea;
-      border-radius: 5px;
-      color: #a4b5b5;
-      font-size: 13px;
-      line-height: 1;
-      transition: color .18s ease, border-color .18s ease;
-    }
-    .icon-card:hover .card-glyph { border-color: #afd1cd; color: var(--teal); }
-    .icon-card.is-selected .card-glyph { border-color: #afd1cd; color: var(--teal); background: #e4f3f0; }
-    .icon-visual { display: grid; place-items: center; height: 77px; }
-    .vector-icon { width: 59px; height: 59px; overflow: visible; }
-    .icon-card-bottom { display: flex; align-items: end; justify-content: space-between; gap: 5px; }
-    .icon-card-bottom strong { overflow: hidden; color: var(--ink-deep); font-size: 11px; font-weight: 760; letter-spacing: -.02em; text-overflow: ellipsis; white-space: nowrap; }
-    .icon-card-bottom span { flex: 0 0 auto; color: #9aabad; font-size: 9px; font-weight: 650; }
-    .empty-state { padding: 55px 20px; color: var(--muted); text-align: center; }
-    .empty-state strong { display: block; margin-bottom: 6px; color: var(--ink); }
-
-    /* The three icon treatments share the same geometry and change only their visual language. */
-    .vector-icon { --primary: #173d46; --secondary: #6c8589; --soft: #dce9e7; --accent: #dce9e7; --gold: #dce9e7; }
-    .vector-icon.duotone { --primary: #0b626b; --secondary: #2f8e8c; --soft: #bee8e0; --accent: #bee8e0; --gold: #bee8e0; }
-    .vector-icon.color { --primary: #0b5965; --secondary: #369994; --soft: #d5eeea; --accent: #ed815f; --gold: #efc867; }
-    .vector-icon .line { fill: none; stroke: var(--primary); stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-    .vector-icon .line.secondary { stroke: var(--secondary); }
-    .vector-icon .line.thin { stroke-width: 1.25; }
-    .vector-icon .soft { fill: var(--soft); stroke: var(--primary); stroke-width: 1.55; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-    .vector-icon .accent { fill: var(--accent); stroke: var(--primary); stroke-width: 1.2; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-    .vector-icon .gold { fill: var(--gold); stroke: var(--primary); stroke-width: 1.2; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-    .vector-icon .guide { fill: none; stroke: var(--secondary); stroke-width: 1.05; stroke-dasharray: 2.7 3; stroke-linecap: round; vector-effect: non-scaling-stroke; }
-    .vector-icon.monotone .soft,
-    .vector-icon.monotone .accent,
-    .vector-icon.monotone .gold { opacity: .9; }
-    .vector-icon.color .gold { stroke: #8e6e25; }
-
-    .inspector {
-      position: sticky;
-      top: 20px;
-      min-width: 0;
+      min-height: 180px;
+      padding: 11px 12px 12px;
       overflow: hidden;
-      border-radius: 21px;
-      background: var(--ink);
-      color: #e8f6f3;
-      box-shadow: 0 18px 38px rgba(23, 61, 70, .16);
+      border: 1px solid rgba(255,255,255,.085);
+      border-radius: 16px;
+      outline: none;
+      color: var(--white-soft);
+      background: linear-gradient(145deg, #2b2b2b, #232323);
+      text-align: left;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
     }
+    .icon-card::after { position: absolute; right: -35px; bottom: -43px; width: 105px; height: 105px; content: ""; border: 1px solid rgba(255,255,255,.05); border-radius: 50%; pointer-events: none; }
+    .icon-card:hover { z-index: 1; border-color: rgba(255,137,102,.45); background: linear-gradient(145deg, #313131, #252525); box-shadow: 0 16px 28px rgba(0,0,0,.25); transform: translateY(-3px); }
+    .icon-card:focus-visible { box-shadow: 0 0 0 3px rgba(255,137,102,.34); }
+    .icon-card.is-selected { border-color: rgba(255,137,102,.72); background: linear-gradient(145deg, #34302d, #292522); box-shadow: inset 0 0 0 1px rgba(255,137,102,.1), 0 14px 25px rgba(0,0,0,.2); }
+    .card-top { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; height: 14px; }
+    .card-index { color: var(--muted-dark); font-family: "SFMono-Regular", Consolas, monospace; font-size: 9px; font-weight: 700; }
+    .is-selected .card-index { color: var(--orange); }
+    .card-open { display: grid; width: 17px; height: 17px; place-items: center; border: 1px solid rgba(255,255,255,.11); border-radius: 5px; color: var(--muted); font-size: 12px; line-height: 1; }
+    .icon-card:hover .card-open, .is-selected .card-open { border-color: rgba(255,137,102,.45); color: var(--orange); }
+    .card-art { position: relative; z-index: 1; display: grid; height: 120px; place-items: center; }
+    .vector-icon { width: 104px; height: 104px; overflow: visible; filter: drop-shadow(0 12px 7px rgba(0,0,0,.28)); }
+    .icon-card-bottom { position: relative; z-index: 2; display: flex; align-items: end; justify-content: space-between; gap: 7px; }
+    .icon-card-bottom strong { overflow: hidden; color: var(--white); font-size: 11px; font-weight: 740; letter-spacing: -.015em; text-overflow: ellipsis; white-space: nowrap; }
+    .icon-card-bottom span { flex: 0 0 auto; color: var(--muted); font-size: 9px; font-weight: 650; }
+    .empty { padding: 55px 20px; color: var(--muted); text-align: center; }
+    .empty strong { display: block; margin-bottom: 6px; color: var(--white); }
+
+    /* Vector material language. Each icon is an inline SVG; these classes provide the three finishes. */
+    .vector-icon { --face: #85817c; --top: #e4dfd6; --side: #4d4a47; --edge: #2a2928; --accent: #aaa49b; --accent-top: #f6f2e8; --detail: #272727; --highlight: rgba(255,255,255,.58); --cut: #5c5956; }
+    .vector-icon.duotone { --face: #4d5a67; --top: #f0eee7; --side: #27323b; --edge: #171a1d; --accent: #7898b4; --accent-top: #c4d7e8; --detail: #20262b; --highlight: rgba(255,255,255,.68); --cut: #33424e; }
+    .vector-icon.monotone { --face: #97938d; --top: #eeeae2; --side: #595652; --edge: #2e2d2a; --accent: #b1ada6; --accent-top: #fffdf6; --detail: #343331; --highlight: rgba(255,255,255,.74); --cut: #6d6964; }
+    .vector-icon.color { --face: #485969; --top: #f2eee4; --side: #242a30; --edge: #151719; --accent: #ff8966; --accent-top: #ffd466; --detail: #25292d; --highlight: rgba(255,255,255,.72); --cut: #39505e; }
+    .vector-icon.tone-blue.color { --accent: #72a8df; --accent-top: #add4f3; }
+    .vector-icon.tone-yellow.color { --accent: #f4c84f; --accent-top: #ffe79d; }
+    .vector-icon.tone-lilac.color { --accent: #b49bed; --accent-top: #e0d7ff; }
+    .vector-icon.tone-green.color { --accent: #86c9ad; --accent-top: #c8f0dc; }
+    .vector-icon.tone-coral.color { --accent: #ff8966; --accent-top: #ffc19f; }
+    .vector-icon .face { fill: var(--face); stroke: var(--edge); stroke-width: 1.25; stroke-linejoin: round; }
+    .vector-icon .top { fill: var(--top); stroke: var(--edge); stroke-width: 1.25; stroke-linejoin: round; }
+    .vector-icon .side { fill: var(--side); stroke: var(--edge); stroke-width: 1.25; stroke-linejoin: round; }
+    .vector-icon .accent { fill: var(--accent); stroke: var(--edge); stroke-width: 1.1; stroke-linejoin: round; }
+    .vector-icon .accent-top { fill: var(--accent-top); stroke: var(--edge); stroke-width: 1.1; stroke-linejoin: round; }
+    .vector-icon .detail { fill: var(--detail); stroke: var(--edge); stroke-width: 1; stroke-linejoin: round; }
+    .vector-icon .highlight { fill: none; stroke: var(--highlight); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+    .vector-icon .line { fill: none; stroke: var(--top); stroke-width: 2.7; stroke-linecap: round; stroke-linejoin: round; }
+    .vector-icon .dark-line { fill: none; stroke: var(--edge); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .vector-icon .tube { fill: none; stroke: var(--side); stroke-width: 16; stroke-linecap: round; stroke-linejoin: round; }
+    .vector-icon .tube-top { fill: none; stroke: var(--accent); stroke-width: 11; stroke-linecap: round; stroke-linejoin: round; }
+    .vector-icon .ghost { fill: var(--cut); stroke: var(--edge); stroke-width: 1; stroke-linejoin: round; opacity: .78; }
+
+    /* Inspector */
+    .inspector { position: sticky; top: 20px; overflow: hidden; border: 1px solid var(--border-strong); border-radius: 22px; background: #242424; box-shadow: var(--shadow-tight); }
     .inspector-head { display: flex; align-items: center; justify-content: space-between; padding: 20px 20px 0; }
-    .inspector-label { color: #7fb8b0; font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
-    .inspector-status { display: inline-flex; align-items: center; gap: 6px; color: #83b7b1; font-size: 10px; font-weight: 650; }
-    .inspector-status::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: #8fd0be; }
-    .inspector-preview {
-      display: grid;
-      place-items: center;
-      min-height: 194px;
-      margin: 17px 15px 17px;
-      border: 1px solid rgba(181, 228, 220, .16);
-      border-radius: 14px;
-      background-color: #285b60;
-      background-image: linear-gradient(rgba(182,232,222,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(182,232,222,.08) 1px, transparent 1px);
-      background-size: 22px 22px;
-    }
-    .inspector-preview .vector-icon { width: 118px; height: 118px; }
+    .inspector-label { color: var(--orange); font-family: "SFMono-Regular", Consolas, monospace; font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .inspector-ready { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 9px; font-weight: 650; }
+    .inspector-ready::before { width: 5px; height: 5px; content: ""; border-radius: 50%; background: var(--green); }
+    .inspector-preview { display: grid; min-height: 220px; margin: 16px 15px 18px; place-items: center; overflow: hidden; border: 1px solid rgba(255,255,255,.1); border-radius: 15px; background: #1b1b1b; background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px); background-size: 24px 24px; }
+    .inspector-preview .vector-icon { width: 152px; height: 152px; filter: drop-shadow(0 18px 9px rgba(0,0,0,.4)); }
     .inspector-info { padding: 0 20px 20px; }
-    .selected-name-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-    .selected-name { margin: 0; color: #f6fffd; font-size: 22px; letter-spacing: -.045em; }
-    .selected-code { color: #75aba6; font-family: "SFMono-Regular", Consolas, monospace; font-size: 9px; }
-    .selected-description { min-height: 35px; margin: 7px 0 15px; color: #a6c9c5; font-size: 11px; line-height: 1.5; }
-    .inspector-specs { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid rgba(181, 228, 220, .14); border-bottom: 1px solid rgba(181, 228, 220, .14); }
+    .inspector-name-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    .inspector-name { margin: 0; color: var(--white); font-size: 23px; font-weight: 740; letter-spacing: -.05em; }
+    .inspector-code { color: var(--muted); font-family: "SFMono-Regular", Consolas, monospace; font-size: 9px; }
+    .inspector-description { min-height: 35px; margin: 7px 0 15px; color: var(--muted); font-size: 11px; line-height: 1.5; }
+    .inspector-specs { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     .spec { display: flex; flex-direction: column; gap: 5px; padding: 12px 0; }
-    .spec + .spec { padding-left: 14px; border-left: 1px solid rgba(181, 228, 220, .14); }
-    .spec-label { color: #71a6a1; font-family: "SFMono-Regular", Consolas, monospace; font-size: 8px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-    .spec-value { color: #e8f6f3; font-size: 11px; font-weight: 700; }
-    .inspector-copy { width: 100%; margin-top: 15px; border-color: rgba(194, 235, 227, .2); background: rgba(236, 255, 249, .1); color: #eafff9; box-shadow: none; }
-    .inspector-copy:hover { border-color: rgba(194,235,227,.4); background: rgba(236,255,249,.16); }
-    .inspector-variants { padding-top: 17px; margin-top: 17px; border-top: 1px solid rgba(181, 228, 220, .14); }
-    .variants-title { display: flex; justify-content: space-between; margin-bottom: 9px; color: #77aaa5; font-family: "SFMono-Regular", Consolas, monospace; font-size: 8px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .spec + .spec { padding-left: 14px; border-left: 1px solid var(--border); }
+    .spec-label { color: var(--muted-dark); font-family: "SFMono-Regular", Consolas, monospace; font-size: 8px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .spec-value { color: var(--white-soft); font-size: 11px; font-weight: 700; }
+    .inspector-copy { width: 100%; margin-top: 15px; border-color: rgba(255,255,255,.13); color: var(--white); background: rgba(255,255,255,.07); box-shadow: none; }
+    .inspector-copy:hover { border-color: rgba(255,137,102,.55); background: rgba(255,137,102,.1); }
+    .variants { margin-top: 17px; padding-top: 16px; border-top: 1px solid var(--border); }
+    .variants-head { display: flex; justify-content: space-between; margin-bottom: 9px; color: var(--muted); font-family: "SFMono-Regular", Consolas, monospace; font-size: 8px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
     .variants-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; }
-    .variant-chip { display: grid; place-items: center; height: 53px; border: 1px solid rgba(181,228,220,.14); border-radius: 9px; background: rgba(255,255,255,.045); }
-    .variant-chip.active { border-color: rgba(157,218,208,.58); background: rgba(157,218,208,.1); }
-    .variant-chip .vector-icon { width: 36px; height: 36px; }
+    .variant { display: grid; height: 58px; place-items: center; border: 1px solid var(--border); border-radius: 10px; background: #1b1b1b; transition: border-color .18s ease, background .18s ease; }
+    .variant:hover, .variant.active { border-color: rgba(255,137,102,.62); background: rgba(255,137,102,.08); }
+    .variant .vector-icon { width: 47px; height: 47px; filter: drop-shadow(0 7px 5px rgba(0,0,0,.3)); }
 
-    .footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 22px 0 29px;
-      border-top: 1px solid var(--line-strong);
-      color: var(--muted);
-      font-size: 11px;
-    }
-    .footer strong { color: var(--ink); }
-    .footer-right { display: flex; align-items: center; gap: 15px; }
-    .footer-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--coral); }
-
-    .toast {
-      position: fixed;
-      left: 50%;
-      bottom: 25px;
-      z-index: 20;
-      padding: 11px 15px;
-      border: 1px solid rgba(186,229,220,.25);
-      border-radius: 10px;
-      background: var(--ink);
-      color: #f1fffb;
-      box-shadow: 0 12px 25px rgba(23,61,70,.2);
-      font-size: 12px;
-      font-weight: 700;
-      opacity: 0;
-      pointer-events: none;
-      transform: translate(-50%, 10px);
-      transition: opacity .2s ease, transform .2s ease;
-    }
+    .footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 0 29px; border-top: 1px solid var(--border); color: var(--muted); font-size: 10px; }
+    .footer strong { color: var(--white-soft); }
+    .footer-right { display: flex; align-items: center; gap: 14px; }
+    .footer-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--orange); }
+    .toast { position: fixed; z-index: 20; bottom: 24px; left: 50%; padding: 11px 15px; border: 1px solid rgba(255,255,255,.17); border-radius: 10px; color: #241c19; background: var(--orange); box-shadow: 0 12px 27px rgba(0,0,0,.32); font-size: 11px; font-weight: 750; opacity: 0; pointer-events: none; transform: translate(-50%, 10px); transition: opacity .2s ease, transform .2s ease; }
     .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
-    @media (max-width: 1100px) {
+    @media (max-width: 1110px) {
       .shell { width: min(100% - 44px, 920px); }
-      .hero { grid-template-columns: minmax(0, 1fr) minmax(350px, .84fr); gap: 38px; }
+      .hero { grid-template-columns: minmax(0, 1fr) minmax(350px, .85fr); gap: 40px; }
       .hero h1 { font-size: clamp(52px, 7.2vw, 78px); }
-      .workspace { grid-template-columns: minmax(0, 1fr) 250px; }
       .icon-grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
       .nav-links { gap: 16px; }
     }
-
     @media (max-width: 790px) {
       .shell { width: min(100% - 32px, 620px); }
       .topbar { height: 70px; }
       .brand-note, .nav-links { display: none; }
-      .hero { display: flex; flex-direction: column; align-items: stretch; gap: 42px; padding: 61px 0 48px; }
-      .hero h1 { max-width: 560px; font-size: clamp(54px, 15vw, 82px); }
-      .hero-lede { font-size: 16px; }
-      .hero-visual { min-height: 330px; }
-      .hero-card { min-height: 330px; }
-      .hero-scene { top: 32px; left: 12%; width: min(72%, 320px); }
-      .stats { grid-template-columns: repeat(2, 1fr); }
-      .stat { min-height: 72px; padding: 0 16px; }
-      .stat:first-child { padding-left: 16px; }
-      .stat:nth-child(2)::after { display: none; }
-      .stat:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
-      .library { padding-top: 56px; }
-      .library-heading { align-items: start; flex-direction: column; gap: 13px; }
-      .library-heading p { max-width: 480px; margin: 0; text-align: left; }
-      .library-toolbar { align-items: stretch; flex-direction: column; padding: 8px; }
+      .hero { display: flex; flex-direction: column; align-items: stretch; gap: 42px; padding: 62px 0 52px; }
+      .hero h1 { max-width: 600px; font-size: clamp(56px, 15vw, 84px); }
+      .hero-stage { min-height: 345px; }
+      .spec-strip { grid-template-columns: repeat(2,1fr); }
+      .spec-item { min-height: 73px; padding: 0 16px; }
+      .spec-item:first-child { padding-left: 16px; }
+      .spec-item:nth-child(2)::after { display: none; }
+      .spec-item:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
+      .library { padding-top: 57px; }
+      .section-head { align-items: start; flex-direction: column; gap: 14px; }
+      .section-head p { max-width: 470px; margin: 0; text-align: left; }
+      .toolbar { align-items: stretch; flex-direction: column; padding: 8px; }
       .style-tabs { width: 100%; overflow-x: auto; }
       .style-tab { flex: 1 0 auto; justify-content: center; }
       .toolbar-tools { width: 100%; }
-      .category-select, .search-box { flex: 1; width: auto; }
+      .search, .category { flex: 1; width: auto; }
       .workspace { display: flex; flex-direction: column; }
       .sets-column, .inspector { width: 100%; }
       .inspector { position: static; order: -1; }
       .icon-grid { grid-template-columns: repeat(4, minmax(0,1fr)); }
       .footer { align-items: start; flex-direction: column; gap: 8px; }
     }
-
     @media (max-width: 470px) {
       .shell { width: calc(100% - 24px); }
-      .version-pill { padding-inline: 9px; font-size: 9px; }
+      .status-pill { padding-inline: 9px; font-size: 8px; }
       .hero { padding-top: 49px; }
-      .hero h1 { font-size: 55px; }
-      .hero-card { padding-inline: 17px; }
-      .hero-card-foot { left: 17px; right: 17px; }
-      .hero-coordinates { gap: 9px; }
-      .hero-coordinates span { font-size: 9px; }
-      .library-toolbar { margin-bottom: 15px; }
-      .toolbar-tools { flex-direction: column; }
-      .category-select, .search-box { width: 100%; flex: unset; }
-      .style-set { padding: 16px 10px 16px; border-radius: 16px; }
-      .style-set-head { margin-inline: 3px; }
-      .style-set-sub { display: none; }
+      .hero h1 { font-size: 56px; }
+      .hero-stage { min-height: 310px; }
+      .hero-footer { align-items: start; flex-direction: column; gap: 6px; }
+      .toolbar-tools { align-items: stretch; flex-direction: column; }
+      .search, .category { width: 100%; flex: unset; }
+      .style-set { padding: 17px 10px; border-radius: 17px; }
+      .set-head { margin-inline: 3px; }
+      .set-title p { display: none; }
       .icon-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 7px; }
-      .icon-card { min-height: 139px; }
+      .icon-card { min-height: 175px; }
     }
-    /* Night shift theme: a quiet dark drafting desk with warm annotation accents. */
-    :root {
-      --canvas: #0e1416;
-      --paper: #171e21;
-      --paper-soft: #202a2d;
-      --ink: #d2e5e0;
-      --ink-deep: #f3f8f4;
-      --muted: #8b9c9f;
-      --muted-soft: #6e8083;
-      --line: #293539;
-      --line-strong: #3a484b;
-      --teal: #8bd7c4;
-      --teal-bright: #59c8b4;
-      --coral: #ff926c;
-      --gold: #e8c76d;
-      --shadow: 0 18px 42px rgba(0, 0, 0, .24);
-      --shadow-small: 0 8px 20px rgba(0, 0, 0, .2);
-    }
-    body {
-      background-color: var(--canvas);
-      background-image:
-        linear-gradient(rgba(139, 215, 196, .045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(139, 215, 196, .045) 1px, transparent 1px);
-    }
-    .topbar { border-bottom-color: var(--line-strong); }
-    .brand { color: var(--ink-deep); }
-    .brand-mark { background: var(--teal); }
-    .brand-mark::before { border-color: #183a3b; }
-    .brand-mark::after { border-color: #c86045; }
-    .brand-note { border-left-color: var(--line-strong); color: var(--muted); }
-    .version-pill { border-color: rgba(139, 215, 196, .3); background: rgba(139, 215, 196, .08); color: var(--teal); }
-    .version-pill::before { background: var(--coral); }
-    .button-primary { background: var(--teal); color: #0c191b; box-shadow: 0 8px 18px rgba(0, 0, 0, .25); }
-    .button-primary:hover { background: var(--teal-bright); box-shadow: 0 10px 22px rgba(0, 0, 0, .3); }
-    .button-secondary { border-color: var(--line-strong); background: rgba(255, 255, 255, .035); color: var(--ink); }
-    .button-secondary:hover { border-color: rgba(139, 215, 196, .55); background: rgba(139, 215, 196, .07); }
-    .hero-card { background: #17282c; box-shadow: 0 24px 48px rgba(0, 0, 0, .3); }
-    .stats { border-top-color: var(--line-strong); border-bottom-color: var(--line-strong); }
-    .stat:not(:last-child)::after { background: var(--line); }
-    .library-toolbar { border-color: var(--line); background: rgba(23, 30, 33, .9); box-shadow: var(--shadow-small); }
-    .style-tab[aria-selected="true"] { background: var(--teal); color: #0c191b; box-shadow: 0 5px 14px rgba(0, 0, 0, .24); }
-    .style-tab[aria-selected="true"] .tab-dot { box-shadow: 0 0 0 3px rgba(12, 25, 27, .14); }
-    .style-tab:hover { color: var(--ink-deep); }
-    .style-tab[aria-selected="true"]:hover { color: #0c191b; }
-    .category-select { border-color: var(--line); background-color: #11181a; color: var(--ink); }
-    .search-box input { border-color: var(--line); background: #11181a; color: var(--ink); }
-    .search-box input::placeholder { color: var(--muted-soft); }
-    .style-set { border-color: var(--line); background: rgba(23, 30, 33, .92); box-shadow: 0 10px 26px rgba(0, 0, 0, .16); }
-    .style-set h3 { color: var(--ink-deep); }
-    .style-set-sub { color: var(--muted); }
-    .style-count { color: var(--muted-soft); }
-    .icon-card { border-color: #2a373a; background: #1a2326; color: var(--ink); }
-    .icon-card:hover { border-color: #4b7773; background: #202c2f; box-shadow: 0 9px 20px rgba(0, 0, 0, .25); }
-    .icon-card.is-selected { border-color: var(--teal-bright); background: #1e3938; box-shadow: inset 0 0 0 1px rgba(139, 215, 196, .16); }
-    .icon-index { color: #708285; }
-    .icon-card.is-selected .icon-index { color: var(--teal); }
-    .card-glyph { border-color: #314043; color: #789093; }
-    .icon-card:hover .card-glyph { border-color: #4d827c; color: var(--teal); }
-    .icon-card.is-selected .card-glyph { border-color: #4d827c; color: var(--teal); background: rgba(139, 215, 196, .1); }
-    .icon-card-bottom strong { color: var(--ink-deep); }
-    .icon-card-bottom span { color: #789093; }
-    .empty-state { color: var(--muted); }
-    .empty-state strong { color: var(--ink-deep); }
-    .vector-icon { --primary: #e2efea; --secondary: #82999b; --soft: #304144; --accent: #304144; --gold: #304144; }
-    .vector-icon.duotone { --primary: #b8eee2; --secondary: #71bdb2; --soft: #285b5b; --accent: #285b5b; --gold: #285b5b; }
-    .vector-icon.monotone { --primary: #e1ece9; --secondary: #819397; --soft: #334346; --accent: #334346; --gold: #334346; }
-    .vector-icon.color { --primary: #d8eee8; --secondary: #64c8b7; --soft: #244c50; --accent: #ff926c; --gold: #e8c76d; }
-    .inspector { background: #0b2226; color: #e8f6f2; box-shadow: 0 18px 38px rgba(0, 0, 0, .3); }
-    .inspector-preview { border-color: rgba(181, 228, 220, .18); background-color: #214b50; }
-    .inspector-copy { background: rgba(139, 215, 196, .1); color: #eafff9; }
-    .inspector-copy:hover { background: rgba(139, 215, 196, .18); }
-    .footer { border-top-color: var(--line-strong); }
-    .footer strong { color: var(--ink-deep); }
-    .toast { border-color: rgba(139, 215, 196, .28); background: var(--teal); color: #0c191b; }
   </style>
 </head>
 <body>
   <div class="shell">
     <header class="topbar">
-      <a class="brand" href="#top" aria-label="Formwork home">
+      <a class="brand" href="#top" aria-label="Slate 3D CAD icon set home">
         <span class="brand-mark" aria-hidden="true"></span>
-        <span>FORMWORK</span>
-        <span class="brand-note">CAD ICON SYSTEM</span>
+        <span>SLATE</span>
+        <span class="brand-note">3D CAD ICON SET</span>
       </a>
       <nav class="nav-links" aria-label="Main navigation">
         <a href="#library">Library</a>
-        <a href="#spec">Specification</a>
+        <a href="#spec">System</a>
         <a href="#usage">Usage</a>
       </nav>
-      <span class="version-pill">v1.0 / SVG only</span>
+      <span class="status-pill">20 objects / SVG</span>
     </header>
 
     <main id="top">
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <p class="eyebrow">A compact toolkit for technical work</p>
-          <h1 id="hero-title">Make every<br /><em>dimension</em> legible.</h1>
-          <p class="hero-lede">Twenty precise CAD icons built on one calm geometry. Three ready-to-use treatments — duotone, monotone and colour — for interfaces that stay out of the way.</p>
+          <p class="eyebrow">A tactile toolkit for technical work</p>
+          <h1 id="hero-title">CAD icons<br />with <em>weight.</em></h1>
+          <p>Twenty soft-formed objects for tools that deserve to feel clear. A consistent 3D language, three finishes, and SVG geometry that stays crisp at every size.</p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#library">Explore the set <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg></a>
-            <button class="button button-secondary" id="heroCopy" type="button"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.3" y="4.7" width="7" height="8" rx="1.2" stroke="currentColor" stroke-width="1.3"/><path d="M10.7 4.7V3.5A1.2 1.2 0 0 0 9.5 2.3h-6A1.2 1.2 0 0 0 2.3 3.5v7A1.2 1.2 0 0 0 3.5 11.7h1.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Copy SVG</button>
+            <a class="button button-primary" href="#library">Browse the set <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg></a>
+            <button class="button button-quiet" type="button" id="heroCopy"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.3" y="4.7" width="7" height="8" rx="1.2" stroke="currentColor" stroke-width="1.3"/><path d="M10.7 4.7V3.5A1.2 1.2 0 0 0 9.5 2.3h-6A1.2 1.2 0 0 0 2.3 3.5v7A1.2 1.2 0 0 0 3.5 11.7h1.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Copy selected SVG</button>
           </div>
         </div>
-
-        <div class="hero-visual" aria-label="Preview of the icon system">
-          <div class="hero-card">
-            <div class="hero-card-head">
-              <span class="hero-mini-label">Active preview / 20 × 3</span>
-              <span class="mono">48 × 48 GRID</span>
-            </div>
-            <svg class="hero-scene" viewBox="0 0 360 260" fill="none" aria-hidden="true">
-              <path class="scene-guide" d="M33 192h272M50 211h230M86 42v183M112 28v196M265 31v191M292 53v169" />
-              <path class="scene-guide" d="M64 184 222 65 313 113 154 235z" />
-              <path class="scene-soft" d="m77 154 106-80 102 53-105 80-103-53Z" />
-              <path class="scene-ink" d="m77 154 106-80 102 53-105 80-103-53ZM183 74v83M77 154l103 53 105-80M180 207v-50" />
-              <path class="scene-ink" d="m183 74 18 9m-18 74 19 10m-19-10-19 14" opacity=".45" />
-              <path class="scene-accent" d="m183 74 12 6-12 9-12-6 12-9Z" />
-              <path class="scene-gold" d="M183 51v-19m0 0-7 8m7-8 7 8" />
-              <path class="scene-ink" d="M54 181h-18m18 0-7-5m7 5-7 5M304 110h19m-19 0 7-5m-7 5 7 5" />
-              <path class="scene-ink" d="M57 181h247" opacity=".35" />
-              <circle class="scene-accent" cx="77" cy="154" r="4" />
-              <circle class="scene-gold" cx="288" cy="127" r="4" />
-            </svg>
-            <div class="hero-card-foot">
-              <span><strong>Single geometry.</strong> Three expressions.</span>
-              <span class="hero-coordinates"><span><i class="coordinate-dot"></i> X 24</span><span><i class="coordinate-dot gold"></i> Y 18</span></span>
-            </div>
-          </div>
+        <div class="hero-stage" aria-label="Preview of the 3D colour icon finish">
+          <span class="stage-label">Colour finish / active</span>
+          <span class="stage-meta">96 × 96 base</span>
+          <svg class="hero-art" viewBox="0 0 460 310" fill="none" aria-hidden="true">
+            <path class="h-shadow" d="M91 242 263 174l122 45-180 54-114-31Z" />
+            <path class="h-side" d="m126 136 117 43v77l-117-33v-87Z" />
+            <path class="h-face" d="m243 179 137-47v76l-137 48v-77Z" />
+            <path class="h-top" d="m126 136 128-47 126 43-137 47-117-43Z" />
+            <path class="h-blue" d="m190 111 72-26 78 25-75 28-75-27Z" />
+            <path class="h-orange" d="m241 174 39-14 39 14-40 15-38-15Z" />
+            <path class="h-yellow" d="m195 194 20-7 20 8-20 7-20-8Z" />
+            <path class="h-orange" d="m186 212 20-7 20 8-20 7-20-8Z" />
+            <path class="h-blue" d="m177 229 20-7 20 8-20 7-20-8Z" />
+            <path class="h-highlight" d="m144 143 105 38m-105-26 63 21m-48 57 69 20m-53-9 43 13" />
+            <path class="h-side" d="M198 111v29l75 27v-28l-75-28Z" />
+            <path class="h-top" d="m198 111 72-26 78 25-75 28-75-27Z" />
+            <path class="h-orange" d="m252 102 19-7 20 7-20 8-19-8Z" />
+            <path class="h-highlight" d="m212 110 57-20m-51 44 50 18" />
+            <path class="h-yellow" d="M344 63v61m0-61-11 11m11-11 11 11" />
+            <path class="h-highlight" d="M344 63v19" />
+            <circle class="h-orange" cx="126" cy="136" r="5" />
+            <circle class="h-yellow" cx="380" cy="132" r="5" />
+          </svg>
+          <div class="hero-footer"><span><strong>Soft surfaces.</strong> Hard precision.</span><span class="mono">MATERIAL / 03</span></div>
         </div>
       </section>
 
-      <section class="stats" id="spec" aria-label="System specifications">
-        <div class="stat"><span class="stat-value">20</span><span class="stat-label">Core icons</span></div>
-        <div class="stat"><span class="stat-value">03</span><span class="stat-label">Visual sets</span></div>
-        <div class="stat"><span class="stat-value stat-accent">48 px</span><span class="stat-label">Base grid</span></div>
-        <div class="stat"><span class="stat-value">1.75</span><span class="stat-label">Default stroke</span></div>
+      <section class="spec-strip" id="spec" aria-label="Icon system specifications">
+        <div class="spec-item"><span class="spec-value">20</span><span class="spec-label">Core objects</span></div>
+        <div class="spec-item"><span class="spec-value">03</span><span class="spec-label">Visual finishes</span></div>
+        <div class="spec-item"><span class="spec-value accent">96 px</span><span class="spec-label">Base canvas</span></div>
+        <div class="spec-item"><span class="spec-value">SVG</span><span class="spec-label">No raster assets</span></div>
       </section>
 
       <section class="library" id="library" aria-labelledby="library-title">
-        <div class="library-heading">
+        <div class="section-head">
           <div>
-            <p class="section-kicker">The working library</p>
-            <h2 id="library-title">Twenty ways to say<br />“make it precise.”</h2>
+            <p class="section-kicker">The object library</p>
+            <h2 id="library-title">Pick a tool<br />by its shape.</h2>
           </div>
-          <p>Consistent corners, considered negative space, and enough character to find the right tool at a glance.</p>
+          <p>One silhouette language, built with rounded edges, soft bevels and just enough colour to make a tool memorable.</p>
         </div>
 
-        <div class="library-toolbar" aria-label="Icon library controls">
-          <div class="style-tabs" role="tablist" aria-label="Icon styles">
-            <button class="style-tab" type="button" role="tab" data-style="all" aria-selected="true"><span class="tab-dot"></span>All sets <span class="tab-count">60</span></button>
+        <div class="toolbar" aria-label="Icon library controls">
+          <div class="style-tabs" role="tablist" aria-label="Icon finishes">
+            <button class="style-tab" type="button" role="tab" data-style="all" aria-selected="false"><span class="tab-dot"></span>All finishes <span class="tab-count">60</span></button>
             <button class="style-tab" type="button" role="tab" data-style="duotone" aria-selected="false"><span class="tab-dot duotone"></span>Duotone <span class="tab-count">20</span></button>
             <button class="style-tab" type="button" role="tab" data-style="monotone" aria-selected="false"><span class="tab-dot monotone"></span>Monotone <span class="tab-count">20</span></button>
-            <button class="style-tab" type="button" role="tab" data-style="color" aria-selected="false"><span class="tab-dot color"></span>Colour <span class="tab-count">20</span></button>
+            <button class="style-tab" type="button" role="tab" data-style="color" aria-selected="true"><span class="tab-dot color"></span>Colour <span class="tab-count">20</span></button>
           </div>
           <div class="toolbar-tools">
-            <label class="search-box" aria-label="Search icons">
+            <label class="search" aria-label="Search icons">
               <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.7" cy="8.7" r="5.2" stroke="currentColor" stroke-width="1.5"/><path d="m12.7 12.7 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-              <input id="search" type="search" placeholder="Search icons" autocomplete="off" />
+              <input id="search" type="search" placeholder="Search objects" autocomplete="off" />
             </label>
             <label>
               <span class="sr-only">Filter by category</span>
-              <select class="category-select" id="categoryFilter" aria-label="Filter by category">
+              <select class="category" id="categoryFilter" aria-label="Filter by category">
                 <option value="all">All categories</option>
                 <option value="Draw">Draw</option>
                 <option value="Inspect">Inspect</option>
@@ -865,297 +546,300 @@
     </main>
 
     <footer class="footer" id="usage">
-      <span><strong>FORMWORK</strong> / built for the drafting desk</span>
-      <span class="footer-right"><span>Open SVG geometry</span><i class="footer-dot"></i><span>Use freely in product UI</span></span>
+      <span><strong>SLATE</strong> / a tactile CAD icon system</span>
+      <span class="footer-right"><span>Inline SVG geometry</span><i class="footer-dot"></i><span>Ready for product UI</span></span>
     </footer>
   </div>
-  <div class="toast" id="toast" role="status" aria-live="polite">SVG copied to clipboard</div>
+  <div class="toast" id="toast" role="status" aria-live="polite">SVG copied</div>
 
   <script>
     const icons = [
       {
-        name: "Select",
-        slug: "select",
-        category: "Draw",
+        name: "Select", slug: "select", category: "Draw", tone: "coral",
         description: "Point, pick and move geometry.",
         markup: `
-          <path class="guide" d="M8 17V9h8M32 9h8v8M8 31v8h8M32 39h8v-8"/>
-          <path class="soft" d="m12 7 21 20-8.4 1.4-4.1 10.1-4.2-1.8 4-10.1L12 23V7Z"/>
-          <path class="line" d="m12 7 21 20-8.4 1.4-4.1 10.1-4.2-1.8 4-10.1L12 23V7Z"/>
-          <circle class="accent" cx="12" cy="7" r="2.2"/>
+          <path class="ghost" d="m20 75 46-9 10 9-49 11-7-11Z"/>
+          <path class="top" d="m18 17 53 48-20 3-10 24-9-4 10-24-24-11V17Z"/>
+          <path class="face" d="m18 17 53 48-20 3-10 24-9-4 10-24-24-11V17Z"/>
+          <path class="highlight" d="m25 23 37 36m-26 8-5 12"/>
+          <path class="accent" d="m41 64 10 3-5 13-9-4 4-12Z"/>
+          <path class="dark-line" d="M13 17v-5h7m47 5h6v6M13 32v6h7"/>
         `
       },
       {
-        name: "Line",
-        slug: "line",
-        category: "Draw",
-        description: "Create a clean two-point segment.",
+        name: "Line", slug: "line", category: "Draw", tone: "orange",
+        description: "Create a precise two-point segment.",
         markup: `
-          <path class="line" d="M9 35 39 13"/>
-          <circle class="accent" cx="9" cy="35" r="3"/>
-          <circle class="accent" cx="39" cy="13" r="3"/>
-          <path class="guide" d="M13 39h11M29 9h8"/>
+          <path class="ghost" d="m15 72 57-46 12 12-57 47-12-13Z"/>
+          <path class="side" d="m15 66 57-46 12 12-57 47-12-13Z"/>
+          <path class="top" d="m15 66 57-46 8 8-57 47-8-9Z"/>
+          <path class="accent" d="m20 61 49-39 7 7-49 40-7-8Z"/>
+          <path class="highlight" d="m24 61 44-35"/>
+          <circle class="accent-top" cx="15" cy="66" r="6"/>
+          <circle class="accent-top" cx="72" cy="20" r="6"/>
+          <path class="dark-line" d="M15 78v7m57-53v7"/>
         `
       },
       {
-        name: "Rectangle",
-        slug: "rectangle",
-        category: "Draw",
+        name: "Rectangle", slug: "rectangle", category: "Draw", tone: "blue",
         description: "Frame a plane with four corners.",
         markup: `
-          <rect class="soft" x="8" y="11" width="32" height="25" rx="2"/>
-          <rect class="line" x="8" y="11" width="32" height="25" rx="2"/>
-          <path class="guide" d="M24 11v25M8 23.5h32"/>
-          <circle class="accent" cx="8" cy="11" r="2"/>
-          <circle class="accent" cx="40" cy="36" r="2"/>
+          <path class="ghost" d="m18 37 13-9h52l11 8-13 45H29L18 74V37Z"/>
+          <path class="side" d="m18 37 12 8v37l-12-8V37Z"/>
+          <path class="face" d="M30 45h52v37H30V45Z"/>
+          <path class="top" d="m18 37 13-9h52l-1 17H30l-12-8Z"/>
+          <path class="accent" d="M39 50h33v25H39V50Z"/>
+          <path class="highlight" d="M35 48h43M35 53v25m9-24h25"/>
+          <path class="dark-line" d="M18 37V31h7m58 5h6v6"/>
         `
       },
       {
-        name: "Circle",
-        slug: "circle",
-        category: "Draw",
-        description: "Define a radial profile from centre.",
+        name: "Circle", slug: "circle", category: "Draw", tone: "orange",
+        description: "Define a round profile from centre.",
         markup: `
-          <circle class="soft" cx="24" cy="24" r="13"/>
-          <circle class="line" cx="24" cy="24" r="13"/>
-          <path class="line secondary" d="M24 7v34M7 24h34"/>
-          <circle class="accent" cx="24" cy="24" r="2.6"/>
-          <path class="guide" d="M24 24h13"/>
+          <path class="side" d="M21 37v25c0 10 13 18 29 18s29-8 29-18V37H21Z"/>
+          <ellipse class="face" cx="50" cy="37" rx="29" ry="17"/>
+          <ellipse class="top" cx="50" cy="34" rx="21" ry="11"/>
+          <ellipse class="accent" cx="50" cy="34" rx="12" ry="6"/>
+          <path class="highlight" d="M26 38c1 9 12 15 25 16m-21-24c4-5 12-8 20-8"/>
+          <path class="dark-line" d="M50 26v16m-10-8h20"/>
+          <circle class="accent-top" cx="50" cy="34" r="2.8"/>
         `
       },
       {
-        name: "Arc",
-        slug: "arc",
-        category: "Draw",
+        name: "Arc", slug: "arc", category: "Draw", tone: "orange",
         description: "Shape a curve between two points.",
         markup: `
-          <path class="line secondary" d="M24 24 10 32m14-8 11-13"/>
-          <path class="soft" d="M10 32a17 17 0 0 1 25-19l3 2a20 20 0 0 0-28 21Z"/>
-          <path class="line" d="M10 32a17 17 0 0 1 25-19"/>
-          <path class="line secondary" d="m10 32-4 1m29-20 5-1"/>
-          <circle class="accent" cx="10" cy="32" r="2.5"/>
-          <circle class="accent" cx="35" cy="13" r="2.5"/>
-          <circle class="gold" cx="24" cy="24" r="2.4"/>
+          <path class="ghost" d="M18 65a34 34 0 0 1 55-28l8 8a42 42 0 0 0-60 31l-3-11Z"/>
+          <path class="tube" d="M18 62a34 34 0 0 1 54-25"/>
+          <path class="tube-top" d="M18 58a30 30 0 0 1 50-22"/>
+          <path class="accent" d="m69 34 12 0-6 10-6-10Z"/>
+          <circle class="accent-top" cx="18" cy="62" r="6"/>
+          <circle class="accent-top" cx="72" cy="37" r="6"/>
+          <path class="dark-line" d="M50 61 18 62m32-1 22-24"/>
+          <circle class="top" cx="50" cy="61" r="4"/>
         `
       },
       {
-        name: "Polygon",
-        slug: "polygon",
-        category: "Draw",
+        name: "Polygon", slug: "polygon", category: "Draw", tone: "blue",
         description: "Build a closed multi-sided profile.",
         markup: `
-          <path class="soft" d="m24 7 15 9-4 18-22 5-5-20L24 7Z"/>
-          <path class="line" d="m24 7 15 9-4 18-22 5-5-20L24 7Z"/>
-          <path class="guide" d="M24 7v32M8 19l31-3M13 39l26-23"/>
-          <circle class="accent" cx="24" cy="7" r="2.1"/>
-          <circle class="accent" cx="39" cy="16" r="2.1"/>
-          <circle class="accent" cx="35" cy="34" r="2.1"/>
-          <circle class="accent" cx="13" cy="39" r="2.1"/>
-          <circle class="accent" cx="8" cy="19" r="2.1"/>
+          <path class="side" d="m19 42 18-18 34 5 9 27-20 20-34-6-12-22 5-6Z"/>
+          <path class="face" d="m19 35 18-18 34 5 9 27-20 20-34-6-12-22 5-6Z"/>
+          <path class="top" d="m19 35 18-18 34 5 9 9-20 20-34-6-12-10 5-6Z"/>
+          <path class="accent" d="m38 24 24 3 6 17-14 14-23-5-7-14 14-15Z"/>
+          <path class="highlight" d="m21 35 15-14m0 0 31 5m-45 17 10 16"/>
+          <circle class="accent-top" cx="37" cy="17" r="3.5"/>
+          <circle class="accent-top" cx="80" cy="44" r="3.5"/>
         `
       },
       {
-        name: "Measure",
-        slug: "measure",
-        category: "Inspect",
-        description: "Read distance along a true edge.",
+        name: "Measure", slug: "measure", category: "Inspect", tone: "yellow",
+        description: "Read a true distance along an edge.",
         markup: `
-          <path class="soft" d="M8 20h32v8H8v-8Z"/>
-          <path class="line" d="M8 20h32v8H8v-8Zm6 0v-9h6v9m9 8v9h6v-9"/>
-          <path class="line secondary" d="M15 23v2m5-2v2m5-2v2m5-2v2"/>
-          <path class="line" d="M14 11h6m9 26h6"/>
-          <circle class="accent" cx="14" cy="11" r="2.2"/>
-          <circle class="accent" cx="34" cy="37" r="2.2"/>
+          <path class="side" d="M14 39h69v16l-9 10H14V39Z"/>
+          <path class="face" d="M14 32h69v23H14V32Z"/>
+          <path class="top" d="m14 32 9-9h69l-9 9H14Z"/>
+          <path class="accent" d="M23 23h12v32H23V23Z"/>
+          <path class="accent-top" d="M70 55V27h12v28H70Z"/>
+          <path class="highlight" d="M18 37h60m-55 9v8m8-8v8m8-8v8m8-8v8m8-8v8"/>
+          <path class="dark-line" d="M23 31v-8m49 32v9"/>
+          <circle class="accent-top" cx="29" cy="23" r="3"/>
+          <circle class="accent-top" cx="76" cy="64" r="3"/>
         `
       },
       {
-        name: "Dimension",
-        slug: "dimension",
-        category: "Inspect",
+        name: "Dimension", slug: "dimension", category: "Inspect", tone: "blue",
         description: "Make size and intent explicit.",
         markup: `
-          <rect class="soft" x="15" y="24" width="18" height="9" rx="1.5"/>
-          <path class="line" d="M10 15h28m-28 0 4-3m-4 3 4 3m24-3-4-3m4 3-4 3"/>
-          <path class="line secondary" d="M15 24V15m18 9V15M24 24v9"/>
-          <path class="guide" d="M18 28h12"/>
-          <circle class="accent" cx="10" cy="15" r="2.2"/>
-          <circle class="accent" cx="38" cy="15" r="2.2"/>
+          <path class="side" d="m27 45 10-6h34l9 6v25l-10 7H27V45Z"/>
+          <path class="face" d="M27 39h44v31H27V39Z"/>
+          <path class="top" d="m27 39 10-6h34l-10 6H27Z"/>
+          <path class="accent" d="M15 23h68v8H15v-8Z"/>
+          <path class="accent-top" d="M15 23h68l-7-6H22l-7 6Z"/>
+          <path class="line" d="M15 27h68m-68 0 8-4m-8 4 8 4m60-4-8-4m8 4-8 4M22 23V14m56 9V14"/>
+          <path class="highlight" d="M33 45h31m-31 7h21"/>
+          <circle class="accent-top" cx="15" cy="27" r="2.5"/>
+          <circle class="accent-top" cx="83" cy="27" r="2.5"/>
         `
       },
       {
-        name: "Layers",
-        slug: "layers",
-        category: "Inspect",
+        name: "Layers", slug: "layers", category: "Inspect", tone: "lilac",
         description: "Keep planes and parts in order.",
         markup: `
-          <path class="soft" d="m8 16 16-9 16 9-16 9L8 16Z"/>
-          <path class="line" d="m8 16 16-9 16 9-16 9L8 16Zm0 7 16 9 16-9M8 30l16 9 16-9"/>
-          <path class="line secondary" d="m14 19 10 6 10-6"/>
-          <circle class="accent" cx="24" cy="7" r="2"/>
+          <path class="side" d="m17 43 33 17 33-17v15L50 76 17 58V43Z"/>
+          <path class="face" d="m17 34 33 17 33-17v15L50 68 17 50V34Z"/>
+          <path class="top" d="m17 34 33-17 33 17-33 17-33-17Z"/>
+          <path class="accent" d="m29 34 21-11 21 11-21 11-21-11Z"/>
+          <path class="highlight" d="m23 35 27 14 27-14m-27 22V51"/>
+          <path class="dark-line" d="M17 43 50 60l33-17M17 51l33 17 33-17"/>
+          <circle class="accent-top" cx="50" cy="17" r="3.5"/>
         `
       },
       {
-        name: "Grid",
-        slug: "grid",
-        category: "Inspect",
+        name: "Grid", slug: "grid", category: "Inspect", tone: "blue",
         description: "Align decisions to a shared field.",
         markup: `
-          <rect class="soft" x="8" y="8" width="32" height="32" rx="3"/>
-          <rect class="line" x="8" y="8" width="32" height="32" rx="3"/>
-          <path class="line secondary" d="M18.7 8v32M29.3 8v32M8 18.7h32M8 29.3h32"/>
-          <circle class="accent" cx="18.7" cy="18.7" r="2.1"/>
-          <circle class="accent" cx="29.3" cy="29.3" r="2.1"/>
+          <path class="side" d="m17 30 11 7v40l-11-7V30Z"/>
+          <path class="face" d="M28 37h53v40H28V37Z"/>
+          <path class="top" d="m17 30 12-8h53l-1 15H28l-11-7Z"/>
+          <path class="accent" d="M34 43h11v9H34v-9Zm15 0h11v9H49v-9Zm15 0h11v9H64v-9ZM34 57h11v9H34v-9Zm15 0h11v9H49v-9Zm15 0h11v9H64v-9Z"/>
+          <path class="highlight" d="M33 40h44M32 54h45M32 68h45m-30-28v35m15-35v35"/>
+          <path class="dark-line" d="M17 30v-6h7m57 5h7v6"/>
         `
       },
       {
-        name: "Snap",
-        slug: "snap",
-        category: "Inspect",
+        name: "Snap", slug: "snap", category: "Inspect", tone: "lilac",
         description: "Lock onto the nearest useful point.",
         markup: `
-          <path class="soft" d="M13 23V14a11 11 0 0 1 22 0v9h-7v-9a4 4 0 0 0-8 0v9h-7Z"/>
-          <path class="line" d="M13 23V14a11 11 0 0 1 22 0v9M20 23V14a4 4 0 0 1 8 0v9M13 23h7m8 0h7"/>
-          <path class="line secondary" d="M13 26c0 7.5 4.9 13 11 13s11-5.5 11-13"/>
-          <path class="line" d="m8 31 3-3m0 6-3-3m32 0-3-3m0 6 3-3"/>
-          <circle class="accent" cx="24" cy="39" r="2"/>
+          <path class="side" d="M23 49V28c0-9 8-16 18-16s18 7 18 16v21H47V29c0-4-3-7-6-7s-6 3-6 7v20H23Z"/>
+          <path class="face" d="M18 44V23c0-9 8-16 18-16s18 7 18 16v21H42V24c0-4-3-7-6-7s-6 3-6 7v20H18Z"/>
+          <path class="top" d="M18 23c0-9 8-16 18-16s18 7 18 16l-12 1c0-4-3-7-6-7s-6 3-6 7l-12-1Z"/>
+          <path class="accent" d="M18 44h12V29H18v15Zm24 0h12V29H42v15Z"/>
+          <path class="line" d="M12 61h48m-42-9a18 18 0 0 0 36 0"/>
+          <path class="highlight" d="M24 23c1-7 6-11 12-11m-6 19v10m24-10v10"/>
+          <circle class="accent-top" cx="60" cy="61" r="4"/>
         `
       },
       {
-        name: "Extrude",
-        slug: "extrude",
-        category: "Modify",
+        name: "Extrude", slug: "extrude", category: "Modify", tone: "blue",
         description: "Turn a profile into a solid.",
         markup: `
-          <path class="soft" d="m11 27 13-7 13 7-13 7-13-7Z"/>
-          <path class="soft" d="M11 27v8l13 7 13-7v-8l-13 7-13-7Z"/>
-          <path class="line" d="m11 27 13-7 13 7-13 7-13-7Zm0 0v8l13 7 13-7v-8m-13 7v8"/>
-          <path class="line secondary" d="M24 20V7m0 0-4 4m4-4 4 4"/>
-          <circle class="accent" cx="24" cy="20" r="2.3"/>
-          <circle class="gold" cx="24" cy="34" r="2.1"/>
+          <path class="side" d="m24 52 26 14 26-14v20L50 87 24 73V52Z"/>
+          <path class="face" d="m24 45 26 14 26-14v20L50 79 24 65V45Z"/>
+          <path class="top" d="m24 45 26-14 26 14-26 14-26-14Z"/>
+          <path class="accent" d="m35 45 15-8 15 8-15 8-15-8Z"/>
+          <path class="line" d="M50 35V10m0 0-8 8m8-8 8 8"/>
+          <path class="highlight" d="m29 47 21 11 21-11m-21 21v8"/>
+          <circle class="accent-top" cx="50" cy="59" r="3.5"/>
         `
       },
       {
-        name: "Revolve",
-        slug: "revolve",
-        category: "Modify",
+        name: "Revolve", slug: "revolve", category: "Modify", tone: "yellow",
         description: "Spin a profile around an axis.",
         markup: `
-          <ellipse class="soft" cx="24" cy="24" rx="10" ry="15"/>
-          <path class="line" d="M24 9c5.5 0 10 6.7 10 15s-4.5 15-10 15-10-6.7-10-15 4.5-15 10-15Zm0 0v30"/>
-          <path class="line secondary" d="M11 16a16 16 0 0 1 23-7m3 23a16 16 0 0 1-23 7"/>
-          <path class="accent" d="m33 9 5 0-2 5-3-5Zm-18 30-5 0 2-5 3 5Z"/>
-          <circle class="gold" cx="24" cy="24" r="2.3"/>
+          <path class="side" d="M25 32v31c0 10 11 18 25 18s25-8 25-18V32H25Z"/>
+          <ellipse class="face" cx="50" cy="32" rx="25" ry="15"/>
+          <ellipse class="top" cx="50" cy="29" rx="18" ry="9"/>
+          <ellipse class="accent" cx="50" cy="29" rx="9" ry="4.5"/>
+          <path class="line" d="M17 21a36 36 0 0 1 45-10m0 0-3-8m3 8-9 1M83 57a36 36 0 0 1-45 10m0 0 3 8m-3-8 9-1"/>
+          <path class="highlight" d="M30 34c2 9 11 14 21 15m-15-24c4-5 9-6 15-6"/>
+          <circle class="accent-top" cx="50" cy="29" r="2.8"/>
         `
       },
       {
-        name: "Fillet",
-        slug: "fillet",
-        category: "Modify",
+        name: "Fillet", slug: "fillet", category: "Modify", tone: "green",
         description: "Soften a corner without losing control.",
         markup: `
-          <path class="soft" d="M10 38V16h8a10 10 0 0 1 10 10v12H10Z"/>
-          <path class="line" d="M10 38V16h8a10 10 0 0 1 10 10v12M10 38h18"/>
-          <path class="guide" d="M10 12h12a14 14 0 0 1 14 14v12"/>
-          <path class="line secondary" d="M10 16v-4m0 26h-4m28 0h4"/>
-          <circle class="accent" cx="18" cy="16" r="2.4"/>
+          <path class="side" d="M20 72V25h21c19 0 34 15 34 34v13H20Z"/>
+          <path class="face" d="M14 65V18h21c19 0 34 15 34 34v13H14Z"/>
+          <path class="top" d="M14 18h21c19 0 34 15 34 34L57 57c0-12-10-22-22-22H14V18Z"/>
+          <path class="accent" d="M14 55h21c6 0 11 5 11 11v9H14V55Z"/>
+          <path class="highlight" d="M20 24h15c15 0 27 12 27 28m-42 20h20"/>
+          <path class="dark-line" d="M14 18V11h8M14 65H8"/>
+          <circle class="accent-top" cx="35" cy="18" r="3.5"/>
         `
       },
       {
-        name: "Chamfer",
-        slug: "chamfer",
-        category: "Modify",
+        name: "Chamfer", slug: "chamfer", category: "Modify", tone: "orange",
         description: "Cut a corner to a measured angle.",
         markup: `
-          <path class="soft" d="M10 38V10h18l10 10v18H10Z"/>
-          <path class="line" d="M10 38V10h18l10 10v18H10Zm18-28v10h10"/>
-          <path class="guide" d="M10 10h28v28"/>
-          <path class="line secondary" d="M28 10v-4m10 14h4m-4 18h4"/>
-          <path class="accent" d="m28 10 10 10H28V10Z"/>
+          <path class="side" d="m18 72 10-10V22h48l11 10v40H18Z"/>
+          <path class="face" d="m12 65 10-10V16h48l11 10v39H12Z"/>
+          <path class="top" d="M22 16h48l11 10H33L22 36V16Z"/>
+          <path class="accent" d="m22 55 11-10h20l8 8-11 12H22V55Z"/>
+          <path class="highlight" d="M25 20h42m-48 39 10-10h20m22-22 8 8"/>
+          <path class="dark-line" d="M22 16V9h7m48 17h7v7"/>
+          <path class="accent-top" d="m33 26 11 0-11 10V26Z"/>
         `
       },
       {
-        name: "Trim",
-        slug: "trim",
-        category: "Modify",
-        description: "Remove the excess and keep the edge.",
+        name: "Trim", slug: "trim", category: "Modify", tone: "coral",
+        description: "Cut away the excess and keep the edge.",
         markup: `
-          <path class="guide" d="M8 24h32"/>
-          <circle class="soft" cx="12" cy="14" r="4"/>
-          <circle class="soft" cx="12" cy="34" r="4"/>
-          <path class="line" d="m15 17 22 20M15 31 37 9"/>
-          <path class="line secondary" d="m23 24 6-6m-6 6 6 6"/>
-          <circle class="accent" cx="24" cy="24" r="3"/>
-          <path class="gold" d="m28 24 4-3v6l-4-3Z"/>
+          <path class="ghost" d="M12 30h70v7H12v-7Z"/>
+          <path class="side" d="M12 25h70v9H12v-9Z"/>
+          <path class="top" d="M12 25h70l-7-6H19l-7 6Z"/>
+          <circle class="face" cx="23" cy="20" r="9"/>
+          <circle class="face" cx="23" cy="52" r="9"/>
+          <path class="line" d="m29 25 42 30M29 47 71 18"/>
+          <path class="accent" d="m43 33 11-7v14l-11-7Z"/>
+          <circle class="accent-top" cx="48" cy="33" r="3"/>
+          <path class="highlight" d="M16 27h60m-45-3 35 25"/>
         `
       },
       {
-        name: "Mirror",
-        slug: "mirror",
-        category: "Modify",
+        name: "Mirror", slug: "mirror", category: "Modify", tone: "blue",
         description: "Reflect geometry across a clean axis.",
         markup: `
-          <path class="soft" d="M9 14h11v11H9V14Zm19 9h11v11H28V23Z"/>
-          <path class="line" d="M9 14h11v11H9V14Zm19 9h11v11H28V23Z"/>
-          <path class="line secondary" d="M24 7v34"/>
-          <path class="line" d="m20 17-4-3m4 8-4 3m8-8h-4m8 8 4-3m-4-5 4 3"/>
-          <circle class="accent" cx="24" cy="24" r="2.3"/>
+          <path class="side" d="m12 38 7-5h22v22l-7 5H12V38Z"/>
+          <path class="face" d="M12 32h22v22H12V32Z"/>
+          <path class="top" d="m12 32 7-5h22l-7 5H12Z"/>
+          <path class="side" d="m54 54 7-5h22v-22l-7-5H54v32Z"/>
+          <path class="face" d="M60 32h22v22H60V32Z"/>
+          <path class="top" d="m60 32 7-5h22l-7 5H60Z"/>
+          <path class="accent" d="M47 17h5v61h-5V17Z"/>
+          <path class="line" d="m34 39 8-6m-8 13 8 6m26-13-8-6m8 13-8 6"/>
+          <path class="highlight" d="M16 36h14m34 0h14"/>
         `
       },
       {
-        name: "Rotate",
-        slug: "rotate",
-        category: "Modify",
+        name: "Rotate", slug: "rotate", category: "Modify", tone: "orange",
         description: "Turn a selection around its centre.",
         markup: `
-          <rect class="soft" x="18" y="18" width="12" height="12" rx="2" transform="rotate(-18 24 24)"/>
-          <path class="line" d="M35 17a13 13 0 1 0 2 11M35 10v7h-7"/>
-          <path class="line secondary" d="m35 10 4 2-4 3M24 19v10M19 24h10"/>
-          <circle class="gold" cx="24" cy="24" r="5.5"/>
-          <circle class="accent" cx="24" cy="24" r="2.5"/>
+          <path class="side" d="m31 47 18 10 18-10v22L49 80 31 69V47Z"/>
+          <path class="face" d="m31 40 18 10 18-10v22L49 73 31 62V40Z"/>
+          <path class="top" d="m31 40 18-10 18 10-18 10-18-10Z"/>
+          <path class="accent" d="m39 40 10-6 10 6-10 6-10-6Z"/>
+          <path class="line" d="M77 45a30 30 0 1 0 3 19m-3-19 9 1-5-8"/>
+          <path class="highlight" d="m35 42 14 8 14-8m-14 18v8"/>
+          <circle class="accent-top" cx="49" cy="50" r="3"/>
         `
       },
       {
-        name: "Pan",
-        slug: "pan",
-        category: "Modify",
+        name: "Pan", slug: "pan", category: "Modify", tone: "green",
         description: "Move the view without changing scale.",
         markup: `
-          <rect class="soft" x="13" y="13" width="22" height="22" rx="3"/>
-          <rect class="line" x="13" y="13" width="22" height="22" rx="3"/>
-          <path class="line" d="M24 8v8m0 16v8M8 24h8m16 0h8m-16-16-3 3m3-3 3 3m13 13-3-3m3 3-3 3m-13 5 3-3m-3 3-3-3"/>
-          <circle class="accent" cx="24" cy="24" r="2.5"/>
+          <path class="side" d="M39 35h18v12h12v18H57v12H39V65H27V47h12V35Z"/>
+          <path class="face" d="M33 29h18v12h12v18H51v12H33V59H21V41h12V29Z"/>
+          <path class="top" d="M33 29h18l6 5H39l-6-5Zm18 12h12l6 5H57l-6-5ZM33 59h18l-6 5H27l6-5Z"/>
+          <path class="accent" d="M39 42h12v12H39V42Z"/>
+          <path class="line" d="M42 22v-9m0 0-5 5m5-5 5 5M72 50h9m0 0-5-5m5 5-5 5M42 72v9m0 0-5-5m5 5 5-5M21 50h-9m0 0 5-5m-5 5 5 5"/>
+          <path class="highlight" d="M37 36h11m-23 9h9"/>
         `
       },
       {
-        name: "Export",
-        slug: "export",
-        category: "Modify",
+        name: "Export", slug: "export", category: "Modify", tone: "yellow",
         description: "Send a finished drawing out cleanly.",
         markup: `
-          <path class="soft" d="M10 17h19v23H10V17Z"/>
-          <path class="line" d="M10 17h19v23H10V17Zm5-5h19v23M24 25V8m0 0-5 5m5-5 5 5"/>
-          <path class="line secondary" d="M15 22h6m-6 5h5m-5 5h8"/>
-          <path class="accent" d="M31 31h7v7h-7v-7Z"/>
+          <path class="side" d="m18 35 10 6v40l-10-6V35Z"/>
+          <path class="face" d="M28 41h47v40H28V41Z"/>
+          <path class="top" d="m18 35 10-8h47l-10 14H28l-10-6Z"/>
+          <path class="accent" d="M38 48h27v22H38V48Z"/>
+          <path class="accent-top" d="M34 44h31v4H38l-4-4Z"/>
+          <path class="line" d="M51 57V16m0 0-8 8m8-8 8 8"/>
+          <path class="highlight" d="M33 48h29m-29 7h17m-17 7h12"/>
+          <circle class="accent-top" cx="51" cy="16" r="3"/>
         `
       }
     ];
 
     const styles = {
-      all: { label: "All sets", sub: "A full comparison" },
-      duotone: { label: "Duotone", sub: "Soft pair" },
-      monotone: { label: "Monotone", sub: "Single ink" },
+      all: { label: "All finishes", sub: "A full comparison" },
+      duotone: { label: "Duotone", sub: "Two materials" },
+      monotone: { label: "Monotone", sub: "Single material" },
       color: { label: "Colour", sub: "Full signal" }
     };
     const palette = {
-      duotone: { primary: "#b8eee2", secondary: "#71bdb2", soft: "#285b5b", accent: "#285b5b", gold: "#285b5b" },
-      monotone: { primary: "#e1ece9", secondary: "#819397", soft: "#334346", accent: "#334346", gold: "#334346" },
-      color: { primary: "#d8eee8", secondary: "#64c8b7", soft: "#244c50", accent: "#ff926c", gold: "#e8c76d" }
+      duotone: { face: "#4d5a67", top: "#f0eee7", side: "#27323b", edge: "#171a1d", accent: "#7898b4", accentTop: "#c4d7e8", detail: "#20262b", cut: "#33424e" },
+      monotone: { face: "#97938d", top: "#eeeae2", side: "#595652", edge: "#2e2d2a", accent: "#b1ada6", accentTop: "#fffdf6", detail: "#343331", cut: "#6d6964" },
+      color: { face: "#485969", top: "#f2eee4", side: "#242a30", edge: "#151719", accent: "#ff8966", accentTop: "#ffd466", detail: "#25292d", cut: "#39505e" }
     };
 
-    let activeStyle = "all";
+    let activeStyle = "color";
     let activeCategory = "all";
     let query = "";
-    let selected = { slug: "extrude", style: "duotone" };
+    let selected = { slug: "extrude", style: "color" };
     let toastTimer;
 
     const sets = document.getElementById("sets");
@@ -1165,160 +849,104 @@
     const toast = document.getElementById("toast");
 
     function iconSvg(icon, style, extraClass = "") {
-      return `<svg class="vector-icon ${style} ${extraClass}" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${icon.name} icon">${icon.markup}</svg>`;
+      return `<svg class="vector-icon ${style} tone-${icon.tone} ${extraClass}" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${icon.name} icon">${icon.markup}</svg>`;
     }
-
     function filteredIcons() {
       return icons.filter(icon => {
-        const matchesCategory = activeCategory === "all" || icon.category === activeCategory;
+        const categoryMatch = activeCategory === "all" || icon.category === activeCategory;
         const haystack = `${icon.name} ${icon.category} ${icon.description}`.toLowerCase();
-        return matchesCategory && (!query || haystack.includes(query));
+        return categoryMatch && (!query || haystack.includes(query));
       });
     }
-
-    function styleSet(style, list) {
-      const styleInfo = styles[style];
-      return `
-        <section class="style-set" aria-labelledby="${style}-title">
-          <div class="style-set-head">
-            <div class="style-name-wrap">
-              <span class="style-name-dot ${style}" aria-hidden="true"></span>
-              <h3 id="${style}-title">${styleInfo.label}</h3>
-              <span class="style-set-sub">${styleInfo.sub}</span>
-            </div>
-            <span class="style-count">${String(list.length).padStart(2, "0")} / 20 ICONS</span>
-          </div>
-          ${list.length ? `<div class="icon-grid">${list.map((icon) => card(icon, style)).join("")}</div>` : `<div class="empty-state"><strong>No geometry found.</strong>Try another name or category.</div>`}
-        </section>
-      `;
-    }
-
     function card(icon, style) {
-      const isSelected = selected.slug === icon.slug && selected.style === style;
+      const selectedCard = selected.slug === icon.slug && selected.style === style;
       const index = String(icons.findIndex(item => item.slug === icon.slug) + 1).padStart(2, "0");
-      return `
-        <button class="icon-card${isSelected ? " is-selected" : ""}" type="button" data-icon="${icon.slug}" data-style="${style}" aria-label="View ${icon.name}, ${styles[style].label} style" aria-pressed="${isSelected}">
-          <span class="icon-card-top"><span class="icon-index">${index}</span><span class="card-glyph" aria-hidden="true">↗</span></span>
-          <span class="icon-visual">${iconSvg(icon, style)}</span>
-          <span class="icon-card-bottom"><strong>${icon.name}</strong><span>${icon.category}</span></span>
-        </button>
-      `;
+      return `<button class="icon-card${selectedCard ? " is-selected" : ""}" type="button" data-icon="${icon.slug}" data-style="${style}" aria-label="View ${icon.name}, ${styles[style].label}" aria-pressed="${selectedCard}">
+        <span class="card-top"><span class="card-index">${index}</span><span class="card-open" aria-hidden="true">↗</span></span>
+        <span class="card-art">${iconSvg(icon, style)}</span>
+        <span class="icon-card-bottom"><strong>${icon.name}</strong><span>${icon.category}</span></span>
+      </button>`;
     }
-
+    function styleSet(style, list) {
+      return `<section class="style-set" aria-labelledby="${style}-title">
+        <div class="set-head"><div class="set-title"><span class="set-dot ${style}" aria-hidden="true"></span><h3 id="${style}-title">${styles[style].label}</h3><p>${styles[style].sub}</p></div><span class="set-count">${String(list.length).padStart(2, "0")} / 20 OBJECTS</span></div>
+        ${list.length ? `<div class="icon-grid">${list.map(icon => card(icon, style)).join("")}</div>` : `<div class="empty"><strong>No geometry found.</strong>Try another name or category.</div>`}
+      </section>`;
+    }
     function renderSets() {
       const list = filteredIcons();
       const visibleStyles = activeStyle === "all" ? ["duotone", "monotone", "color"] : [activeStyle];
       sets.innerHTML = visibleStyles.map(style => styleSet(style, list)).join("");
-      sets.querySelectorAll(".icon-card").forEach(button => {
-        button.addEventListener("click", () => {
-          selected = { slug: button.dataset.icon, style: button.dataset.style };
-          renderSets();
-          renderInspector();
-          const current = sets.querySelector(`[data-icon="${selected.slug}"][data-style="${selected.style}"]`);
-          if (current) current.scrollIntoView({ block: "nearest", behavior: "smooth" });
-        });
-      });
+      sets.querySelectorAll(".icon-card").forEach(button => button.addEventListener("click", () => {
+        selected = { slug: button.dataset.icon, style: button.dataset.style };
+        renderSets();
+        renderInspector();
+      }));
     }
-
     function renderInspector() {
       const icon = icons.find(item => item.slug === selected.slug) || icons[11];
-      const style = palette[selected.style] ? selected.style : "duotone";
-      const selectedStyleLabel = styles[style].label;
-      inspector.innerHTML = `
-        <div class="inspector-head">
-          <span class="inspector-label">Selected geometry</span>
-          <span class="inspector-status">Ready to use</span>
-        </div>
+      const style = palette[selected.style] ? selected.style : "color";
+      inspector.innerHTML = `<div class="inspector-head"><span class="inspector-label">Selected object</span><span class="inspector-ready">Ready to use</span></div>
         <div class="inspector-preview">${iconSvg(icon, style)}</div>
         <div class="inspector-info">
-          <div class="selected-name-row"><h3 class="selected-name">${icon.name}</h3><span class="selected-code">ic-${icon.slug}</span></div>
-          <p class="selected-description">${icon.description}</p>
-          <div class="inspector-specs">
-            <div class="spec"><span class="spec-label">Treatment</span><span class="spec-value">${selectedStyleLabel}</span></div>
-            <div class="spec"><span class="spec-label">Viewbox</span><span class="spec-value">48 × 48</span></div>
-          </div>
-          <button class="button inspector-copy" id="inspectorCopy" type="button"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.3" y="4.7" width="7" height="8" rx="1.2" stroke="currentColor" stroke-width="1.3"/><path d="M10.7 4.7V3.5A1.2 1.2 0 0 0 9.5 2.3h-6A1.2 1.2 0 0 0 2.3 3.5v7A1.2 1.2 0 0 0 3.5 11.7h1.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Copy ${selectedStyleLabel} SVG</button>
-          <div class="inspector-variants">
-            <div class="variants-title"><span>Other treatments</span><span>same geometry</span></div>
-            <div class="variants-row">${["duotone", "monotone", "color"].map(variant => `<button type="button" class="variant-chip${variant === style ? " active" : ""}" data-variant="${variant}" aria-label="Preview ${styles[variant].label}">${iconSvg(icon, variant)}</button>`).join("")}</div>
-          </div>
-        </div>
-      `;
+          <div class="inspector-name-row"><h3 class="inspector-name">${icon.name}</h3><span class="inspector-code">ic-${icon.slug}</span></div>
+          <p class="inspector-description">${icon.description}</p>
+          <div class="inspector-specs"><div class="spec"><span class="spec-label">Finish</span><span class="spec-value">${styles[style].label}</span></div><div class="spec"><span class="spec-label">Canvas</span><span class="spec-value">96 × 96</span></div></div>
+          <button class="button inspector-copy" id="inspectorCopy" type="button"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5.3" y="4.7" width="7" height="8" rx="1.2" stroke="currentColor" stroke-width="1.3"/><path d="M10.7 4.7V3.5A1.2 1.2 0 0 0 9.5 2.3h-6A1.2 1.2 0 0 0 2.3 3.5v7A1.2 1.2 0 0 0 3.5 11.7h1.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Copy ${styles[style].label} SVG</button>
+          <div class="variants"><div class="variants-head"><span>Other finishes</span><span>same object</span></div><div class="variants-row">${["duotone", "monotone", "color"].map(variant => `<button class="variant${variant === style ? " active" : ""}" type="button" data-variant="${variant}" aria-label="Preview ${styles[variant].label}">${iconSvg(icon, variant)}</button>`).join("")}</div></div>
+        </div>`;
       document.getElementById("inspectorCopy").addEventListener("click", () => copyIcon(icon, style));
-      inspector.querySelectorAll(".variant-chip").forEach(button => {
-        button.addEventListener("click", () => {
-          selected = { slug: icon.slug, style: button.dataset.variant };
-          if (activeStyle !== "all") activeStyle = selected.style;
-          updateTabs();
-          renderSets();
-          renderInspector();
-        });
-      });
+      inspector.querySelectorAll(".variant").forEach(button => button.addEventListener("click", () => {
+        selected = { slug: icon.slug, style: button.dataset.variant };
+        if (activeStyle !== "all") activeStyle = selected.style;
+        updateTabs();
+        renderSets();
+        renderInspector();
+      }));
     }
-
     function updateTabs() {
-      document.querySelectorAll(".style-tab").forEach(tab => {
-        tab.setAttribute("aria-selected", String(tab.dataset.style === activeStyle));
-      });
+      document.querySelectorAll(".style-tab").forEach(tab => tab.setAttribute("aria-selected", String(tab.dataset.style === activeStyle)));
     }
-
     function standaloneSvg(icon, style) {
       const c = palette[style];
       let body = icon.markup
-        .replaceAll('class="line secondary"', `fill="none" stroke="${c.secondary}" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"`)
-        .replaceAll('class="line"', `fill="none" stroke="${c.primary}" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"`)
-        .replaceAll('class="guide"', `fill="none" stroke="${c.secondary}" stroke-width="1.05" stroke-dasharray="2.7 3" stroke-linecap="round"`)
-        .replaceAll('class="soft"', `fill="${c.soft}" stroke="${c.primary}" stroke-width="1.55" stroke-linejoin="round"`)
-        .replaceAll('class="accent"', `fill="${c.accent}" stroke="${c.primary}" stroke-width="1.2" stroke-linejoin="round"`)
-        .replaceAll('class="gold"', `fill="${c.gold}" stroke="${c.primary}" stroke-width="1.2" stroke-linejoin="round"`);
-      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" aria-label="${icon.name} icon">${body}</svg>`;
+        .replaceAll('class="face"', `fill="${c.face}" stroke="${c.edge}" stroke-width="1.25" stroke-linejoin="round"`)
+        .replaceAll('class="top"', `fill="${c.top}" stroke="${c.edge}" stroke-width="1.25" stroke-linejoin="round"`)
+        .replaceAll('class="side"', `fill="${c.side}" stroke="${c.edge}" stroke-width="1.25" stroke-linejoin="round"`)
+        .replaceAll('class="accent"', `fill="${c.accent}" stroke="${c.edge}" stroke-width="1.1" stroke-linejoin="round"`)
+        .replaceAll('class="accent-top"', `fill="${c.accentTop}" stroke="${c.edge}" stroke-width="1.1" stroke-linejoin="round"`)
+        .replaceAll('class="detail"', `fill="${c.detail}" stroke="${c.edge}" stroke-width="1" stroke-linejoin="round"`)
+        .replaceAll('class="highlight"', `fill="none" stroke="rgba(255,255,255,.72)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"`)
+        .replaceAll('class="line"', `fill="none" stroke="${c.top}" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"`)
+        .replaceAll('class="dark-line"', `fill="none" stroke="${c.edge}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"`)
+        .replaceAll('class="tube-top"', `fill="none" stroke="${c.accent}" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"`)
+        .replaceAll('class="tube"', `fill="none" stroke="${c.side}" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"`)
+        .replaceAll('class="ghost"', `fill="${c.cut}" stroke="${c.edge}" stroke-width="1" stroke-linejoin="round"`);
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none" aria-label="${icon.name} icon">${body}</svg>`;
     }
-
     async function copyIcon(icon, style) {
       const markup = standaloneSvg(icon, style);
       try {
         await navigator.clipboard.writeText(markup);
-        showToast(`${icon.name} SVG copied`);
       } catch (error) {
         const helper = document.createElement("textarea");
-        helper.value = markup;
-        helper.style.position = "fixed";
-        helper.style.opacity = "0";
-        document.body.appendChild(helper);
-        helper.select();
-        document.execCommand("copy");
-        helper.remove();
-        showToast(`${icon.name} SVG copied`);
+        helper.value = markup; helper.style.position = "fixed"; helper.style.opacity = "0";
+        document.body.appendChild(helper); helper.select(); document.execCommand("copy"); helper.remove();
       }
+      showToast(`${icon.name} SVG copied`);
     }
-
     function showToast(message) {
-      toast.textContent = message;
-      toast.classList.add("show");
-      clearTimeout(toastTimer);
+      toast.textContent = message; toast.classList.add("show"); clearTimeout(toastTimer);
       toastTimer = setTimeout(() => toast.classList.remove("show"), 2100);
     }
 
-    document.querySelectorAll(".style-tab").forEach(tab => {
-      tab.addEventListener("click", () => {
-        activeStyle = tab.dataset.style;
-        updateTabs();
-        renderSets();
-      });
-    });
-    search.addEventListener("input", event => {
-      query = event.target.value.trim().toLowerCase();
-      renderSets();
-    });
-    categoryFilter.addEventListener("change", event => {
-      activeCategory = event.target.value;
-      renderSets();
-    });
+    document.querySelectorAll(".style-tab").forEach(tab => tab.addEventListener("click", () => { activeStyle = tab.dataset.style; updateTabs(); renderSets(); }));
+    search.addEventListener("input", event => { query = event.target.value.trim().toLowerCase(); renderSets(); });
+    categoryFilter.addEventListener("change", event => { activeCategory = event.target.value; renderSets(); });
     document.getElementById("heroCopy").addEventListener("click", () => {
       const icon = icons.find(item => item.slug === selected.slug) || icons[11];
       copyIcon(icon, selected.style);
     });
-
     renderSets();
     renderInspector();
   </script>
