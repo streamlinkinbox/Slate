@@ -27,6 +27,7 @@ void RayTracingSolver::ConstructCornellBoxScene() noexcept
     Triangles.clear();
     Materials.clear();
 
+    // Standard Frontier Coordinate System: +X Right (Red), +Y Forward (Green), +Z Up (Blue)
     // Material 0: White diffuse walls, floor, ceiling
     Materials.push_back(AnalyticalMaterial{ Vector3{ 0.75f, 0.75f, 0.75f }, Vector3{ 0.0f, 0.0f, 0.0f }, 0.5f, 0.0f, 0 });
     // Material 1: Left wall (vibrant red)
@@ -41,25 +42,25 @@ void RayTracingSolver::ConstructCornellBoxScene() noexcept
     Materials.push_back(AnalyticalMaterial{ Vector3{ 0.78f, 0.78f, 0.78f }, Vector3{ 0.0f, 0.0f, 0.0f }, 0.4f, 0.0f, 5 });
 
     // Cornell Box boundaries: X [-1..1], Y [0..2], Z [0..2]
-    // Floor (Y = 0, normal +Y)
-    AppendQuad(Vector3{ -1.0f, 0.0f, 2.0f }, Vector3{ 1.0f, 0.0f, 2.0f }, Vector3{ 1.0f, 0.0f, 0.0f }, Vector3{ -1.0f, 0.0f, 0.0f }, 0);
-    // Ceiling (Y = 2, normal -Y)
+    // 1. Floor (Z = 0, normal +Z)
+    AppendQuad(Vector3{ -1.0f, 0.0f, 0.0f }, Vector3{ 1.0f, 0.0f, 0.0f }, Vector3{ 1.0f, 2.0f, 0.0f }, Vector3{ -1.0f, 2.0f, 0.0f }, 0);
+    // 2. Ceiling (Z = 2, normal -Z)
+    AppendQuad(Vector3{ -1.0f, 2.0f, 2.0f }, Vector3{ 1.0f, 2.0f, 2.0f }, Vector3{ 1.0f, 0.0f, 2.0f }, Vector3{ -1.0f, 0.0f, 2.0f }, 0);
+    // 3. Back Wall (Y = 2, normal -Y)
     AppendQuad(Vector3{ -1.0f, 2.0f, 0.0f }, Vector3{ 1.0f, 2.0f, 0.0f }, Vector3{ 1.0f, 2.0f, 2.0f }, Vector3{ -1.0f, 2.0f, 2.0f }, 0);
-    // Back Wall (Z = 2, normal -Z)
-    AppendQuad(Vector3{ 1.0f, 0.0f, 2.0f }, Vector3{ -1.0f, 0.0f, 2.0f }, Vector3{ -1.0f, 2.0f, 2.0f }, Vector3{ 1.0f, 2.0f, 2.0f }, 0);
-    // Left Wall (X = -1, Red, normal +X)
-    AppendQuad(Vector3{ -1.0f, 0.0f, 2.0f }, Vector3{ -1.0f, 0.0f, 0.0f }, Vector3{ -1.0f, 2.0f, 0.0f }, Vector3{ -1.0f, 2.0f, 2.0f }, 1);
-    // Right Wall (X = 1, Green, normal -X)
-    AppendQuad(Vector3{ 1.0f, 0.0f, 0.0f }, Vector3{ 1.0f, 0.0f, 2.0f }, Vector3{ 1.0f, 2.0f, 2.0f }, Vector3{ 1.0f, 2.0f, 0.0f }, 2);
+    // 4. Left Wall (X = -1, Red, normal +X)
+    AppendQuad(Vector3{ -1.0f, 0.0f, 0.0f }, Vector3{ -1.0f, 2.0f, 0.0f }, Vector3{ -1.0f, 2.0f, 2.0f }, Vector3{ -1.0f, 0.0f, 2.0f }, 1);
+    // 5. Right Wall (X = 1, Green, normal -X)
+    AppendQuad(Vector3{ 1.0f, 2.0f, 0.0f }, Vector3{ 1.0f, 0.0f, 0.0f }, Vector3{ 1.0f, 0.0f, 2.0f }, Vector3{ 1.0f, 2.0f, 2.0f }, 2);
 
-    // Ceiling Light Quad (Y = 1.995, normal -Y)
-    AppendQuad(Vector3{ -0.30f, 1.995f, 0.70f }, Vector3{ 0.30f, 1.995f, 0.70f }, Vector3{ 0.30f, 1.995f, 1.30f }, Vector3{ -0.30f, 1.995f, 1.30f }, 3);
+    // 6. Ceiling Light Quad (Z = 1.995, normal -Z)
+    AppendQuad(Vector3{ -0.28f, 1.28f, 1.995f }, Vector3{ 0.28f, 1.28f, 1.995f }, Vector3{ 0.28f, 0.72f, 1.995f }, Vector3{ -0.28f, 0.72f, 1.995f }, 3);
 
-    // Tall Box inside room (Width 0.3, Height 0.6, Depth 0.3, rotated 22 deg)
-    AppendBox(Vector3{ -0.35f, 0.6f, 1.35f }, Vector3{ 0.28f, 0.6f, 0.28f }, 22.0f, 4);
+    // 7. Tall Box inside room (Width 0.55, Depth 0.55, Height 1.20 resting on floor at Z=0, rotated 22 deg around +Z)
+    AppendBox(Vector3{ -0.35f, 1.35f, 0.60f }, Vector3{ 0.55f, 0.55f, 1.20f }, 22.0f, 4);
 
-    // Short Box inside room (Width 0.3, Height 0.3, Depth 0.3, rotated -18 deg)
-    AppendBox(Vector3{ 0.35f, 0.3f, 0.75f }, Vector3{ 0.28f, 0.3f, 0.28f }, -18.0f, 5);
+    // 8. Short Box inside room (Width 0.55, Depth 0.55, Height 0.60 resting on floor at Z=0, rotated -18 deg around +Z)
+    AppendBox(Vector3{ 0.35f, 0.75f, 0.30f }, Vector3{ 0.55f, 0.55f, 0.60f }, -18.0f, 5);
 }
 
 void RayTracingSolver::AppendTriangle(const Vector3& v0, const Vector3& v1, const Vector3& v2, uint32_t MaterialIdx) noexcept
@@ -78,7 +79,6 @@ void RayTracingSolver::AppendTriangle(const Vector3& v0, const Vector3& v1, cons
 
 void RayTracingSolver::AppendQuad(const Vector3& v0, const Vector3& v1, const Vector3& v2, const Vector3& v3, uint32_t MaterialIdx) noexcept
 {
-    // Quad formed of two triangles with CCW outward normal
     AppendTriangle(v0, v1, v2, MaterialIdx);
     AppendTriangle(v0, v2, v3, MaterialIdx);
 }
@@ -89,39 +89,40 @@ void RayTracingSolver::AppendBox(const Vector3& Center, const Vector3& Extents, 
     float CosAngle = std::cos(Rad);
     float SinAngle = std::sin(Rad);
 
-    auto RotateY = [CosAngle, SinAngle](const Vector3& p) -> Vector3
+    // Rotation around +Z (Up axis)
+    auto RotateZ = [CosAngle, SinAngle](const Vector3& p) -> Vector3
     {
-        return Vector3{ p.x * CosAngle + p.z * SinAngle, p.y, -p.x * SinAngle + p.z * CosAngle };
+        return Vector3{ p.x * CosAngle - p.y * SinAngle, p.x * SinAngle + p.y * CosAngle, p.z };
     };
 
-    float hx = Extents.x;
-    float hy = Extents.y;
-    float hz = Extents.z;
+    float hx = Extents.x * 0.5f;
+    float hy = Extents.y * 0.5f;
+    float hz = Extents.z * 0.5f;
 
     Vector3 Corners[8] = {
-        Center + RotateY(Vector3{ -hx, -hy, -hz }), // 0: Bottom-Left-Front
-        Center + RotateY(Vector3{  hx, -hy, -hz }), // 1: Bottom-Right-Front
-        Center + RotateY(Vector3{  hx, -hy,  hz }), // 2: Bottom-Right-Back
-        Center + RotateY(Vector3{ -hx, -hy,  hz }), // 3: Bottom-Left-Back
-        Center + RotateY(Vector3{ -hx,  hy, -hz }), // 4: Top-Left-Front
-        Center + RotateY(Vector3{  hx,  hy, -hz }), // 5: Top-Right-Front
-        Center + RotateY(Vector3{  hx,  hy,  hz }), // 6: Top-Right-Back
-        Center + RotateY(Vector3{ -hx,  hy,  hz })  // 7: Top-Left-Back
+        Center + RotateZ(Vector3{ -hx, -hy, -hz }), // 0: Bottom-Left-Front
+        Center + RotateZ(Vector3{  hx, -hy, -hz }), // 1: Bottom-Right-Front
+        Center + RotateZ(Vector3{  hx,  hy, -hz }), // 2: Bottom-Right-Back
+        Center + RotateZ(Vector3{ -hx,  hy, -hz }), // 3: Bottom-Left-Back
+        Center + RotateZ(Vector3{ -hx, -hy,  hz }), // 4: Top-Left-Front
+        Center + RotateZ(Vector3{  hx, -hy,  hz }), // 5: Top-Right-Front
+        Center + RotateZ(Vector3{  hx,  hy,  hz }), // 6: Top-Right-Back
+        Center + RotateZ(Vector3{ -hx,  hy,  hz })  // 7: Top-Left-Back
     };
 
     // 6 faces of box with outward-pointing normals:
-    // Top (+Y)
-    AppendQuad(Corners[7], Corners[6], Corners[5], Corners[4], MaterialIdx);
-    // Bottom (-Y)
-    AppendQuad(Corners[0], Corners[1], Corners[2], Corners[3], MaterialIdx);
-    // Front (-Z)
-    AppendQuad(Corners[4], Corners[5], Corners[1], Corners[0], MaterialIdx);
-    // Back (+Z)
-    AppendQuad(Corners[6], Corners[7], Corners[3], Corners[2], MaterialIdx);
+    // Top (+Z)
+    AppendQuad(Corners[4], Corners[5], Corners[6], Corners[7], MaterialIdx);
+    // Bottom (-Z)
+    AppendQuad(Corners[0], Corners[3], Corners[2], Corners[1], MaterialIdx);
+    // Front (-Y)
+    AppendQuad(Corners[0], Corners[1], Corners[5], Corners[4], MaterialIdx);
+    // Back (+Y)
+    AppendQuad(Corners[2], Corners[3], Corners[7], Corners[6], MaterialIdx);
     // Left (-X)
-    AppendQuad(Corners[7], Corners[4], Corners[0], Corners[3], MaterialIdx);
+    AppendQuad(Corners[3], Corners[0], Corners[4], Corners[7], MaterialIdx);
     // Right (+X)
-    AppendQuad(Corners[5], Corners[6], Corners[2], Corners[1], MaterialIdx);
+    AppendQuad(Corners[1], Corners[2], Corners[6], Corners[5], MaterialIdx);
 }
 
 //------------------------------------------------------------------------------------------------------------------------

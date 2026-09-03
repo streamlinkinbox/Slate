@@ -3,6 +3,7 @@
 //============================================================================================================================================
 
 #include "RendererHost.h"
+#include "../../../DisplayPresentation/ControlCentrePanel.h"
 #include <fstream>
 #include <cmath>
 #include <algorithm>
@@ -47,7 +48,7 @@ Vector3 RendererHost::SampleCosineHemisphere(const Vector3& Normal, float u1, fl
     float y = r * std::sin(theta);
     float z = std::sqrt(std::max(0.0f, 1.0f - u1));
 
-    Vector3 Up = (std::abs(Normal.y) < 0.999f) ? Vector3{ 0.0f, 1.0f, 0.0f } : Vector3{ 1.0f, 0.0f, 0.0f };
+    Vector3 Up = (std::abs(Normal.z) < 0.999f) ? Vector3{ 0.0f, 0.0f, 1.0f } : Vector3{ 1.0f, 0.0f, 0.0f };
     Vector3 Tangent = OrientationClassifier::CrossProduct(Up, Normal).Normalized();
     Vector3 Bitangent = OrientationClassifier::CrossProduct(Normal, Tangent);
 
@@ -91,12 +92,12 @@ void RendererHost::RenderReSTIRFrame(const Frontier::CameraProjection& ActiveCam
 
     const auto& Materials = Scene.QueryMaterials();
 
-    // Luminaire description: Ceiling Quad light
-    Vector3 LightMin{ -0.28f, 1.995f, 0.72f };
-    Vector3 LightMax{  0.28f, 1.995f, 1.28f };
-    Vector3 LightNormal{ 0.0f, -1.0f, 0.0f };
-    Vector3 LightEmission{ 12.0f, 12.0f, 12.0f };
-    float   LightArea = (LightMax.x - LightMin.x) * (LightMax.z - LightMin.z);
+    // Luminaire description: Ceiling Quad light at Z = 1.995 pointing -Z
+    Vector3 LightMin{ -0.28f, 0.72f, 1.995f };
+    Vector3 LightMax{  0.28f, 1.28f, 1.995f };
+    Vector3 LightNormal{ 0.0f, 0.0f, -1.0f };
+    Vector3 LightEmission{ 15.0f, 15.0f, 15.0f };
+    float   LightArea = (LightMax.x - LightMin.x) * (LightMax.y - LightMin.y);
 
     // Phase 1: Visibility Buffer Primary Ray Trace from Active Camera
     for (uint32_t y = 0; y < Height; ++y)
@@ -136,8 +137,8 @@ void RendererHost::RenderReSTIRFrame(const Frontier::CameraProjection& ActiveCam
                     float v = (static_cast<float>(gy) + Dist(Rng)) / static_cast<float>(GridSteps);
 
                     float lx = LightMin.x + u * (LightMax.x - LightMin.x);
-                    float lz = LightMin.z + v * (LightMax.z - LightMin.z);
-                    Vector3 LightPoint{ lx, LightMin.y, lz };
+                    float ly = LightMin.y + v * (LightMax.y - LightMin.y);
+                    Vector3 LightPoint{ lx, ly, LightMin.z };
 
                     if (!Scene.EvaluateOcclusion(Hit.HitLocation + Hit.SurfaceNormal * 0.001f, LightPoint))
                     {
@@ -169,7 +170,7 @@ void RendererHost::RenderReSTIRFrame(const Frontier::CameraProjection& ActiveCam
         {
             size_t idx = y * Width + x;
             const auto& Hit = PrimaryHits[idx];
-            IndirectGIReservoir GIReservoir{ Vector3{ 0.0f, 0.0f, 0.0f }, Vector3{ 0.0f, 1.0f, 0.0f }, Vector3{ 0.0f, 0.0f, 0.0f }, 0.0f, 0, 0.0f };
+            IndirectGIReservoir GIReservoir{ Vector3{ 0.0f, 0.0f, 0.0f }, Vector3{ 0.0f, 0.0f, 1.0f }, Vector3{ 0.0f, 0.0f, 0.0f }, 0.0f, 0, 0.0f };
 
             if (!Hit.ValidCondition || Hit.MaterialIndex == 3)
             {
@@ -177,7 +178,7 @@ void RendererHost::RenderReSTIRFrame(const Frontier::CameraProjection& ActiveCam
                 continue;
             }
 
-            for (uint32_t s = 0; s < 8; ++s)
+            for (uint32_t s = 0; s < 12; ++s)
             {
                 Vector3 BounceDir = SampleCosineHemisphere(Hit.SurfaceNormal, Dist(Rng), Dist(Rng));
                 RayRecord BounceRay{ Hit.HitLocation + Hit.SurfaceNormal * 0.001f, BounceDir, 0.001f, 50.0f };
@@ -188,8 +189,8 @@ void RendererHost::RenderReSTIRFrame(const Frontier::CameraProjection& ActiveCam
                     const auto& BounceMat = Materials[BounceHit.MaterialIndex];
 
                     float lx = LightMin.x + Dist(Rng) * (LightMax.x - LightMin.x);
-                    float lz = LightMin.z + Dist(Rng) * (LightMax.z - LightMin.z);
-                    Vector3 LightCenter{ lx, LightMin.y, lz };
+                    float ly = LightMin.y + Dist(Rng) * (LightMax.y - LightMin.y);
+                    Vector3 LightCenter{ lx, ly, LightMin.z };
 
                     Vector3 ToLight = LightCenter - BounceHit.HitLocation;
                     float dSq = ToLight.LengthSquared();
@@ -303,9 +304,9 @@ void RendererHost::RenderReSTIRFrame(const Frontier::CameraProjection& ActiveCam
             Vector3 IndirectAcc{ 0.0f, 0.0f, 0.0f };
             float   WeightTotal = 0.0f;
 
-            for (int dy = -3; dy <= 3; ++dy)
+            for (int dy = -5; dy <= 5; ++dy)
             {
-                for (int dx = -3; dx <= 3; ++dx)
+                for (int dx = -5; dx <= 5; ++dx)
                 {
                     int qx = static_cast<int>(x) + dx;
                     int qy = static_cast<int>(y) + dy;
@@ -324,7 +325,7 @@ void RendererHost::RenderReSTIRFrame(const Frontier::CameraProjection& ActiveCam
                     }
 
                     float SpatialDistSq = static_cast<float>(dx * dx + dy * dy);
-                    float SpatialW = std::exp(-SpatialDistSq / 9.0f);
+                    float SpatialW = std::exp(-SpatialDistSq / 18.0f);
 
                     float NormalDot = std::max(0.0f, OrientationClassifier::DotProduct(CenterHit.SurfaceNormal, NeighborHit.SurfaceNormal));
                     float NormalW = std::pow(NormalDot, 16.0f);
@@ -377,6 +378,80 @@ void RendererHost::RenderReSTIRFrame(const Frontier::CameraProjection& ActiveCam
             Vector3 AmbientRad = Mat.AlbedoColor * 0.015f;
 
             AccumulatedBuffer[idx] = DirectRad + IndirectRad + AmbientRad;
+        }
+    }
+}
+
+void RendererHost::CompositeFrame(const Frontier::ControlCentrePanel& ControlCentre, std::vector<uint32_t>& OutPixelBuffer) const noexcept
+{
+    OutPixelBuffer.resize(Width * Height);
+
+    auto AcesFilm = [](float x) -> float
+    {
+        float a = 2.51f;
+        float b = 0.03f;
+        float c = 2.43f;
+        float d = 0.59f;
+        float e = 0.14f;
+        return std::clamp((x * (a * x + b)) / (x * (c * x + d) + e), 0.0f, 1.0f);
+    };
+
+    constexpr float Exposure = 1.05f;
+    constexpr float InvGamma = 1.0f / 2.2f;
+
+    for (uint32_t y = 0; y < Height; ++y)
+    {
+        for (uint32_t x = 0; x < Width; ++x)
+        {
+            size_t idx = y * Width + x;
+            Vector3 Radiance = AccumulatedBuffer[idx];
+
+            float r = AcesFilm(Radiance.x * Exposure);
+            float g = AcesFilm(Radiance.y * Exposure);
+            float b = AcesFilm(Radiance.z * Exposure);
+
+            r = std::pow(r, InvGamma);
+            g = std::pow(g, InvGamma);
+            b = std::pow(b, InvGamma);
+
+            uint32_t R8 = static_cast<uint32_t>(std::clamp(r * 255.0f, 0.0f, 255.0f));
+            uint32_t G8 = static_cast<uint32_t>(std::clamp(g * 255.0f, 0.0f, 255.0f));
+            uint32_t B8 = static_cast<uint32_t>(std::clamp(b * 255.0f, 0.0f, 255.0f));
+
+            OutPixelBuffer[idx] = (0xFFu << 24) | (R8 << 16) | (G8 << 8) | B8;
+        }
+    }
+
+    // Composite Top Notch Handle overlay (380px wide, 34px tall centered at top)
+    float NotchHeight = ControlCentre.QueryCurrentHeight();
+    uint32_t MaxNotchY = static_cast<uint32_t>(std::clamp(NotchHeight, 0.0f, static_cast<float>(Height - 1)));
+
+    if (MaxNotchY > 0)
+    {
+        // Draw OLED shade
+        for (uint32_t y = 0; y < MaxNotchY; ++y)
+        {
+            for (uint32_t x = 0; x < Width; ++x)
+            {
+                OutPixelBuffer[y * Width + x] = 0xFF0A0A0Cu; // OLED dark surface
+            }
+        }
+    }
+
+    // Draw Top Notch Handle Pill at top center
+    uint32_t NotchW = 200;
+    uint32_t NotchH = 20;
+    uint32_t NotchX0 = (Width > NotchW) ? (Width - NotchW) / 2 : 0;
+    uint32_t NotchY0 = MaxNotchY;
+
+    if (NotchY0 + NotchH < Height)
+    {
+        for (uint32_t y = NotchY0; y < NotchY0 + NotchH; ++y)
+        {
+            for (uint32_t x = NotchX0; x < NotchX0 + NotchW; ++x)
+            {
+                OutPixelBuffer[y * Width + x] = 0xFF000000u; // Pure black notch pill
+            }
         }
     }
 }

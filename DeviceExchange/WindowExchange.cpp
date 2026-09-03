@@ -191,7 +191,7 @@ void WindowExchange::CloseDisplayWindow() noexcept
 }
 
 //------------------------------------------------------------------------------------------------------------------------
-//                                                EVENT POLLING
+//                                                EVENT POLLING & PRESENTATION
 //------------------------------------------------------------------------------------------------------------------------
 
 void WindowExchange::PollEvents(InputExchange* TargetInputExchange) noexcept
@@ -271,6 +271,13 @@ void WindowExchange::PollEvents(InputExchange* TargetInputExchange) noexcept
                         }
                         break;
                     }
+                    case WM_MOUSEMOVE:
+                    {
+                        float PosX = static_cast<float>(LOWORD(Message.lParam));
+                        float PosY = static_cast<float>(HIWORD(Message.lParam));
+                        TargetInputExchange->AssignCursorPosition(PosX, PosY);
+                        break;
+                    }
                     case WM_LBUTTONDOWN: TargetInputExchange->AssignMouseButton(MouseButtonCategory::ButtonLeft, true); break;
                     case WM_LBUTTONUP:   TargetInputExchange->AssignMouseButton(MouseButtonCategory::ButtonLeft, false); break;
                     case WM_RBUTTONDOWN: TargetInputExchange->AssignMouseButton(MouseButtonCategory::ButtonRight, true); break;
@@ -324,6 +331,10 @@ void WindowExchange::PollEvents(InputExchange* TargetInputExchange) noexcept
                         default: break;
                     }
                 }
+                else if (Event.type == MotionNotify)
+                {
+                    TargetInputExchange->AssignCursorPosition(static_cast<float>(Event.xmotion.x), static_cast<float>(Event.xmotion.y));
+                }
                 else if (Event.type == ButtonPress || Event.type == ButtonRelease)
                 {
                     bool IsDown = (Event.type == ButtonPress);
@@ -334,6 +345,86 @@ void WindowExchange::PollEvents(InputExchange* TargetInputExchange) noexcept
                     else if (Event.xbutton.button == 5 && IsDown) TargetInputExchange->AssignMouseScroll(-1.0f);
                 }
             }
+        }
+    }
+#endif
+}
+
+void WindowExchange::PresentFrameBuffer(const uint32_t* PixelBuffer, uint32_t BufferWidth, uint32_t BufferHeight) noexcept
+{
+    (void)PixelBuffer;
+    (void)BufferWidth;
+    (void)BufferHeight;
+
+    if (!OpenCondition || PixelBuffer == nullptr)
+    {
+        return;
+    }
+
+#if defined(_WIN32)
+    if (NativeWindowToken != nullptr && NativeWindowToken != reinterpret_cast<void*>(0xDEADBEEFULL))
+    {
+        HWND WindowHandle = reinterpret_cast<HWND>(NativeWindowToken);
+        HDC DeviceContext = GetDC(WindowHandle);
+        if (DeviceContext != nullptr)
+        {
+            BITMAPINFO BitmapInfo{};
+            BitmapInfo.bmiHeader.biSize        = sizeof(BITMAPINFOHEADER);
+            BitmapInfo.bmiHeader.biWidth       = static_cast<LONG>(BufferWidth);
+            BitmapInfo.bmiHeader.biHeight      = -static_cast<LONG>(BufferHeight); // Top-down DIB
+            BitmapInfo.bmiHeader.biPlanes      = 1;
+            BitmapInfo.bmiHeader.biBitCount    = 32;
+            BitmapInfo.bmiHeader.biCompression = BI_RGB;
+
+            RECT ClientRect{};
+            GetClientRect(WindowHandle, &ClientRect);
+            int WindowW = ClientRect.right - ClientRect.left;
+            int WindowH = ClientRect.bottom - ClientRect.top;
+
+            StretchDIBits(
+                DeviceContext,
+                0, 0, WindowW > 0 ? WindowW : static_cast<int>(CurrentWidth), WindowH > 0 ? WindowH : static_cast<int>(CurrentHeight),
+                0, 0, static_cast<int>(BufferWidth), static_cast<int>(BufferHeight),
+                PixelBuffer,
+                &BitmapInfo,
+                DIB_RGB_COLORS,
+                SRCCOPY
+            );
+
+            ReleaseDC(WindowHandle, DeviceContext);
+        }
+    }
+#elif defined(FRONTIER_ENABLE_X11)
+    if (NativeDisplayToken != nullptr && NativeDisplayToken != reinterpret_cast<void*>(0xFEEDFACEULL))
+    {
+        Display* XDisplay = reinterpret_cast<Display*>(NativeDisplayToken);
+        Window XWindow    = static_cast<Window>(reinterpret_cast<uintptr_t>(NativeWindowToken));
+
+        int ScreenNumber  = DefaultScreen(XDisplay);
+        Visual* XVisual   = DefaultVisual(XDisplay, ScreenNumber);
+        int Depth         = DefaultDepth(XDisplay, ScreenNumber);
+        GC XGraphicsCtx   = DefaultGC(XDisplay, ScreenNumber);
+
+        // Allocate shallow XImage referencing PixelBuffer
+        XImage* Image = XCreateImage(
+            XDisplay,
+            XVisual,
+            Depth,
+            ZPixmap,
+            0,
+            reinterpret_cast<char*>(const_cast<uint32_t*>(PixelBuffer)),
+            BufferWidth,
+            BufferHeight,
+            32,
+            0
+        );
+
+        if (Image != nullptr)
+        {
+            XPutImage(XDisplay, XWindow, XGraphicsCtx, Image, 0, 0, 0, 0, BufferWidth, BufferHeight);
+            Image->data = nullptr; // Prevent XDestroyImage from freeing const input buffer
+            XDestroyImage(Image);
+            XFlush(XDisplay);
         }
     }
 #endif

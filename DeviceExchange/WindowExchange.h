@@ -44,6 +44,8 @@ public:
     void                    CloseDisplayWindow() noexcept;
 
     void                    PollEvents(InputExchange* TargetInputExchange = nullptr) noexcept;
+    void                    PresentFrameBuffer(const uint32_t* PixelBuffer, uint32_t BufferWidth, uint32_t BufferHeight) noexcept;
+
     [[nodiscard]] bool      ShouldClose() const noexcept { return CloseRequestedCondition; }
     void                    RequestClose() noexcept { CloseRequestedCondition = true; }
 

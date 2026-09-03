@@ -11,6 +11,10 @@
 #include <vector>
 #include <string>
 
+namespace Frontier {
+    class ControlCentrePanel;
+}
+
 namespace Frontier::ProjectZero {
 
 //------------------------------------------------------------------------------------------------------------------------
@@ -77,6 +81,7 @@ public:
     RendererHost& operator=(const RendererHost&) = delete;
 
     void                    RenderReSTIRFrame(const Frontier::CameraProjection& ActiveCamera, uint32_t SpatialPassCount = 2) noexcept;
+    void                    CompositeFrame(const Frontier::ControlCentrePanel& ControlCentre, std::vector<uint32_t>& OutPixelBuffer) const noexcept;
     [[nodiscard]] bool      ExportPpmImage(const std::string& OutputPath) const noexcept;
 
     [[nodiscard]] uint32_t  QueryWidth() const noexcept { return Width; }
