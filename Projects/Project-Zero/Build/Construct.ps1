@@ -52,7 +52,7 @@ if ($Configuration -eq 'Debug') { $CompilerFlags += @('/Od', '/Zi', '/Zf', '/DFR
 & cl.exe $CompilerFlags $SourceFiles
 if ($LASTEXITCODE -ne 0) { exit 1 }
 $GameObjFiles = Get-ChildItem -Path $OutputRoot -Filter '*.obj' | ForEach-Object { $_.FullName }
-& link.exe @('/nologo', '/DEBUG', "/OUT:`"$TargetExe`"", '/SUBSYSTEM:CONSOLE') $GameObjFiles $EngineObjFiles
+& link.exe @('/nologo', '/DEBUG', "/OUT:`"$TargetExe`"", '/SUBSYSTEM:CONSOLE', 'user32.lib', 'gdi32.lib', 'shell32.lib') $GameObjFiles $EngineObjFiles
 if ($LASTEXITCODE -ne 0) { exit 1 }
 Write-Host "[Project-Zero] Executable built successfully: $TargetExe" -ForegroundColor Green
 if ($Run) { & $TargetExe }

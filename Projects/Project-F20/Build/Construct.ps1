@@ -143,7 +143,7 @@ else
 if ($LASTEXITCODE -ne 0) { exit 1 }
 
 $GameObjFiles = Get-ChildItem -Path $OutputRoot -Filter '*.obj' | ForEach-Object { $_.FullName }
-$LinkArgs     = @('/nologo', '/DEBUG', "/OUT:`"$TargetExe`"", '/SUBSYSTEM:CONSOLE') + $GameObjFiles + $EngineObjFiles
+$LinkArgs     = @('/nologo', '/DEBUG', "/OUT:`"$TargetExe`"", '/SUBSYSTEM:CONSOLE', 'user32.lib', 'gdi32.lib', 'shell32.lib') + $GameObjFiles + $EngineObjFiles
 
 & link.exe $LinkArgs
 if ($LASTEXITCODE -ne 0) { exit 1 }
